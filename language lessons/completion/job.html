@@ -1,0 +1,44 @@
+<h1>Pekerjaan</h1>
+
+<style>	
+chost {
+	border-bottom: dotted 1px blue;
+	cursor: pointer;
+}
+chost:hover {
+	color:red;
+	border-bottom:none;
+}
+</style>
+<script>
+	onload = function() {
+		var hosts = document.querySelectorAll('chost');
+		var host;
+		for (var i=0; i<hosts.length; i++) {
+			host = hosts[i];
+			host.innerHTML = host.getAttribute('host');
+			host.addEventListener( 'mouseover', function(e) {
+				e.currentTarget.innerHTML = e.currentTarget.getAttribute('eng');
+			});
+			host.addEventListener( 'mouseout', function(e) {
+				e.currentTarget.innerHTML = e.currentTarget.getAttribute('host');
+			});
+		} 
+	}
+</script>
+
+<p>Congratulations!  You have completed this lesson.
+Now relax and enjoy this completion conversation.  
+You have learned all the words in this conversation so you can follow along easily.
+Mouseover the underlined words to cheat.</p>
+
+<chost host="beker" eng="alarm"></chost></br>
+<chost host="bekerja" eng="work"></chost></br>
+<chost host="pekerjaan" eng="job"></chost></br>
+<chost host="guru" eng="teacher"></chost></br>
+<chost host="pelayan" eng="waitress"></chost></br>
+<chost host="pembantu" eng="servant"></chost></br>
+<chost host="polisi" eng="policeman"></chost></br>
+<chost host="supir" eng="driver"></chost></br>
+<chost host="tukang" eng="artisan"></chost></br>
+

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+
+<div id='js-rotation-example'></div>
+
+<script src='jquery.js'></script>
+
+<!-- <script src="d3.min.js"></script> -->
+<script src="d3/d3/d3.js"></script>
+<script src="topojson.min.js"></script>
+<script src="worldtopo.js"></script>
+<script src="rivers.js"></script>
+<script src="geojson-utils.js"></script>
+
+<script>var voyc = {}; voyc.data = {}; </script>
+<script src="data/deserts.js"></script>
+<script src="data/highmountains.js"></script>
+<script src="data/mediummountains.js"></script>
+<script src="data/lowmountains.js"></script>
+<script src="data/plateaux.js"></script>
+<script src="data/plains.js"></script>
+<script src="data/swamps.js"></script>
+<script src="data/foothills.js"></script>
+<script src="data/valleys.js"></script>
+<script src="data/tundras.js"></script>
+
+<style>
+
+.background {
+  fill: #a4bac7;
+}
+
+.foreground {
+  fill: none;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+.graticule {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.graticule :nth-child(2n) {
+  stroke-dasharray: 2,2;
+}
+
+.land {
+  xfill: #d7c7ad;
+  fill: #0f0;
+  stroke: #766951;
+}
+
+.geojson {
+ fill: none;
+ stroke: red;
+ stroke-width: 5;
+}
+
+.boundary {
+  fill: none;
+  stroke: #a5967e;
+}
+
+</style>
+
+<script>
+var width = $(window).width(),
+    height = $(window).height();
+
+//var sc = Math.min(width,height) * 2
+var diameter = Math.min(width,height);
+var radius = diameter / 2;
+var lat = 0 //-180
+var lng = -80 //0
+var projection = d3.geo.orthographic()
+    .scale(radius)
+    .translate([width/2,height/2])
+    .rotate([lat,0])
+    .clipAngle(90);
+var path = d3.geo.path()
+    .projection(projection);
+
+var graticule = d3.geo.graticule();
+
+var canvas = d3.select("#js-rotation-example").append("canvas")
+    .attr("width", width)
+    .attr("height", height);
+
+/*
+svg.selectAll(".land")
+      .data([topojson.object(worldtopo, worldtopo.objects.land)])
+      .enter().append('path')
+      .attr('class','land')
+      .attr("d", path);
+*/
+var land = topojson.object(worldtopo, worldtopo.objects.land);
+//var land = worldtopo.objects.land;
+var globe = {type: "Sphere"};
+
+draw = function() {
+  var tmbegin = new Date();
+//  lat = lat +.5
+//  lng = lng +.5
+//  sc = sc + 10
+  projection.rotate([lng,lat]);
+  projection.scale(radius);
+
+//  svg.selectAll(".land")
+//      .attr("d", path);
+
+    var context = canvas.node().getContext("2d");
+    context.clearRect(0, 0, diameter, diameter);
+
+    context.strokeStyle = '#766951';
+
+	// oceans
+    context.fillStyle = '#d8ffff';
+    context.beginPath(), path.context(context)(globe), context.fill();
+
+	// land
+    context.fillStyle = '#9f9';
+    context.beginPath(), path.context(context)(land), context.fill();
+
+	// plateaux
+    context.fillStyle = '#ff9';
+    context.beginPath(), path.context(context)(voyc.data.plateaux), context.fill();
+
+	// deserts
+    context.fillStyle = '#ff0';
+    context.beginPath(), path.context(context)(voyc.data.deserts), context.fill();
+
+	// high mountains
+    context.fillStyle = '#ccf';
+    context.beginPath(), path.context(context)(voyc.data.highmountains), context.fill();
+
+	// medium mountains
+    context.fillStyle = '#963';
+    context.beginPath(), path.context(context)(voyc.data.mediummountains), context.fill();
+
+	// low mountains
+    context.fillStyle = '#060';
+    context.beginPath(), path.context(context)(voyc.data.lowmountains), context.fill();
+
+	// swamps
+    context.fillStyle = '#0f0';
+    context.beginPath(), path.context(context)(voyc.data.swamps), context.fill();
+
+	// foothills
+    context.fillStyle = '#3c3';
+    context.beginPath(), path.context(context)(voyc.data.foothills), context.fill();
+
+	// valleys
+    context.fillStyle = '#0f0';
+    context.beginPath(), path.context(context)(voyc.data.valleys), context.fill();
+
+	// plains
+    context.fillStyle = '#0f0';
+    context.beginPath(), path.context(context)(voyc.data.valleys), context.fill();
+
+	// tundras
+    context.fillStyle = '#ffe6ff';
+    context.beginPath(), path.context(context)(voyc.data.tundras), context.fill();
+
+	// rivers
+    context.strokeStyle = '#00f';
+    context.beginPath(), path.context(context)(rivers), context.stroke();
+
+	// graticule
+    context.strokeStyle = '#766951';
+    context.beginPath();
+    path(graticule());
+    context.stroke();
+    	
+
+  var tmend = new Date();
+  var elapsed = tmend.getTime() - tmbegin.getTime();
+//  console.log('draw time: ' + elapsed + ' ms')
+  
+}
+
+draw();
+
+//setInterval(function(){
+//  draw()
+//},100);
+
+window.addEventListener('keydown', function(evt) {
+	switch (evt.keyCode) {
+		case 38: (event.shiftKey) ? radius += 10 : lat -= .5; break;
+		case 40: (event.shiftKey) ? radius -= 10 : lat += .5; break;
+		case 39: lng += .5; break;
+		case 37: lng -= .5; break;
+		default: return;
+	}
+	evt.preventDefault();
+	draw();
+}, false);
+
+window.addEventListener('click', function(evt) {
+	var co = projection.invert([evt.x, evt.y]);
+	var lng = co[0]
+	var lat = co[1];
+	console.log(lat+'N ' +lng+'E');
+	
+	var pt = {coordinates:co};
+
+	var featurenames = [
+		'deserts',
+		'lowmountains',
+		'highmountains',
+		'mediummountains',
+		'plateaux',
+		'plains',
+		'swamps',
+		'tundras',
+		'foothills',
+		'valleys',
+	];
+	for (var n=0; n<featurenames.length; n++) {
+		var features = voyc.data[featurenames[n]].features;
+		for (var i=0; i<features.length; i++) {
+			if (gju.pointInMultiPolygon(pt, features[i].geometry)) {
+				console.log('in ' + features[i].properties.name);
+			}
+		}
+	}
+	
+}, false)
+		
+</script>

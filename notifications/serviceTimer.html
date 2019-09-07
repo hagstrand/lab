@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta http-equiv=Content-Type content='text/html; charset=UTF-8'>
+	<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+	<title>service timer</title>
+</head>
+<body>
+
+<p>Count numbers: <output id="result"></output></p>
+<button onclick="startWorker()">Start Worker</button> 
+<button onclick="stopWorker()">Stop Worker</button>
+<br><br>
+
+<script>
+var w;
+
+function startWorker() {
+	navigator.serviceWorker.register('serviceTimer.js').then(function(reg) {
+		console.log('serviceTimer registered', reg);
+		w = reg;
+        w.onmessage = function(event) {
+            document.getElementById("result").innerHTML = event.data;
+			if (event.data == 10) {
+				notifyMe();
+			}
+		};
+	}, function(err) {
+	  console.log('error attempting to register serviceTimer', err);
+	});
+}
+
+function stopWorker() { 
+    w.terminate();
+    w = undefined;
+}
+
+function notifyMe() {
+	w.sendNotification('this is a notification');
+//	return;
+	
+  // Let's check if the browser supports notifications
+  if (!("Notification" in window)) {
+    alert("This browser does not support desktop notification");
+  }
+
+  // Let's check whether notification permissions have already been granted
+  else if (Notification.permission === "granted") {
+    // If it's okay let's create a notification
+    var notification = new Notification("Hi there!");
+  }
+
+  // Otherwise, we need to ask the user for permission
+  else if (Notification.permission !== 'denied') {
+    Notification.requestPermission(function (permission) {
+      // If the user accepts, let's create a notification
+      if (permission === "granted") {
+        var notification = new Notification("Hi there!");
+      }
+    });
+  }
+
+  // At last, if the user has denied notifications, and you 
+  // want to be respectful there is no need to bother them any more.
+}
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,118 @@
+﻿<!doctype html>
+<html>
+	<head>
+		<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+		<title>App Fixed</title>
+		<style>
+			html, body {
+				width: 100%;
+				height: 100%;
+				overflow: hidden;
+				padding: 0 0 0 0;
+				margin: 0 0 0 0;
+			}
+			.full {
+				position:fixed;
+				width:100%;
+				height:100%;
+			}
+			#smoke {
+				background-color:#888;
+				opacity:0.6;
+			}
+			#modalcontainer {
+				display:none;
+			}
+			#modal {
+  				position:absolute;
+  				left:50%;
+  				top:50%;
+  				transform:translate(-50%,-50%);
+  				-webkit-transform:translate(-50%,-50%);
+				width:50%;
+				height:50%;
+				background-color:white;
+				border:4px solid red;
+				padding:20px;
+				opacity:1;
+			}
+			#content {
+				width:100%;
+				height:100%;
+				overflow-x:hidden;
+				overflow-y:scroll;
+			}
+		</style>
+		<script>
+			var flash = {};
+
+			flash.UI = function() {
+				this.modalNowShowing = '';
+			}
+			
+			flash.UI.prototype = {
+				showModal: function(id) {
+					this.hideModal();
+					$('modalcontainer').style.display = 'block';
+					$('modal').appendChild($(id));
+					this.modalNowShowing = id;
+				},
+				hideModal: function() {
+					if (this.modalNowShowing) {
+						$('modalcontainer').style.display = 'none';
+						$('offscreen').appendChild($(this.modalNowShowing));
+						this.modalNowShowing = '';
+					}
+				}
+			}
+			
+			$ = function(id) {
+				return document.getElementById(id);
+			}
+
+			onload = function() {
+				flash.ui = new flash.UI();
+			}
+			
+			onkeyup = function(e) {
+				if (e.keyCode == 27) { // esc
+					flash.ui.hideModal();
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<div id='modalcontainer' class='full'>
+			<div id='smoke' class='full'></div>
+			<div id='modal'></div>
+		</div>
+		<div id='content'>
+			<h1>Content</h1>
+			<button onclick='flash.ui.showModal("login")'>Login</button>
+			<button onclick='flash.ui.showModal("register")'>Register</button>
+			<p>Lorem ipsum dolor sit amet, solum quidam at nam. No labore molestie sea, eu velit graeci abhorreant mei. Te qui nostrud insolens. Has sale nobis graecis et, cu facete inciderint vim. Ut doming malorum sanctus sed, sensibus persequeris vim ut. No mel liber equidem invidunt.</p>
+			<p>Facer fuisset cu qui. Eum oportere elaboraret ad, integre quaeque nominati eum in, erant antiopam mel an. Ad nisl omnesque eum, eu feugait vivendo sit. Ex nihil facilisi consequat qui, nonumy scaevola scripserit id sea. Adipisci interpretaris sea ea, qui ex omnesque consequuntur.</p>
+			<p>Eu cum legere officiis dissentias, tota facilisi ea vel. Temporibus scribentur no pri, solum omnium accumsan duo ei. Id legere libris graeco sea, ad solet persecuti per. Nostrud feugiat appellantur his no, in congue labore his, erant iuvaret noluisse eum an.</p>
+			<p>No quo copiosae verterem persecuti, ea mei dolorem offendit, tollit fuisset corrumpit pri ut. Mea nibh mollis an, pri summo iusto fuisset at. Est cu movet volutpat molestiae. Animal omnesque explicari his te, falli munere vim an.</p>
+			<p>Quaeque euripidis nec te. Veniam mollis quo at. Inani placerat molestiae duo ex, et sit regione ancillae delicata. Mei no hinc tritani repudiandae, et illum torquatos usu. Pri ubique qualisque voluptaria no, viderer invidunt ei eum, ne cibo populo facilisis pro.</p>
+			<h1>Content</h1>
+			<button onclick='flash.ui.showModal("login")'>Login</button>
+			<button onclick='flash.ui.showModal("register")'>Register</button>
+			<p>Lorem ipsum dolor sit amet, solum quidam at nam. No labore molestie sea, eu velit graeci abhorreant mei. Te qui nostrud insolens. Has sale nobis graecis et, cu facete inciderint vim. Ut doming malorum sanctus sed, sensibus persequeris vim ut. No mel liber equidem invidunt.</p>
+			<p>Facer fuisset cu qui. Eum oportere elaboraret ad, integre quaeque nominati eum in, erant antiopam mel an. Ad nisl omnesque eum, eu feugait vivendo sit. Ex nihil facilisi consequat qui, nonumy scaevola scripserit id sea. Adipisci interpretaris sea ea, qui ex omnesque consequuntur.</p>
+			<p>Eu cum legere officiis dissentias, tota facilisi ea vel. Temporibus scribentur no pri, solum omnium accumsan duo ei. Id legere libris graeco sea, ad solet persecuti per. Nostrud feugiat appellantur his no, in congue labore his, erant iuvaret noluisse eum an.</p>
+			<p>No quo copiosae verterem persecuti, ea mei dolorem offendit, tollit fuisset corrumpit pri ut. Mea nibh mollis an, pri summo iusto fuisset at. Est cu movet volutpat molestiae. Animal omnesque explicari his te, falli munere vim an.</p>
+			<p>Quaeque euripidis nec te. Veniam mollis quo at. Inani placerat molestiae duo ex, et sit regione ancillae delicata. Mei no hinc tritani repudiandae, et illum torquatos usu. Pri ubique qualisque voluptaria no, viderer invidunt ei eum, ne cibo populo facilisis pro.</p>
+		</div>
+		<div id='offscreen'>
+			<div id='login' title='Login'>
+				Login here<br/>
+				OK Cancel
+			</div>
+			<div id='register' title='Register'>
+				Register here<br/>
+				OK Cancel
+			</div>
+		</div>
+	</body>
+</html>

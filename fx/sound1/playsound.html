@@ -1,0 +1,224 @@
+
+<script>
+// http://www.html5rocks.com/en/tutorials/webaudio/intro/
+
+var digits = [
+{ n:'0', f:'๐', a:'th-0.mp3', t:'sun' },
+{ n:'1', f:'๑', a:'th-1.mp3', t:'nueng' }, 
+{ n:'2', f:'๒', a:'th-2.mp3', t:'song' }, 
+{ n:'3', f:'๓', a:'th-3.mp3', t:'sam' }, 
+{ n:'4', f:'๔', a:'th-4.mp3', t:'si' },
+{ n:'5', f:'๕', a:'th-5.mp3', t:'ha' },
+{ n:'6', f:'๖', a:'th-6.mp3', t:'hok' },
+{ n:'7', f:'๗', a:'th-7.mp3', t:'chet' },
+{ n:'8', f:'๘', a:'th-8.mp3', t:'paet' },
+{ n:'9', f:'๙', a:'th-9.mp3', t:'kao' },
+{ n:'10',f:'๑๐',a:'th-10.mpe',t:'sip' }
+];
+
+var soundfx;
+var soundcontent;
+
+var fxfiles = {
+	explosion: 'explosion.mp3',  //http://audiojungle.net/item/explosives-explosion/13439072
+	explosionshort: 'explosionshort.mp3',  //http://audiojungle.net/item/explosives-explosion/13439072
+	klunk: 'klunk.mp3',  //http://audiojungle.net/item/cowbell-low/14325152
+};
+
+var contentfiles = {
+	th0: 'th-0.mp3',
+	th1: 'th-1.mp3',
+	th2: 'th-2.mp3',
+	th3: 'th-3.mp3',
+	th4: 'th-4.mp3',
+	th5: 'th-5.mp3',
+	th6: 'th-6.mp3',
+	th7: 'th-7.mp3',
+	th8: 'th-8.mp3',
+	th9: 'th-9.mp3',
+	th10: 'th-10.mp3',
+};
+
+window.addEventListener('load', function() {
+	window.AudioContext = window.AudioContext || window.webkitAudioContext;
+	var context = new AudioContext();
+
+	soundfx = new Sound(context);
+	soundfx.load(fxfiles);
+
+	soundcontent = new Sound(context);
+	soundcontent.load(contentfiles);
+
+	document.getElementById('btnExplosion').addEventListener('click', function() { soundfx.play( 'explosion')}, false);
+	document.getElementById('btnExplosionShort').addEventListener('click', function() { soundfx.play( 'explosionshort')}, false);
+	document.getElementById('btnKlunk').addEventListener('click', function() { soundfx.play( 'klunk')}, false);
+	
+	document.getElementById('btn0').addEventListener('click', function() { soundcontent.play( 'th0')}, false);
+	document.getElementById('btn1').addEventListener('click', function() { soundcontent.play( 'th1')}, false);
+	document.getElementById('btn2').addEventListener('click', function() { soundcontent.play( 'th2')}, false);
+	document.getElementById('btn3').addEventListener('click', function() { soundcontent.play( 'th3')}, false);
+	document.getElementById('btn4').addEventListener('click', function() { soundcontent.play( 'th4')}, false);
+	document.getElementById('btn5').addEventListener('click', function() { soundcontent.play( 'th5')}, false);
+	document.getElementById('btn6').addEventListener('click', function() { soundcontent.play( 'th6')}, false);
+	document.getElementById('btn7').addEventListener('click', function() { soundcontent.play( 'th7')}, false);
+	document.getElementById('btn8').addEventListener('click', function() { soundcontent.play( 'th8')}, false);
+	document.getElementById('btn9').addEventListener('click', function() { soundcontent.play( 'th9')}, false);
+	document.getElementById('btn10').addEventListener('click', function() { soundcontent.play( 'th10')}, false);
+	}, false);
+
+
+/* Sound object */
+function Sound(context) {
+	this.context = context;
+	this.bufferList = {};
+	this.loadCount = 0;
+}
+
+Sound.prototype.count = function() {
+    var c = 0;
+    for (var p in this.bufferList) {
+		if (this.hasOwnProperty(p))
+			++c;
+	}
+	return c;
+}
+
+Sound.prototype.loadBuffer = function(url, name) {
+	// Load buffer asynchronously
+	var request = new XMLHttpRequest();
+	request.open("GET", url, true);
+	request.responseType = "arraybuffer";
+
+	var loader = this;
+
+	request.onload = function() {
+		// Asynchronously decode the audio file data in request.response
+		loader.context.decodeAudioData(
+			request.response,
+			function(buffer) {
+				if (!buffer) {
+					alert('error decoding file data: ' + url);
+					return;
+				}
+				loader.bufferList[name] = buffer;
+
+				if (++loader.loadCount == loader.count) {
+					// loader.onload(loader.bufferList);
+				}
+			},
+			function(error) {
+				console.error('decodeAudioData error', error);
+			}
+		);
+	}
+
+	request.onerror = function() {
+		alert('Sound: XHR error');
+	}
+
+	request.send();
+}
+
+Sound.prototype.load = function(o) {
+	for (key in o) {
+		this.loadBuffer(o[key], key);
+	}
+}
+
+Sound.prototype.play = function(name) {
+	var source = this.context.createBufferSource(); // creates a sound source
+	source.buffer = this.bufferList[name];          // tell the source which sound to play
+	source.connect(this.context.destination);       // connect the source to the context's destination (the speakers)
+	source.start(0);                                // play the source now
+											        // note: on older systems, may have to use deprecated noteOn(time);
+}
+</script>
+
+
+</head>
+<body>
+<input type=button id=btnExplosion value=Explosion /><br/>
+<input type=button id=btnExplosionShort value='Explosion Short' /><br/>
+<input type=button id=btnKlunk value=Klunk /><br/>
+<br/>
+<input type=button id=btn0 value=0 /><br/>
+<input type=button id=btn1 value=1 /><br/>
+<input type=button id=btn2 value=2 /><br/>
+<input type=button id=btn3 value=3 /><br/>
+<input type=button id=btn4 value=4 /><br/>
+<input type=button id=btn5 value=5 /><br/>
+<input type=button id=btn6 value=6 /><br/>
+<input type=button id=btn7 value=7 /><br/>
+<input type=button id=btn8 value=8 /><br/>
+<input type=button id=btn9 value=9 /><br/>
+<input type=button id=btn10 value=10 /><br/>
+
+<!--
+
+draw answer keys
+	keyboard, shuffled
+	foreign or native
+show question
+	show foreign
+	show translit
+	play sound
+	show picture
+	
+check answer
+question timeout
+on answer click
+	bar
+	fx
+on question timeout
+	bar - put question back into the queue
+
+loop thru show question	
+	until you run out of questions - success
+	until you run out of time - fail
+	
+
+we need to fail multiple times and then get a success
+the current flashcard system just goes on and on forever
+	
+	
+play the sound
+	
+modes
+	qa vs aq
+	sound only
+	visual only (foreign plus translit)
+
+visual shuffle of the keyboard
+
+
+play until level is lost or won
+three lives
+
+reading
+listening
+drawing
+speaking
+
+scoring sub-levels
+	reading/listening qa
+	reading qa
+	listening qa
+	writing aq - OCR
+	speaking aq - speech pattern recognition
+
+advanced
+	writing translit, as opposed to foreign
+
+turn this over to other programmers
+
+success vs fail
+	must get three out of three tries perfectly right across the board
+	must complete 30 successes within n seconds 
+
+desk, stacks, algorithm
+5 bars per question (3 for now)
+
+goto listening only (darken screen)
+goto reading only (volume down)
+	
+-->

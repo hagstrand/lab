@@ -1,0 +1,18 @@
+.explosion-2 { 
+	background-color: transparent;
+	background-image: url(explosion-2.png);
+	background-repeat: no-repeat;
+	width: 180px;  
+	height:135px;
+	border:1px solid #ccc;
+	display:inline-block;
+	background-position: -1440px 0;
+}
+.explosion-2-1 { background-position: 0 0; }
+.explosion-2-2 { background-position: -180 0; }
+.explosion-2-3 { background-position: -360px 0; } 
+.explosion-2-4 { background-position: -540px 0; } 
+.explosion-2-5 { background-position: -720px 0; } 
+.explosion-2-6 { background-position: -900px 0; } 
+.explosion-2-7 { background-position: -1080px 0; } 
+.explosion-2-8 { background-position: -1260px 0; } 

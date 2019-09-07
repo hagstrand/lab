@@ -1,0 +1,87 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sanskrit Gen - Generate Sanskrit Flash Cards</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script src='utils.js'></script>
+		<script src='sanskrit_gen_sql.js'></script>
+		<script src='sanskrit.js'></script>
+		<style>
+			html,body {
+				font-family: arial;
+				xline-height: 1.2%;
+			}
+			h1,h2,h3,h4,h5,h6 {
+				font-size: 1em;
+				margin:0;
+				font-weight: normal;
+			}
+			#chart h1 {
+				font-weight: bold;
+			}
+			.chartcontainer {
+				xfloat:left;
+				margin-right:2em;
+			}
+			table {
+				border:1px solid pink;
+			}
+			.sanskrit {
+				font-size: 2em;
+				cursor:pointer;
+				text-align:center;
+			}
+			.iso{
+				xfont-size: 1em;
+				cursor:pointer;
+				text-align:center;
+			}
+			#composebox {
+				float:left;
+				min-height:1.5em;
+				min-width:1.5em;
+				border:thin solid pink;
+			}
+			.clearboth {
+				clear:both;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='chart'>
+			<div class='chartcontainer'>
+				<h1 id='hdigits'>Digits</h1>
+				<div id='digits'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1 id='hvowels'>Vowels</h1>
+				<div id='vowels'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1 id='hvowel_abbreviations'>Vowel Abbreviations</h1>
+				<div id='vowel_abbreviations'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1 id='hendings'>Endings</h1>
+				<div id='endings'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1 id='hconsonants'>Consonants</h1>
+				<div id='consonants'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1 id='hvowel_endings'>Vowel Ending Combinations</h1>
+				<div id='vowel_endings'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1 id='hconsonant_vowels'>Consonant Vowel Combinations</h1>
+				<div id='consonant_vowels'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1 id='hconsonant_vowel_endings'>Consonant Vowel Ending Combinations</h1>
+				<div id='consonant_vowel_endings'></div>
+			</div>
+		</div>
+	</body>
+</html>	

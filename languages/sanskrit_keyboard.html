@@ -1,0 +1,53 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sanskrit Keyboard</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script src='utils.js'></script>
+		<script src='sanskrit_table.js'></script>
+		<script src='sanskrit_keyboard.js'></script>
+		<style>
+			html,body {
+				font-family: arial;
+			}
+			h1,h2,h3,h4,h5,h6 {
+				font-size: 1em;
+				margin:0;
+				font-weight: normal;
+			}
+		</style>
+		<style>
+			td {
+				border:1px solid pink;
+				width:1.9em;
+				height:1.9em;
+				text-align:center;
+				font-size: 1.8em;
+				cursor:pointer;
+			}
+			.devangari {
+				font-size: 1.8em;
+			}
+			#copystring {
+				width:400px;
+			}
+		</style>
+	</head>
+	<body>
+		<textarea id='tbs' class='devangari'></textarea>
+		<textarea id='tbt' class='devangari'></textarea>
+		<textarea id='tbc' class='devangari'></textarea>
+		<textarea id='tbu'></textarea>
+		<button id='clear'>Clear</button>
+		<button id='copy'>Copy</button>
+		<div id='keypad'></div>
+		<select id='modeselect'>
+			<option value='s'>Sanskrit</option>
+			<option value='t'>Transliteration</option>
+			<option value='u'>Unicode</option>
+			<option value='k'>Key Number</option>
+		</select>
+		<textarea id='copystring'></textarea>
+	</body>
+</html>	

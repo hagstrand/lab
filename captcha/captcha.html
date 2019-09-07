@@ -1,0 +1,28 @@
+<html>
+	<head>
+		<title>captcha</title>
+		<script>
+			var gc = 0;
+			onload = function() {
+				var r1 = Math.round(Math.random() * 10);
+				var r2 = Math.round(Math.random() * 10);
+				document.getElementById('s1').innerHTML = r1;
+				document.getElementById('s2').innerHTML = r2;
+				gc = r1+r2;
+			}
+			authenticate = function() {
+				var answer = document.getElementById('answer').value;
+				var authenticated = (Number(answer) == gc);
+				var am = (authenticated) ? 'OK' : 'Denied';
+				document.getElementById('am').innerHTML = am;
+			}
+		</script>
+	</head>
+	<body>
+		Question: <span id='s1'>22</span> + <span id='s2'>23</span> = 
+		<input id='answer' type='text'/>
+		<div id='am'>&nbsp;</div>
+		<br/>
+		<input type='button' value='register' onclick='authenticate()'/>
+	</body>
+</html>

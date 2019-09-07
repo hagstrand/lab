@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Sphere Renderer</title>
+<style>
+body, html {height: 100%;}
+body {
+    background-color: black;
+	margin:0; padding:0;
+	color: white;
+}
+#outer  {
+  display: table;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  overflow: hidden;
+  text-align: center;
+}
+
+#inner {
+display: table-cell;
+  vertical-align: middle;
+}
+a {color: white;}
+</style>
+<script src="requestanimationframe.polyfill.js"></script>
+<script src="sphere.js"></script>
+</head>
+<body>
+	<div id="outer">
+		<div id="inner">
+			<canvas id="sphere" width="600" height="600">
+				Sorry, your browser does not support the canvas element
+			</canvas>
+			<div id="fps"></div>
+		</div>
+	</div>
+</body>
+</html>

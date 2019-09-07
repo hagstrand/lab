@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+<head>
+    <title>test Keyboard</title>
+    <meta charset="utf-8">
+	<script>
+		var plunder = {};
+		var voyc = {};
+		voyc.fx = {};
+		var log = true;
+		window.addEventListener('load', function(evt) {
+			plunder.keyboard = new voyc.fx.Keyboard();
+			plunder.keyboard.listenForEvents([
+				voyc.fx.Keyboard.LEFT, 
+				voyc.fx.Keyboard.RIGHT, 
+				voyc.fx.Keyboard.UP, 
+				voyc.fx.Keyboard.DOWN
+			]);
+			document.getElementById('testbtn').addEventListener('click', function(evt) {
+			    var left  = (plunder.keyboard.isDown(voyc.fx.Keyboard.LEFT)) ? '1' : '0';
+			    var right = (plunder.keyboard.isDown(voyc.fx.Keyboard.RIGHT)) ? '1' : '0';
+			    var up    = (plunder.keyboard.isDown(voyc.fx.Keyboard.UP)) ? '1' : '0';
+			    var down  = (plunder.keyboard.isDown(voyc.fx.Keyboard.DOWN)) ? '1' : '0';
+				log&&console.log('keys ' + left + ' ' + right + ' ' + up + ' ' + down);
+			}, false);
+		}, false);
+	</script>
+    <script src="keyboard.js"></script>
+</head>
+<body>
+	<button id=testbtn>Test</button>
+</body>
+</html>

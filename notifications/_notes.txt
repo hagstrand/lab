@@ -1,0 +1,9 @@
+
+a webworker cannot do a notification, because it has no window object
+	the the Notification class lives in the window object
+
+a ServiceWorker can do a sendNotification()
+	a ServiceWorker has to be on a https server
+
+
+

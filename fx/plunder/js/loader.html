@@ -1,0 +1,23 @@
+<!doctype html>
+<html>
+<head>
+    <title>test Loader</title>
+    <meta charset="utf-8">
+	<script>
+		var plunder = {};
+		var log = true;
+		window.addEventListener('load', function(evt) {
+			plunder.loader = new plunder.Loader();
+			plunder.loader.load(function(success) {
+				if (success) {
+					//startgame();
+					log&&console.log('starting game');
+				}
+			});
+		}, false);
+	</script>
+    <script src="loader.js"></script>
+</head>
+<body>
+</body>
+</html>

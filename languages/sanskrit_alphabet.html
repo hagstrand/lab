@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Sanskrit Alphabet</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script src='utils.js'></script>
+		<script src='brahmic_script.js'></script>
+		<script src='sanskrit.js'></script>
+		<script src='malayalam.js'></script>
+		<style>
+			html,body {
+				font-family: arial;
+			}
+			h1,h2,h3,h4,h5,h6 {
+				font-size: 1em;
+				margin:0;
+				font-weight: normal;
+			}
+			#chart h1 {
+				font-weight: bold;
+			}
+			.chartcontainer {
+				float:left;
+				margin-right:2em;
+			}
+			table {
+				border:1px solid pink;
+			}
+			.sanskrit {
+				font-size: 2em;
+				cursor:pointer;
+				text-align:center;
+			}
+			.iso{
+				xfont-size: 1em;
+				cursor:pointer;
+				text-align:center;
+			}
+			#copybox {
+				float:left;
+			}
+			#copybutton {
+				float:left;
+			}
+			#composebox {
+				float:left;
+				min-height:1.5em;
+				min-width:1.5em;
+				border:thin solid pink;
+			}
+			.clearboth {
+				clear:both;
+			}
+		</style>
+	</head>
+	<body>
+		<div id='copybox_container'>
+			<textarea id='copybox'></textarea>
+			<button id='copybutton' onclick='save()'><- Copy</button>
+			<div class='sanskrit' id='composebox''></div>
+			<div class='clearboth'></div>
+		</div>
+		<div id='chart'>
+			<div class='chartcontainer'>
+				<h1>Consonants</h1>
+				<div id='consonants'>Consonants</div>
+			</div>
+			<div class='chartcontainer'>
+				<h1>Vowels</h1>
+				<div id='vowels'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1>Endings</h1>
+				<div id='endings'></div>
+			</div>
+			<div class='chartcontainer'>
+				<h1>Digits</h1>
+				<div id='digits'></div>
+			</div>
+			<div class='chartcontainer'>
+				<select id='language' onchange='setLanguage(this.value)'>
+					<option value='sa'>Sanskrit</option>
+					<option value='ml'>Malayalam</option>
+				</select>
+			</div>
+		</div>
+	</body>
+</html>	

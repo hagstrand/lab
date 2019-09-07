@@ -1,0 +1,102 @@
+<!doctype html>
+<html>
+<head>
+	<meta http-equiv=Content-Type content='text/html; charset=UTF-8'>
+	<title>Forms</title>
+<?php
+    // detection of the language for the current user/browser
+    $user_lang = substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2);  // 'en'
+    // if translation file for the detected language doesn't exist, we use default english file
+    require_once(__DIR__ .'/translations/' . (file_exists(__DIR__ .'/translations/' . $user_lang . '.php') ? $user_lang : 'en') . '.php');
+?>
+</head>
+<body>
+
+<ul>
+<li>language: using php in head, detect language of browser/user, load strings file per language</li>
+<li>fieldset: draw a box around controls</li>
+<li>legend: draw a caption within the fieldset border</li>
+<li>label: respond to mouse clicks, toggle checkbox, or setfocus to its input</li>
+<li>name=: group radio buttons</li>
+<li>placeholder=: obviates the need for labels in some cases</li>
+<li>autofocus: gets focus on page load</li>
+<li>required: form validated on submit</li>
+<li>input types with validation: email, url</li>
+<li>input types with pickers: number, range, color, date, time</li>
+<li>special date pickers: datetime, datetime-local, month, week</li>
+<li>input type search for search box form</li>
+</ul>
+
+<form>
+	<fieldset>
+		<legend>Personalia:</legend>
+		
+		<label for='first_name'>First Name</label> 
+		<input id='first_name' type='text' placeholder='First Name' autofocus /><br>
+
+		<label for='last_name'>Last Name</label> 
+		<input id='last_name' type='text' placeholder='Last Name' /><br/>
+
+		<label for='email'>Email</label> 
+		<input id='email' type='email' placeholder='Email' required /><br/>
+
+		<label for='pword'>Password</label> 
+		<input id='pword' type='password' placeholder='Password' requried /><br/>
+
+		<label for='photofile'>Photo File</label> 
+		<input id='photofile' type='file' /><br/>
+
+		<label for='photourl'>Photo URL</label> 
+		<input id='photourl' type='url' /><br/>
+
+		<label for='numkids'>Number of children</label> 
+		<input id='numkids' type='number'
+				min='0'
+				max='10'
+				step='1'
+				value='3' /><br/>
+
+		<label for='handicap'>Handicap</label> 
+		<input id='handicap' type='range'
+		       min='12'
+		       max='240
+		       step='6'
+	 		   value='24' /><br/>
+
+		<label for='dateofbirth'>Date of birth</label> 
+		<input id='dateofbirth' type='date' /><br/>
+
+		<label for='timeofbirth'>Time of birth</label> 
+		<input id='timeofbirth' type='time' /><br/>
+
+		<label for='haircolor'>Hair Color</label> 
+		<input id='haircolor' type='color' /><br/>
+
+		<fieldset>
+			<legend>Eye color:</legend>
+			<label for='eyes_blue'>Blue</label> 
+			<input type='radio' name='eye_color' id='eyes_blue' /><br/>
+			<label for='eyes_green'>Green</label> 
+			<input type='radio' name='eye_color' id='eyes_green' /><br/>
+		</fieldset>
+
+		<fieldset>
+			<legend>Gender:</legend>
+			<label for='gender_male'>Male</label> 
+			<input type='checkbox' id='gender_male' /><br/>
+			<label for='gender_female'>Female</label> 
+			<input type='checkbox' id='gender_female' /><br/>
+		</fieldset>
+		
+		<input type='submit' value='Submit' />		
+	</fieldset>
+</form>
+
+<form>
+	<input name='q' type='search' placeholder='Search'/>
+	<input type='submit' value='Find' />
+</form>       
+
+</body>
+</html>
+	

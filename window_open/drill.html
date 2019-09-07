@@ -1,0 +1,27 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>drill</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+
+		<script>
+			var winTool;
+			window.addEventListener('load', function() {
+				$('opentool').addEventListener('click', function() {
+					winTool = window.open('tool.html', 'tool');
+				}, false);
+			});
+
+			$ = function(e) {
+				return document.getElementById(e);
+			}
+			
+		</script>
+	</head>
+	<body>
+		<h1>Drill</h1>
+		<input type='button' id='opentool' value='Open Tool'/>
+		<div id='msg'></div>
+	</body>
+</html>	

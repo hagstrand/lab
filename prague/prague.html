@@ -1,0 +1,169 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv=Content-Type content='text/html; charset=UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+		<title>Prague</title>
+		<style>[hidden] {display:none ! important;}</style>
+		<style>
+			.panel { 
+				display:inline-block;
+				vertical-align:top;
+				margin:1rem;
+				border:1px solid rgba(  0,  0,  0,.5);
+				box-shadow:0 1px 2px rgba(  0,  0,  0,.05);
+				background-color:rgb(255,255,255);
+			}
+			.panel img {
+				width:10rem;
+			}
+		</style>
+		<script>
+			/*
+				geography
+				architecture
+				geopolitics
+				music
+				literature
+				local politics
+				personalities
+			*/
+			var photos = {
+				romanesque: [
+					'http://prague-stay.com/img/966/15/true/prague-history-romanesque2.jpg',
+					'http://cdn2.list25.com/wp-content/uploads/2013/07/Slide2348.jpg',
+					'http://www.digital-guide.cz/media/thumbs/digital_guide/pamatky_by_divine/Stare_Mesto/Rotunda_Nalezeni_Sv._Krize/001_Rotunda_Nalezeni_Sv_Krize_jpg_340x267_crop_q85.jpg',
+					'http://3.bp.blogspot.com/-xkhlnoZrjw8/T4MeA0Ea9PI/AAAAAAAACqw/w34Qc6r6Ay4/s1600/P1080653.JPG',
+					'http://cache1.asset-cache.net/gc/566450851-czech-republic-prague-jewish-ceremonial-hall-gettyimages.jpg?v=1&c=IWSAsset&k=2&d=9QMziWNtBI6whP66vhs4oXe2GuwsNfMWY%2BFitJTJSU%2FnFDJOWTrTIftUMtThSH6v',
+					'https://s-media-cache-ak0.pinimg.com/736x/8c/73/a4/8c73a4e352978fd7cd42f5defbaa343a.jpg',
+					'https://upload.wikimedia.org/wikipedia/commons/d/dc/RotundaRip.jpg',
+					'http://prague-stay.com/img/965/2/false/prague-history-st-martin1.jpg',
+				],
+				gothic: [
+					'http://brianholihan.com/wp-content/uploads/2012/05/893.jpg',
+					'https://upload.wikimedia.org/wikipedia/commons/thumb/3/32/V%C3%ADt_-_interi%C3%A9r.JPG/200px-V%C3%ADt_-_interi%C3%A9r.JPG',
+					'http://www.shafe.co.uk/wp-content/uploads/prague_st_vitus_cathedral_vault.jpg',
+					'https://upload.wikimedia.org/wikipedia/commons/c/c8/Interior_of_St._Vitus_Cathedral_Prague_01.jpg',
+					'http://2.bp.blogspot.com/-OAyjqh8cvN8/UABFhr0fNCI/AAAAAAAAC4Q/vS2_uKPBqz0/s1600/P1080900b.JPG',
+					'http://thumbs.dreamstime.com/t/gothic-architecture-prague-detail-34132200.jpg',
+					'https://upload.wikimedia.org/wikipedia/commons/e/e1/Altneusynagoge_-_Portal.jpg',
+					'',
+					'',
+					'',
+					'',
+					'',
+				],
+
+				baroque: [
+					'https://upload.wikimedia.org/wikipedia/commons/c/c0/WallensteinPalacePrague.jpg',
+					'https://www.private-prague-guide.com/wp-content/prague-castle-walking-tours71.jpg',
+					'https://upload.wikimedia.org/wikipedia/commons/d/d3/V%C4%9B%C5%BE_a_kupole_kostela_sv._Mikul%C3%A1%C5%A1e_na_Mal%C3%A9_Stran%C4%9B_v_Praze.jpg',
+					'http://media.tumblr.com/tumblr_lez8ij5rNP1qfr3vy.jpg',
+					'http://previews.123rf.com/images/siloto/siloto0803/siloto080300013/2649419-chateau-Troja-Baroque-style-Prague-Czech-republic-Europe--Stock-Photo.jpg',
+					'https://s-media-cache-ak0.pinimg.com/236x/b5/d9/b8/b5d9b8ac04ce84a71f144645c40f7a01.jpg',
+					'http://previews.123rf.com/images/arenaphotouk/arenaphotouk1507/arenaphotouk150700239/41954854-Typical-Baroque-architecture-Prague-Czech-Republic-Eastern-Europe--Stock-Photo.jpg',
+					'',
+					'',
+					'',
+				],
+				
+				neoromanesque: [
+					'http://3.bp.blogspot.com/-jtxg4AigkjY/T4MhGvS0_1I/AAAAAAAACrA/bRoR4BiSrMA/s1600/P1080612.JPG',
+				],
+				neogothic: [
+					'https://upload.wikimedia.org/wikipedia/commons/b/b4/St._Vitus_Cathedral_-_Prague_Castle_-_Prague_-_Czech_Republic_-_01.jpg',
+				],
+				neoclassical: [
+					// Neo-classical pediment attached to the gothic north wall of the church of Saint Martin-in-the-Wall in Prague's Old Town
+					'http://3.bp.blogspot.com/-YeBJiCkFWJw/Tq6Jnnx70qI/AAAAAAAACM0/enu5dVQs1i4/s1600/P1050360b.JPG',
+				],
+				neobaroque: [
+					'http://1.bp.blogspot.com/-kNxdPcqYKCE/T1AQj44eRgI/AAAAAAAACjk/Na8FESdo9X8/s1600/P1080091.JPG',
+				],
+				rococo: [
+					'',
+				],
+				classicist: [
+					'',
+				],
+				artnouveau: [
+					'',
+				],
+				cubist: [
+					'https://c1.staticflickr.com/1/62/216732168_8e8ae3e2b5_b.jpg',
+					'http://psych.fullerton.edu/navarick/prag12.jpg',
+					'http://img.radio.cz/pictures/r/praha/dum_u_cerne_matky_bozi2.jpg',
+					'http://www.travelingsolemates.com/wp-content/uploads/2012/09/19-Cubist-Architecture-Prague-Czech-Rep.jpg',
+					'http://www.pragueartelstyleblog.com/Files/0000_blog/Images/Cooperative_Houses.jpg',
+					'http://img.radio.cz/pictures/praha/kubismus_vysehrad.jpg',
+				],
+				cityscape: [
+					'http://p1.pichost.me/i/29/1525097.jpg',
+					'http://www.hostels247.com/album/5014ae5aa61dfa1d6aa128ca5bd0d841.jpg',
+					'http://www.layoverguide.com/wp-content/uploads/2009/07/Prague-Castle-over-Vltava-river-Czech-Republic.jpg',
+					'https://exposure.imgix.net/production/photos/a0piewgr9lt8olxr4vgbqpjl46os9k9wlfxq/original.jpg',
+					'http://steeljawscribe.com/wordpress/wp-content/uploads/2010/03/CZECH-REPUBLIC-Prague.jpg	',
+					'http://www.bestourism.com/img/items/big/155/Prague-Castle-Czech-Republic_Overview_4716.jpg',
+					'http://40.media.tumblr.com/79b0549c4998a1edf3d2f523b22e8af8/tumblr_nd0g0kcndg1ttxa5vo1_1280.jpg',
+					'http://static.thousandwonders.net/Prague.Castle.original.3820.jpg',
+					'https://s-media-cache-ak0.pinimg.com/736x/e3/70/46/e3704647929d2b9d4a7d5d4c916bf328.jpg',
+					'https://cityguide2011.files.wordpress.com/2011/12/prague-castle.jpg',
+					'https://c1.staticflickr.com/5/4020/5145284303_30261e5e50_b.jpg',
+					'http://yourholidayhomes.com/images/content/thinks/50/orig-prague-castle-8347996081.jpg',
+					'http://thumbs.dreamstime.com/z/archbishop-s-palace-hradcanske-square-prague-czech-republic-picture-castle-35207135.jpg',
+					'',
+					'',
+					'',
+					'',
+					'',
+				],
+			}
+			
+			window.addEventListener('load', function() {
+				for (var n in photos) {
+					loadimages(n);
+				}
+			}, false);
+			
+			loadimages = function(name) {
+				var e = document.getElementById(name);
+				for (var d,g,i=0; i<photos[name].length; i++) {
+					if (photos[name][i]) {
+						d = document.createElement('div');
+						d.classList.add('panel');
+						g = document.createElement('img');
+						g.src = photos[name][i];
+						d.appendChild(g);
+						e.appendChild(d);
+					}
+				}
+			}
+		</script>
+	</head>
+	<body>
+		<h3>Romanesque</h3>
+		<div id=romanesque></div>
+		<h3>Gothic</h3>
+		<div id=gothic></div>
+		<h3>Baroque</h3>
+		<div id=baroque></div>
+		<h3>Neo-Romanesque</h3>
+		<div id=neoromanesque></div>
+		<h3>Neo-Gothic</h3>
+		<div id=neogothic></div>
+		<h3>Neo-Baroque</h3>
+		<div id=neobaroque></div>
+		<h3>Neo-Classical</h3>
+		<div id=neoclassical></div>
+		<h3>Rococo</h3>
+		<div id=rococo></div>
+		<h3>Classicist</h3>
+		<div id=classicist></div>
+		<h3>Art Nouveau</h3>
+		<div id=artnouveau></div>
+		<h3>Cubist</h3>
+		<div id=cubist></div>
+		<h3>Cityscape</h3>
+		<div id=cityscape></div>
+	</body>
+</html>

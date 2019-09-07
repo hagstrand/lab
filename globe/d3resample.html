@@ -1,0 +1,83 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>d3 resample</title>
+<style>
+#globe {
+	width:95vw;
+	height:95vh;
+}
+.sphere {
+  fill: #88f;
+  stroke: #766951;
+}
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+.line {
+  fill: none;
+  stroke: #f00;
+}
+</style>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+window.addEventListener('load', function() {
+	var elem = document.getElementById('globe');
+	var w = elem.offsetWidth;
+	var h = elem.offsetHeight;
+	var scale = Math.min(w,h) / 2;
+	var λ = -80;
+	var φ = -20;
+	var γ = 0;  
+	var ortho = {};
+	var path = {};
+	var svg = {};
+
+	// orthographic projection 
+	ortho = d3.geo.orthographic();
+	ortho.rotate([λ,φ,γ]);
+	ortho.scale(scale);
+	ortho.translate([w/2, h/2]);
+	ortho.clipAngle(90);
+
+	path = d3.geo.path();
+	path.projection(ortho);
+
+	var sphere = {type: "Sphere"};
+	var graticule = d3.geo.graticule();
+
+	var line5 = {
+		type:'LineString',
+		coordinates:[[30,40],[120,40]]
+	}
+
+	svg = d3.select("#globe").append("svg")
+		.attr("width", w)
+		.attr("height", h);
+
+	svg.append("path")
+		.datum(sphere)
+		.attr("class", "sphere")
+		.attr("d", path);
+
+	svg.append("path")
+		.datum(graticule)
+		.attr("class", "graticule")
+		.attr("d", path);
+
+	svg.append("path")
+		.datum(line5)
+		.attr("class", "line")
+		.attr("d", path);
+}, false);
+</script>
+</head>
+<body>
+<div id='globe'></div>
+</body>
+</html>

@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
+		<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+		<title>bar</title>
+
+		<script src='bar.js'></script>
+		
+		<style>
+		bar {
+			height:2rem;
+			width:20rem;
+			display:block;
+			margin:1rem 0;
+		}
+		</style>
+
+		<script>
+			var bar = new Bar();
+
+			var attachAllBars = function() {
+				var bars = document.querySelectorAll('bar')
+				for (var i=0; i<bars.length; i++) {
+					bar.attach(bars[i]);
+				}
+			}
+
+			var drawAllBars = function() {
+				var bars = document.querySelectorAll('bar')
+				for (var i=0; i<bars.length; i++) {
+					bar.draw(bars[i]);
+				}
+			}
+
+			addEventListener('load', function() {
+				attachAllBars();
+				drawAllBars();
+			});
+			addEventListener('resize', function() {
+				drawAllBars();
+			});
+
+		</script>
+	</head>
+	<body>
+		<bar value='3.45' max=10 draw=offcenter></bar>
+		<bar value='6.20' max=9 draw=combined></bar>
+		<bar value='8.15' max=15 draw=offcenter></bar>
+	</body>
+</html>

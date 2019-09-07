@@ -1,0 +1,193 @@
+<html>
+	<head>
+		<title>Sanskrit Vowel Diacritics</title>
+		<meta http-equiv="content-type" content="text-html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<style>
+			html,body {
+				font-family: arial;
+				}
+			table {
+				border:1px solid pink;
+			}
+			.sanskrit {
+				font-size: 2em;
+				cursor:pointer;
+				text-align:center;
+			}
+			.iso{
+				font-size: 1.5em;
+				cursor:pointer;
+				text-align:center;
+			}
+		</style>
+		<script>
+			var vowels = [  
+				// s:sanscript, d:diacritic, f:filename, t:transliteration
+				// h:3 http://sanskritdocuments.org/learning_tutorial_wikner/P005.html (12 vowels)
+				// h:2 http://www.tilakpyle.com/sanskrit_alphabet.htm (13 vowels)
+				// h:1 http://www.omniglot.com/writing/sanskrit.htm (14 vowels)
+				// h:1 http://www.sanskritsounds.com/about-sanskrit/46/index.html 
+				// h:0 unicode (19 vowels)
+				{h:0, s:0x0904,d:0x0000,f:''  ,t:'short a'},
+				{h:3, s:0x0905,d:0x0000,f:'a' ,t:'a'},
+				{h:3, s:0x0906,d:0x093E,f:'aa',t:'ā'}, 
+				{h:3, s:0x0907,d:0x093F,f:'i' ,t:'i'},
+				{h:3, s:0x0908,d:0x0940,f:'ii',t:'ī'}, 
+				{h:3, s:0x0909,d:0x0941,f:'u' ,t:'u'},
+				{h:3, s:0x090A,d:0x0942,f:'uu',t:'ū'}, 
+				{h:3, s:0x090B,d:0x0943,f:'r' ,t:'vocalic&nbsp;r'},
+				{h:1, s:0x0960,d:0x0944,f:''  ,t:'vocalic&nbsp;rr'},
+				{h:3, s:0x090C,d:0x0962,f:'l' ,t:'vocalic&nbsp;l'},
+				{h:2, s:0x0961,d:0x0963,f:''  ,t:'vocalic&nbsp;ll'},
+				{h:0, s:0x090D,d:0x0945,f:''  ,t:'candra&nbsp;e'},
+				{h:0, s:0x090E,d:0x0946,f:''  ,t:'short&nbsp;e'},
+				{h:3, s:0x090F,d:0x0947,f:'e' ,t:'e'},
+				{h:3, s:0x0910,d:0x0948,f:'ai',t:'ai'},
+				{h:0, s:0x0911,d:0x0949,f:''  ,t:'candra&nbsp;o'}, 
+				{h:0, s:0x0912,d:0x094A,f:''  ,t:'short&nbsp;o'}, 
+				{h:3, s:0x0913,d:0x094B,f:'o' ,t:'o'}, 
+				{h:3, s:0x0914,d:0x094C,f:'ow',t:'au'},
+				{h:0, s:0x0000,d:0x094D,f:''  ,t:'virama'}
+			];
+			special_diacriticals = [
+				{h:0, s:0x0000,d:0x0901,f:''  ,t:'an'},
+				{h:0, s:0x0000,d:0x0902,f:''  ,t:'am'},
+				{h:0, s:0x0000,d:0x0903,f:''  ,t:'ah'}
+			];
+			consonants = [
+				                                 // http://www.tilakpyle.com/sanskrit_alphabet.htm
+				{h:0, s:0x0915,f:'k',  t:'k'  }, // guttural
+				{h:0, s:0x0916,f:'kh', t:'kh' },
+				{h:0, s:0x0917,f:'g',  t:'g'  },
+				{h:0, s:0x0918,f:'gh', t:'gh' },
+				{h:0, s:0x0919,f:'ng', t:'ng' },
+				{h:0, s:0x091A,f:'ch', t:'c'  }, // palatal
+				{h:0, s:0x091B,f:'chh',t:'ch' },
+				{h:0, s:0x091C,f:'j',  t:'j'  },
+				{h:0, s:0x091D,f:'zh', t:'jh' },
+				{h:0, s:0x091E,f:'nj', t:'ny' },
+				{h:0, s:0x091F,f:'t',  t:'tt' }, // cerebral
+				{h:0, s:0x0920,f:'tdh',t:'tth'},
+				{h:0, s:0x0921,f:'d',  t:'dd' },
+				{h:0, s:0x0922,f:'dhv',t:'ddh'},
+				{h:0, s:0x0923,f:'tn', t:'nn' },
+				{h:0, s:0x0924,f:'tv', t:'t'  }, // dental
+				{h:0, s:0x0925,f:'th', t:'th' },
+				{h:0, s:0x0926,f:'dv', t:'d'  },
+				{h:0, s:0x0927,f:'dh', t:'dh' },
+				{h:0, s:0x0928,f:'n',  t:'n'  },
+				{h:0, s:0x0929,f:'nnn',t:'nnn'}, //-------- skip
+				{h:0, s:0x092A,f:'p',  t:'p'  }, // labial
+				{h:0, s:0x092B,f:'ph', t:'ph' },
+				{h:0, s:0x092C,f:'b',  t:'b'  },
+				{h:0, s:0x092D,f:'bh', t:'bh' },
+				{h:0, s:0x092E,f:'m',  t:'m'  },
+				{h:0, s:0x092F,f:'y',  t:'y'  }, // semi-vowel
+				{h:0, s:0x0930,f:'r',  t:'r'  }, // semi-vowel
+				{h:0, s:0x0931,f:'',   t:'rr' }, //-------- skip 
+				{h:0, s:0x0932,f:'l',  t:'l'  }, // semi-vowel
+				{h:0, s:0x0933,f:'',   t:'ll' }, //-------- skip
+				{h:0, s:0x0934,f:'',   t:'lll'}, //-------- skip
+				{h:0, s:0x0935,f:'w',  t:'v'  }, // semi-vowel
+				{h:0, s:0x0936,f:'sh', t:'sh' }, // sibilant
+				{h:0, s:0x0937,f:'hsh',t:'ss' }, // sibilant
+				{h:0, s:0x0938,f:'s',  t:'s'  }, // sibilant
+				{h:0, s:0x0939,f:'h',  t:'h'  }  // aspirate
+			];
+			special = [
+				{h:0, s:0x0950,f:''  ,t:'om'},
+				{h:0, s:0x0964,f:''  ,t:'danda'},
+				{h:0, s:0x0965,f:''  ,t:'double danda'}
+			];
+			digits = [
+				{h:0, s:0x0966,f:''  ,t:'0'},
+				{h:0, s:0x0967,f:''  ,t:'1'},
+				{h:0, s:0x0968,f:''  ,t:'2'},
+				{h:0, s:0x0969,f:''  ,t:'3'},
+				{h:0, s:0x096A,f:''  ,t:'4'},
+				{h:0, s:0x096B,f:''  ,t:'5'},
+				{h:0, s:0x096C,f:''  ,t:'6'},
+				{h:0, s:0x096D,f:''  ,t:'7'},
+				{h:0, s:0x096E,f:''  ,t:'8'},
+				{h:0, s:0x096F,f:''  ,t:'9'}
+			];
+			onload=function() {
+				var s = '<table border=1 cellspacing=0 cellpadding=3>';
+				var a,n;
+
+				// top row
+				s += '<tr>';
+				s += "<td class='iso'>&nbsp;</td>";
+				s += "<td class='sanskrit'>&nbsp;</td>";
+				s += "<td class='sanskrit'>&nbsp;</td>";
+				for (ndx in consonants) {
+					n = consonants[ndx];
+					s += "<td class='iso'>"+n.t+"</td>";
+				}
+				s += '</tr>'
+
+				// remaining rows
+				var x;
+				for (key in vowels) {
+					a = vowels[key];
+					s += '<tr>';
+					s += "<td class='iso'>"+a.t+"</td>";  // col 1
+
+					x = (a.s == 0) ? '&nbsp;' : '&#'+a.s+';';
+					s += "<td class='sanskrit'>"+x+"</td>";  // col 2
+
+					x = (a.d == 0) ? '&nbsp;' : '&#'+a.d+';';
+					s += "<td class='sanskrit'>"+x+"</td>";  // col 3
+
+					for (ndx in consonants) {
+						n = consonants[ndx];
+						if (a.s == 2308) { 
+							x = '&nbsp;';
+						}
+						else if (a.s == 2309) {
+							x = '&#'+n.s+';';
+						}
+						else {
+							x = '&#'+n.s+';&#'+a.d+';';
+						}
+						s += "<td class='sanskrit'>"+x+"</td>";
+					}
+					s += '</tr>'
+				}
+				s += '</table>'
+				document.getElementById('chart').innerHTML = s;
+			}
+		</script>
+	</head>
+	<body>
+<br/>		
+		&#2401;  XX<BR/>
+		&#x0901;  an<br/>
+		&#x0902;  am<br/>
+		&#x0903;  ah<br/>
+<br/>
+		&#x0905;&#x0901;<br/>
+		&#x0906;&#x0901;<br/>
+		&#x0907;&#x0901;<br/>
+		&#x0908;&#x0901;<br/>
+		&#x0909;&#x0901;<br/>
+		&#x090A;&#x0901;<br/>
+<br/>
+		&#x0917;<br/>
+		&#x0917;&#x093E;<br/> 
+		&#x0917;&#x093F;<br/>
+		&#x0917;&#x0940;<br/> 
+		&#x0917;&#x0941;<br/>
+		&#x0917;&#x0942;<br/> 
+<br/>
+		&#x0917;&#x0901;<br/>
+		&#x0917;&#x093E;&#x0901;<br/> 
+		&#x0917;&#x093F;&#x0901;<br/>
+		&#x0917;&#x0940;&#x0901;<br/> 
+		&#x0917;&#x0941;&#x0901;<br/>
+		&#x0917;&#x0942;&#x0901;<br/> 
+
+		<div id='chart'></div>
+	</body>
+</html>	

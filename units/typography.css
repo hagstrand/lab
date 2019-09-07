@@ -1,0 +1,22 @@
+html,body {
+	font-family: arial;
+	font-size:12pt;
+}
+h1,h2,h3,p {
+	margin:0;
+	padding:0;
+	font-weight:normal;
+}
+p {
+	font-size: 1rem;
+	margin:1rem 0;
+}
+h1 {
+	font-size: 2rem;
+}
+h2 {
+	font-size: 1.6rem;
+}
+h3 {
+	font-size: 1.2rem;
+}

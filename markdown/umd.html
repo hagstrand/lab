@@ -1,0 +1,73 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset='utf-8'>
+		<title>umd markdown parser</title>
+		<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+
+		<link href='../css/typography.css' rel='stylesheet' type='text/css'></link>
+
+		<style>
+			.key {
+				display:inline-block;
+				min-width:3em;
+				border:1px solid black;
+			}
+			.key .d {
+				font-size: 1.5em;
+				padding-left:.2em;
+				padding-right:.2em;
+				text-align:center;
+			}
+			.key .t {
+				font-size: 1em;
+				padding-left:.2em;
+				padding-right:.2em;
+				text-align:left;
+			}
+			table {
+				border:1px solid black;
+			}
+			.hidden {
+				display:none;
+			}
+		</style>
+		
+		<script>
+			var $ = function(id) {return document.getElementById(id)};
+			window.addEventListener('load', function(event) {
+				var input = $('xmd').innerHTML;
+				var parsed = micromarkdown.parse(input);
+				$('output').innerHTML = parsed;
+			});
+		</script>
+		<script src='umd.js'></script>
+	</head>
+	<body>
+		<textarea id='source'></textarea>
+		<input type='button' id='go' value='Go'/>
+		<div id='output'></div>
+
+
+<div id='xmd' class='hidden'>
+# Sounds like N
+
+Five devanagari characters sound like the english language N.  
+
+Sanskrit | Transliteration | Comment
+:-------:|:---------------:|:--------------
+<div u='64' class='key'><div class='d'>ङ</div><div class='t'>ṅ</div></div>	     | ṅ	           | dot above indicates a nasal pronunciation.
+ञ	     | ñ	           | the Spanish like canyon
+$64	     | ṅ	           | here we will do a really cool thing
+ण	     | ṇa	           | dot-below means retro-flex, aka cerebral
+न	     | na              | xxx
+ ँ	     | n (ending)      | xxx
+
+## ङ ṅ	
+
+This is the only devanagari letter with a dot in it.  (Not including the diacritics.)  
+Simultaneously, the transliteration is the only character with a dot above.
+</div>
+
+	</body>
+</html>

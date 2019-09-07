@@ -1,0 +1,272 @@
+﻿
+user management
+	register
+	login
+	account management
+		delete user
+		change password
+		change name
+
+phase, what do I want to learn, 4 phases
+	normal
+		reading visual, given text, produce audio
+		hearing audio, given audio, produce text
+	reverse
+		writing visual, given text or audio, produce text
+		speaking audio, given text or audio, produce audio
+
+show, question/answer
+	text
+	audio
+	both
+
+state
+	untried
+	work
+	review
+	mastered
+
+phasestate
+
+n phases
+4 states
+
+insert into flash.quest(programid, seq, lesson, conversation, quest, answer) values(6,  1, 1,0,'','a');
+insert into flash.quest(programid, seq, lesson, conversation, quest, answer) values(6,  2, 1,0,'','a');
+insert into flash.quest(programid, seq, lesson, conversation, quest, answer) values(6,  3, 1,0,'','i');
+insert into flash.quest(programid, seq, lesson, conversation, quest, answer) values(6,  4, 1,0,'','i');
+insert into flash.quest(programid, seq, lesson, conversation, quest, answer) values(6,  5, 1,0,'','u');
+insert into flash.quest(programid, seq, lesson, conversation, quest, answer) values(6,  6, 1,0,'','u');
+
+
+Vowels
+अ	a	 
+आ	ā
+इ	i
+ई	ī
+उ	u
+ऊ	ū
+ऋ	ṛ
+ॠ	ṝ
+ऌ	ḷ
+ए	e	
+ऐ	ai	
+ओ	o	
+औ	au	
+
+Endings (codas)
+ँ	n
+ं	ṃ	anusvara
+ः	ḥ	visarga
+्		virama
+अऽ	'	avagraha
+
+
+Consonants
+
+Guttural
+क	k
+ख	kh
+ग	g
+घ	gh
+ङ	ṅ ng
+
+Palatal
+च	c
+छ	ch
+ज	j
+झ	jh
+ञ	ñ ny
+
+Cerebral
+ट	ṭ
+ठ	ṭh
+ड	ḍ
+ढ	ḍh
+ण	ṇ
+
+Dental
+त	t
+थ	th
+द	d
+ध	dh
+न	n
+
+Labial
+प	p
+फ	ph
+ब	b
+भ	bh
+म	m
+
+Semi-vowel
+य	y	palatal
+र	r	cerebral
+ल	l	dental
+व	v	labial
+
+Aspirant
+ह	h	guttural
+अः	ḥ	visarga
+
+Sibilant
+श	ś sh palatal
+ष	ṣ  cerebral (retroflex)
+स	s  dental
+
+---------
+all vowels with all the endings
+---------
+all consonants with the vowel long a
+Guttural	
+का	k
+खा	kh
+गा	g
+घा	gh
+ङा	ng
+Palatal
+चा	c
+छा	ch
+जा	j
+झा	jh
+ञा	ny
+Cerebral
+टा	tt
+ठा	tth
+डा	dd
+ढा	ddh
+णा	nn
+Dental
+ता	t
+था	th
+द	d
+धा	dh
+न	n
+Labial
+प	p
+फा	ph
+बा	b
+भा	bh
+मा	m
+Semi-vowel
+या	y
+रा	r
+ऱा	rr
+ला	l
+वा	v
+Sibilant
+शा	sh
+षा	ss
+सा	s
+Aspirant
+हा	
+
+
+34 consonants (7 groups of 5)
+13 vowels
+442 combinations
+4 endings
+1768 combinations
+
+sanskrit_gen.html
+sanskrit_gen.js
+
+lab/languages/sanskrit.js
+lab/languages/brahmic_script.js
+
+generate combinations plus components
+components = prerequisites
+character, syllable, word, phrase, sentence
+word: part of speech, can be multiple, depending on definition
+include part of speech in transliteration (answer)
+
+select *
+from cards
+where c.id not in components
+
+कमल~क,म,ल~ka-ma-la~lotus~3
+खग~ख,ग~kha-ga~bird~2
+गगन~ग,ग,न~ga-ga-na~sky~3
+घटः~घ,टः~gha-ṭah~jar~3
+चरण~च,र,ण~ca-ra-ṇa~foot~3
+छदन~छ,द,न~cha-da-na~covering~3
+जल~ज,ल~ca-la~water~2
+झरः~झ.रः~jha-rah~cascade, waterfall~2
+तपन~त.प.न~ta-pa-na~heating~3
+दमः~द.मः~da-mah~restraint~2
+धन~ध.न~dha-na~wealth, money~2
+नर~न.र~na-ra~man~2
+पठन~प.ठ.न~pa-ṭha-na~reading, studying~3
+फल~फ.ल~pha-la~fruit~2
+बल~ब.ल~ba-la~strength~2
+भय~भ.य~bha-ya~fear~2
+मम~म.म~ma-ma~my~2
+यम~य.म~ya-ma~universal law~2
+रथः~र.थः~ra-thah~chariot~2
+लयः~ल.यः~la-yah~absorption~2
+वन~व.न~va-na~forest~2
+शतक~श.त.क~śa-ta-ka~group of 100~3
+शतक~श.त.क~sa-ka-la~whole, entire~3
+हर~ह.र~ha-ra~remover~2
+काल~का.ल~kā-la~time~2
+जाल~जा.ल~jā-la~net~2
+तारा~ता.रा~tā-rā~star~2
+नारायण~ना.रा.य.ण~nā-rā-ya-ṇa~name of Vishnu~4
+भाषा~भा.षा~bhā-ṣā~language~2
+रामायण~रा.मा.य.ण~rā-mā-ya-ṇa~story of Rama~4
+हासः~हा.सः~hā-sah~laughter~2
+तिलक~ति,ल,क~ti-la-ka~vertical mark on forehead~3
+दिवस~दि,व,स~di-va-sa~day~3
+मिलन~मि,ल,न~mi-la-na~meeting~3
+लिरित~लि,रि,त~li-ri-ta~stopping, cessation~3
+लिरित~लि,रि,त~li-ri-ta~Shiva~3
+हिमालय~हि,मा,ल,य~hi-mā-la-ya~Himalaya~4
+हिमालय~हि,मा,ल,य~hi-mā-la-ya~song~4
+जीव~जी,व~jī-va~individual soul~2
+तीर~ती,र~tī-ra~shore, bank~2
+दीन~दी,न~dī-na~poor~2
+दीन~दी,न~dī-na~seat~2
+लीला~ली,ला~lī-lā~play~2
+वीर~वी,र~vī-ra~~2
+शीतल~शी,त,ल~śī-ta-la~~3
+कुसुम~कु,सु,म~ku-su-ma~flower~3
+गुरु~गु,रु~gu-ru~teacher~2
+तुरग~तु,र,ग~tu-ra-ga~horse~3
+पुरुष~पु,रु,ष~pu-ru-ṣa~man, self~3
+भुज~भु,ज~bhu-ja~arm~2
+मुख~मु,ख~mu-kha~mouth, face~2
+शुभ~शु,भ~śu-bha~good, auspicious~2
+सुख~सु,ख~su-kha~happiness~2
+दूर~दू,र~dū-ra~far, distant~2
+धूम~धू,म~dhū-ma~smoke~2
+पूरित~पू,रि,त~pū-ri-ta~filled~3
+भूत~भू,त~bhū-ta~being~2
+रूप~रू,प~rū-pa~form, beauty~2
+शूर~शू,र~śū-ra~hero~2
+
+
+
+
+
+
+http://www.sanskrit-sanscrito.com.ar/en/patanjali-yoga-sutras/629
+
+अथ योगानुशासनम्॥१॥
+Atha yogānuśāsanam||1||
+And now begins (atha) the instruction (anuśāsanam) regarding Yoga (yoga)||1||
+
+अथ
+atha, yogā, anuśāsanam, 1, ॥
+to split into components I must first know the component words
+
+अथ, atha, begin
+ योगानुशासनम्, anuśāsanam, instruction
+ योगानुशासनम्, yoga
+१, 1
+॥, period
+
+
+योगश्चित्तवृत्तिनिरोधः॥२॥
+Yogaścittavṛttinirodhaḥ||2||
+
+Yoga (yogaḥ) is the suppression (nirodhaḥ) of the modifications (vṛtti) of mind (citta)||2||

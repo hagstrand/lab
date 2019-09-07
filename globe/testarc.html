@@ -1,0 +1,204 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<style>
+#test {
+	width: 500px;
+	height:500px;
+}
+</style>
+<script>
+/*
+https://www.mathsisfun.com/sine-cosine-tangent.html
+https://www.mathsisfun.com/algebra/trig-four-quadrants.html
+http://www.purplefrog.com/~thoth/art/paisley/arcTo.html
+
+points a,b,c,d
+a last visible point
+  b last visible point extended to circumference
+    gap of n invisible points
+  c next visible point extended to circumference
+d next visible point
+
+for each point
+	if (visible) {
+		if (this.lastVisiblePoint) {  // a
+			arcGap(this.lastVisiblePoint, point);  // pass a,d; arc from b to c
+			this.lastVisiblePoint = false;
+		}
+		lineTo(point)
+	}
+	else {
+		if !this.lastVisiblePoint {
+			this.lastVisiblePoint = point
+		}
+	}
+}
+*/
+
+// point 1
+var a = [
+	[270,100], // Quadrant I
+	[100,230], // Quadrant II
+	[230,380], // Quadrant III
+	[380,300], // Quadrant IV
+];
+
+// point 2
+var d = [
+	[400,230], // Quadrant I
+	[200,100], // Quadrant II
+	[130,340], // Quadrant III
+	[280,380], // Quadrant IV
+];
+
+var c = {};
+var ctx = {};
+var w = 0;
+var h = 0;
+var r = 0;
+var ctr = [];
+var ntest = 0;
+
+var π = Math.PI;
+var toRadians = π / 180;
+var toDegrees = 180 / π;
+
+var arc,rad,dgr;
+console.log('1 radian = ' + toDegrees + ' degrees');
+console.log([arc=0.0, rad=arc*π, dgr=rad*toDegrees]);
+console.log([arc=0.5, rad=arc*π, dgr=rad*toDegrees]);
+console.log([arc=1.0, rad=arc*π, dgr=rad*toDegrees]);
+console.log([arc=1.5, rad=arc*π, dgr=rad*toDegrees]);
+console.log([arc=2.0, rad=arc*π, dgr=rad*toDegrees]);
+
+console.log([dgr=  0, rad=dgr*toRadians, arc=rad/π]);
+console.log([dgr= 90, rad=dgr*toRadians, arc=rad/π]);
+console.log([dgr=180, rad=dgr*toRadians, arc=rad/π]);
+console.log([dgr=270, rad=dgr*toRadians, arc=rad/π]);
+console.log([dgr=360, rad=dgr*toRadians, arc=rad/π]);
+
+function setup() {
+	c = document.getElementById('test');
+	w = c.width =  c.offsetWidth;
+	h = c.height = c.offsetHeight;
+	ctr = [Math.round(w/2), Math.round(h/2)];
+	ctx = c.getContext("2d");
+	r = Math.round(Math.min(w,h) * .35);
+	reset();
+}
+
+function reset() {
+	ctx.clearRect(0,0,w,h);
+	ctx.strokeStyle = '#000';
+	ctx.lineWidth = 1;
+
+	// draw centerpoint
+	drawPoint( ctr, 3);
+
+	// draw circle
+	ctx.beginPath();
+	ctx.arc( w/2, h/2, r, 0, 2*Math.PI);
+	ctx.stroke();
+
+	// draw test points
+	for (var i=0; i<a.length; i++) {
+		drawPoint(a[i], 3, '#0f0');
+	}
+	for (var i=0; i<d.length; i++) {
+		drawPoint(d[i], 3, '#00f');
+	}
+}
+
+function test() {
+	reset();
+	var rangei = [0,1,2,3,0,1,2,3];
+	var rangej = [0,1,2,3,3,0,1,2];
+	
+	var i = rangei[ntest];
+	var j = rangej[ntest];;
+	ntest = (ntest < 7) ? ntest+1 : 0;
+	
+	var ob={};
+	var oc={};
+	var e=[];
+	ob = extendToCircumference(a[i],ctr,r);
+	oc = extendToCircumference(d[j],ctr,r);
+	e = findTangent(ob, oc,ctr,r);
+	drawPoint(a[i], 5, '#0f0');
+	drawPoint(d[j], 5, '#00f');
+	drawPoint(ob.pt, 3, '#f00');
+	drawPoint(oc.pt, 3, '#f00');
+	drawPoint(e, 3, '#f0f');
+	drawArc(ob.pt, e, oc.pt, r, 3, '#f0f');
+}
+
+arcGap = function(a,d,ctr,r) {
+	ob = extendToCircumference(a[i],ctr,r);
+	oc = extendToCircumference(d[j],ctr,r);
+	e = findTangent(ob, oc,ctr,r);
+}
+
+findTangent = function(ob,oc,ctr,r) {
+	var dθ = oc.θ - ob.θ;
+	var θ3 = ob.θ + dθ/2;
+	var r3 = r/Math.cos(dθ/2);
+	var x1 = ctr[0] + r3*Math.cos(θ3);
+	var y1 = ctr[1] + r3*Math.sin(θ3);
+	return [x1,y1];
+}
+
+function extendToCircumference(pt,ctr,r) {
+	// translate to 0,0
+	var x1 = pt[0] - ctr[0];
+	var y1 = pt[1] - ctr[1];
+
+	var tanθ = y1/x1;
+	var θ = Math.atan(tanθ);
+	if (x1 < 0) { // if in Quadrant II or III
+		θ += Math.PI;
+	}
+	var x = Math.cos(θ) * r;
+	var y = Math.sin(θ) * r;
+	
+	
+	// translate back to center
+	x2 = x+ctr[0];
+	y2 = y+ctr[1];
+	return {θ:θ, pt:[x2,y2]};
+}
+
+function drawPoint(pt,r,c) {
+	var c = c || '#000';
+	ctx.beginPath();
+	ctx.moveTo(pt[0]-r,pt[1]-r);
+	ctx.lineTo(pt[0]+r,pt[1]-r);
+	ctx.lineTo(pt[0]+r,pt[1]+r);
+	ctx.lineTo(pt[0]-r,pt[1]+r);
+	ctx.closePath();
+	ctx.fillStyle = c;
+	ctx.fill();
+}
+
+function drawArc(pt0,pt1,pt2,r,lw,c) {
+	ctx.beginPath();
+	ctx.lineWidth = lw;
+	ctx.strokeStyle = c;
+	ctx.moveTo(pt0[0],pt0[1]);
+	ctx.arcTo(pt1[0],pt1[1],pt2[0],pt2[1],r);
+	ctx.stroke();
+}
+
+window.addEventListener('load', function(evt) {
+	setup();
+}, false);
+window.addEventListener('click', function(evt) {
+	test();
+}, false);
+</script>
+</head>
+<body>
+<canvas id='test'>
+</canvas>
+</body>

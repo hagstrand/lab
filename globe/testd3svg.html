@@ -1,0 +1,267 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>test d3 svg</title>
+<style>
+body {
+	overflow:hidden;
+}
+div {
+	width:100vw;
+	height:50vh;
+}
+.sphere {
+  fill: #88f;
+  stroke: #766951;
+}
+.land {
+  fill: #8f8;
+  stroke: #766951;
+}
+.graticule {
+  fill: none;
+  stroke: #777;
+  stroke-width: .5px;
+  stroke-opacity: .5;
+}
+.rivers {
+  fill: none;
+  stroke: #00f;
+}
+.point, .polygon {
+  fill: #f00;
+  stroke: none;
+}
+.line {
+  fill: none;
+  stroke: #f00;
+}
+</style>
+<script src='d3/d3.js'></script>
+<script src="topojson/topojson.min.js"></script>
+<script src="topojson/worldtopo.js"></script>
+
+<script>/** @const */ var voyc={};</script>
+<script>/** @const */ voyc.data={};</script>
+<script>/** @const */ voyc.data.river=[];</script>
+<script src='../data/river1.js'></script>
+<script>
+// globals
+var w = 0;
+var h = 0;
+var scale = 0;
+var λ = 0;  // lambda = yaw = negative longitude = spin on the x axis
+var φ = 0;  // phi    = pitch = negative latitude = spin on the y axis
+var γ = 0;  // gamma  = roll = spin on the z axis
+var orthod3 = {};
+var pathd3 = {};
+var svgd3 = {};
+
+go = function() {
+	// geo functions: distance and interpolate
+	var co1 = [80,20];
+	var co2 = [90,30];
+	var co3 = [-123,-79];
+	voyc.geo = new voyc.Geo();
+	var dist1voyc = voyc.geo.distance(co1,co2);
+	var dist1d3 = d3.geo.distance(co1,co2);
+	var dist2voyc = voyc.geo.distance(co1,co3);
+	var dist2d3 = d3.geo.distance(co1,co3);
+	var t = .23;
+	var int1voyc = voyc.geo.interpolate(co1,co2,t);
+	var int1d3 = d3.geo.interpolate(co1,co2)(t);
+	var int2voyc = voyc.geo.interpolate(co1,co3,t);
+	var int2d3 = d3.geo.interpolate(co1,co3)(t);
+
+	// initials globals for projections
+	var elemd3 = document.getElementById('d3');
+	w = elemd3.offsetWidth;
+	h = elemd3.offsetHeight;
+	scale = Math.min(w,h) / 2;
+	λ = -80;  // lambda = yaw = negative longitude = spin on the x axis
+	φ = -20;  // phi    = pitch = negative latitude = spin on the y axis
+	γ = 0;    // gamma  = roll = spin on the z axis
+
+	// orthographic projection d3
+	orthod3 = d3.geo.orthographic();
+	orthod3.rotate([λ,φ,γ]);
+	orthod3.scale(scale);
+	orthod3.translate([w/2, h/2]);
+	orthod3.clipAngle(90);
+
+	pathd3 = d3.geo.path();
+	pathd3.projection(orthod3);
+
+	// geojson features
+	var sphered3 = {type: "Sphere"};
+
+	var landd3 = topojson.object(worldtopo, worldtopo.objects.land);
+//var countries = topojson.object(worldtopo, worldtopo.objects.countries);
+//var ss = JSON.stringify(countries);
+//document.getElementById('voyc').innerHTML = ss;
+
+	var point = {
+		type:'Point',
+		coordinates:[100,0]
+	}
+
+	var line = {
+		type:'LineString',
+		coordinates:[[130,20],[80,-30]]
+	}
+
+	var line5 = {
+		type:'LineString',
+		coordinates:[[30,40],[120,40]],
+	}
+
+	var polygon = {
+		type: 'Polygon', 
+		coordinates: [[[75, 20], [75, 30], [85, 30], [85, 20], [75, 20]]]
+	};
+
+	svgd3 = d3.select("#d3").append("svg")
+		.attr("width", w)
+		.attr("height", h);
+
+	svgd3.append("path")
+		.datum(sphered3)
+		.attr("class", "sphere")
+		.attr("d", pathd3);
+
+	svgd3.selectAll(".land")
+		.data([landd3])
+		.enter()
+		.append('path')
+		.attr('class','land')
+		.attr("d", pathd3)
+
+	svgd3.append("path")
+		.datum(graticule)
+		.attr("class", "graticule")
+		.attr("d", pathd3);
+
+	//svgd3.append("path")
+	//	.datum(voyc.data.river[1])
+	//	.attr("class", "rivers")
+	//	.attr("d", pathd3);
+	svgd3.append("path")
+		.datum(voyc.data.river[1])
+		.attr("class", "rivers");
+		
+	svgd3.selectAll(".rivers")
+		.attr("d", pathd3);
+
+	svgd3.append("path")
+		.datum(point)
+		.attr("class", "point")
+		.attr("d", pathd3);
+
+	svgd3.append("path")
+		.datum(line)
+		.attr("class", "line")
+		.attr("d", pathd3);
+
+	svgd3.append("path")
+		.datum(line5)
+		.attr("class", "line")
+		.attr("d", pathd3);
+
+	svgd3.append("path")
+		.datum(polygon)
+		.attr("class", "polygon")
+		.attr("d", pathd3);
+
+	// orthographic projection voyc
+	var orthovoyc = new voyc.OrthographicProjection();
+	orthovoyc.rotate(co1);
+	orthovoyc.scale(scale);
+	orthovoyc.translate([w/2, h/2]);
+	orthovoyc.clip(90);
+
+	var proj1voyc = orthovoyc.project(co1);
+	var proj1d3 = orthod3(co1);
+	var proj2voyc = orthovoyc.project(co2);
+	var proj2d3 = orthod3(co2);
+	var proj3voyc = orthovoyc.project(co3);
+	var proj3d3 = orthod3(co3);
+	
+	var pt1 = [200,400];
+	var invert1voyc = orthovoyc.invert(pt1);
+	var invert1d3 = orthod3.invert(pt1);
+
+	var geojson = {type: "LineString", coordinates: 
+		[[-5, 40], [-5, 50], [10, 50], [10, 40], [-5, 40]] // points in decimal degrees
+	};
+
+	var geojson = {type: "MultiPolygon", coordinates: 
+		[[[[75, 20], [75, 30], [85, 30], [85, 20], [75, 20]]]] // points in decimal degrees
+	};
+
+
+}
+
+draw = function() {
+	var tmbegin = new Date();
+	orthod3.rotate([λ,φ,γ]);
+	orthod3.scale(scale);
+	svgd3.selectAll(".sphere")
+	  .attr("d", pathd3);
+	svgd3.selectAll(".land")
+	  .attr("d", pathd3);
+	svgd3.selectAll(".graticule")
+	  .attr("d", pathd3);
+	svgd3.selectAll(".rivers")
+	  .attr("d", pathd3);
+	svgd3.selectAll(".point")
+	  .attr("d", pathd3);
+	svgd3.selectAll(".line")
+	  .attr("d", pathd3);
+	svgd3.selectAll(".polygon")
+	  .attr("d", pathd3);
+
+	//var e = document.querySelector('#d3 svg path.point');
+	//e.setAttribute('d', pathd3);
+	  
+	  
+	  
+	var tmend = new Date();
+	var elapsed = tmend.getTime() - tmbegin.getTime();
+}
+
+window.addEventListener('load', function() {
+	go();
+}, false);
+
+window.addEventListener('keydown', function(evt) {
+	if (event.shiftKey) {
+		switch (evt.keyCode) {
+			case 39: γ -= 5; break;  // shift left/right spin around z axis
+			case 37: γ += 5; break;
+			case 38: scale += 10; break;  // shift up/down zoom in/out
+			case 40: scale -= 10; break;
+			default: return;
+		}
+	}
+	else {
+		switch (evt.keyCode) {
+			case 39: λ += 5; break;  // left/right spin horizontally on y axis
+			case 37: λ -= 5; break;
+			case 38: φ += 5; break;  // up/down spin vertically on x axis
+			case 40: φ -= 5; break;
+			default: return;
+		}
+	}
+	evt.preventDefault();
+	draw();
+}, false);
+
+
+</script>
+</head>
+<body>
+<div id='d3'></div>
+</body>
+</html>
+

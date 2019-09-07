@@ -1,0 +1,44 @@
+<style>
+seg {
+	display:inline-block;
+	width:5px;
+	height:2px;
+	margin:0;
+}
+.blue0 {
+	xbackground-color:#3cf;
+	background-color:#00f;
+}
+.blue1 {
+	xbackground-color:#09f;
+	background-color:#66f;
+}
+.blue2 {
+	xbackground-color:#03c;
+	background-color:#39f;
+}
+</style>
+
+<script>
+var n = 0;
+onload = function() {
+	var s = '';
+	//for (var i=0; i<100; i++) {
+	for (var i=99; i>0; i--) {
+		s += '<seg id=n' + i + '></seg>'
+	}
+	document.getElementById('line').innerHTML = s;
+	
+	setInterval(function() {
+		//for (var i=0; i<100; i++) {
+		for (var i=99; i>0; i--) {
+			var r = (i+n) % 3;
+			document.getElementById('n'+i).className = 'blue' + r;
+		}
+		n++;
+	}, 50);
+}
+</script>
+<body>
+<div id='line'></div>
+</body>

@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<body>
+
+<div id='js-rotation-example'></div>
+
+<script src='jquery.js'></script>
+
+<script src="d3.min.js"></script>
+<script src="topojson.min.js"></script>
+<script src="worldtopo.js"></script>
+
+<style>
+
+.background {
+  fill: #a4bac7;
+}
+
+.foreground {
+  fill: none;
+  stroke: #333;
+  stroke-width: 1.5px;
+}
+
+.graticule {
+  fill: none;
+  stroke: #fff;
+  stroke-width: .5px;
+}
+
+.graticule :nth-child(2n) {
+  stroke-dasharray: 2,2;
+}
+
+.land {
+  xfill: #d7c7ad;
+  fill: #0f0;
+  stroke: #766951;
+}
+
+.geojson {
+ fill: none;
+ stroke: red;
+ stroke-width: 5;
+}
+
+.boundary {
+  fill: none;
+  stroke: #a5967e;
+}
+
+</style>
+
+<script>
+var width = $(window).width(),
+    height = $(window).height();
+
+var sc = Math.min(width,height) * 0.5
+//var sc = Math.min(width,height) * 2
+var lat = 0 //-180
+var lng = -80 //0
+var projection = d3.geo.orthographic()
+    .scale(sc)
+    .translate([width/2,height/2])
+    .rotate([lat,0])
+    .clipAngle(90);
+var path = d3.geo.path()
+    .projection(projection);
+
+var graticule = d3.geo.graticule();
+
+var svg = d3.select("#js-rotation-example").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+svg.selectAll(".land")
+      .data([topojson.object(worldtopo, worldtopo.objects.land)])
+      .enter().append('path')
+      .attr('class','land')
+      .attr("d", path);
+
+draw = function() {
+  var tmbegin = new Date();
+//  lat = lat +.5
+//  lng = lng +.5
+//  sc = sc + 10
+  projection.rotate([lng,lat]);
+  projection.scale(sc);
+  svg.selectAll(".land")
+      .attr("d", path);
+  var tmend = new Date();
+  var elapsed = tmend.getTime() - tmbegin.getTime();
+  console.log('draw time: ' + elapsed + ' ms')
+  
+}
+
+draw();
+
+//setInterval(function(){
+//  draw()
+//},100);
+window.addEventListener('keydown', function(evt) {
+	switch (evt.keyCode) {
+		case 38: (event.shiftKey) ? sc += 10 : lat -= .5; break;
+		case 40: (event.shiftKey) ? sc -= 10 : lat += .5; break;
+		case 39: lng += .5; break;
+		case 37: lng -= .5; break;
+		default: return;
+	}
+	evt.preventDefault();
+	draw();
+}, false);
+</script>

@@ -1,0 +1,50 @@
+<html>
+	<head>
+		<meta http-equiv='content-type' content='text/html; charset=UTF-8'/>
+		<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+		<title>graph</title>
+
+		<script src='graph.js'></script>
+		
+		<style>
+		graph {
+			height:2rem;
+			width:20rem;
+			display:block;
+			margin:1rem 0;
+		}
+		</style>
+
+		<script>
+			var graph = new Graph();
+
+			var attachAllGraphs = function() {
+				var graphs = document.querySelectorAll('graph')
+				for (var i=0; i<graphs.length; i++) {
+					graph.attach(graphs[i]);
+				}
+			}
+
+			var drawAllGraphs = function() {
+				var graphs = document.querySelectorAll('graph')
+				for (var i=0; i<graphs.length; i++) {
+					graph.draw(graphs[i]);
+				}
+			}
+
+			addEventListener('load', function() {
+				attachAllGraphs();
+				drawAllGraphs();
+			});
+			addEventListener('resize', function() {
+				drawAllGraphs();
+			});
+
+		</script>
+	</head>
+	<body>
+		<graph value='3.45' max=10 draw=offcenter></graph>
+		<graph value='6.20' max=9  draw=combined ></graph>
+		<graph value='8.15' max=15 draw=offcenter></graph>
+	</body>
+</html>

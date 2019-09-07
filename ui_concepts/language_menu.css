@@ -1,0 +1,77 @@
+﻿class jw menu elements
+
+element.style {
+}
+.jw {
+  font-weight: 400;
+}
+.jw, .XP, .vga {
+  color: rgba(0,0,0,0.54);
+  height: 16px;
+  padding: 8px 8px 8px 56px;
+  position: relative;
+}
+user agent stylesheetdiv {
+  display: block;
+}
+Inherited from 
+.Mc {
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  -webkit-box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  box-shadow: 0 1px 2px rgba(0,0,0,0.15);
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  background-color: white;
+  text-align: left;
+}
+Inherited from 
+body {
+  height: 100%;
+  margin: 0;
+  color: #262626;
+  font: normal 14px Roboto,RobotoDraft,'Helvetica Neue',arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.4;
+  min-height: 320px;
+  min-width: 320px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  position: relative;
+}
+
+
+--------------
+smoked modal
+
+element.style {
+  opacity: 0.6;
+  width: 1097px;
+  height: 651px;
+}
+.Va-ca {
+  background-color: #000;
+  left: 0;
+  position: fixed;
+  top: 0;
+  z-index: 9000;
+}
+user agent stylesheetdiv {
+  display: block;
+}
+Inherited from 
+body {
+  height: 100%;
+  margin: 0;
+  color: #262626;
+  font: normal 14px Roboto,RobotoDraft,'Helvetica Neue',arial,sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.4;
+  min-height: 320px;
+  min-width: 320px;
+  overflow-x: hidden;
+  overflow-y: scroll;
+  padding: 0;
+  position: relative;
+}

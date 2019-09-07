@@ -1,0 +1,42 @@
+<html>
+<head>
+<title>Hist</title>
+
+<script src='browserhistory.js'></script>
+
+<script>
+
+<!-- Provide global variables: title, keyword, and loadpage() for use with browserhistory.js -->
+var title = 'Hist';
+var keyword = 'name';
+loadpage = function(page) {
+	document.title = title + ' ' + page
+	document.getElementById('content').innerHTML = 'This is a story about ' + page + '.';
+}
+
+
+addEventListener('load', function(event) {
+	var btns = document.querySelectorAll('button');
+	for (var i=0; i<btns.length; i++) {
+		btns[i].addEventListener('click', function(event) {
+			nav(event.currentTarget.id);
+		}, false);
+	}
+}, false)
+
+</script>
+</head>
+<body>
+<div>
+	<button id=winston>Winston</button>
+	<button id=genghis>Genghis</button>
+	<button id=houston>Houston</button>
+	<button id=murray>Murray</button>
+	<button id=oberheim>Oberheim</button>
+	<button id=tentanbach>Tentanbach</button>
+</div>
+<div id=content>
+	This is the home page.
+</div>
+</body>
+</html>

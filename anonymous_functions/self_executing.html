@@ -1,0 +1,26 @@
+<!doctype html>
+<html>
+<head>
+	<script>
+		var tit = (function() {
+			var x='a';
+			
+			init = function() {
+			};
+			
+			return {init:init};
+		}());
+		
+		onload = function() {
+			var y = 'b';
+			
+			tit.init();
+			
+			var z = 'c';
+		}
+	</script>
+</head>
+<body>
+	Debug and examine scope of variables.
+</body>
+</html>

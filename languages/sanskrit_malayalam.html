@@ -1,0 +1,166 @@
+<html>
+	<head>
+		<title>Sanskrit and Malayalam</title>
+		<meta http-equiv="content-type" content="text-html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<style>
+			html,body {
+				font-family: arial; 
+			}
+			#chart {
+			}
+			.row {
+				clear:both;
+				border-bottom:1px solid black;
+				}
+			.sanskrit,.malayalam,.transliteration,.play {
+				float:left;
+				width:24%;
+				padding:5px 0;
+				text-align:center;
+				border-right:1px solid black;
+				font-size:1.4em;
+			}
+			.sanskrit,.malayalam {
+			}
+			.play {
+			}
+			.file {
+				width:0;
+				display:none;
+			}
+		</style>
+		<script>
+			// for malayalam see http://symbolcodes.tlt.psu.edu/bylanguage/malayalamchart.html#vowels
+			// for sounds see http://www.malayalammitra.com/showpage?pageid=ml.pk
+			var alphabet = [
+				{s:2309,m:3333,f:'a' ,t:'a'},
+				{s:2310,m:3334,f:'aa',t:'ā'}, 
+				{s:2311,m:3335,f:'i' ,t:'i'},
+				{s:2312,m:3336,f:'ii',t:'ī'}, 
+				{s:2313,m:3337,f:'u' ,t:'u'},
+				{s:2314,m:3338,f:'uu',t:'ū'}, 
+				{s:2315,m:3339,f:'r' ,t:'r'},
+				{s:2400,m:3424,f:'rr',t:'ṝ'},
+				{s:2316,m:3340,f:'l' ,t:7735},
+				{s:2401,m:3425,f:''  ,t:7737},
+				//{s:2317,m:0000,f:''  ,t:'candra e'},
+				//{s:2318,m:0000,f:''  ,t:'short e'},
+				{s:2319,m:3342,f:'e' ,t:'e'},
+				{s:0000,m:3343,f:'ae',t:'ē'}, 
+				{s:2320,m:3344,f:'ai',t:'ai'},
+				//{s:2321,m:0000,f:''  ,t:'candra o'}, 
+				//{s:2322,m:0000,f:''  ,t:'short o'}, 
+				{s:2323,m:3346,f:'o' ,t:'o'}, 
+				{s:0000,m:3347,f:'oa',t:'ō'}, 
+				{s:0000,m:3348,f:'ow',t:'au'}, 
+				{s:2325,m:3349,f:'k',t:'ka'  },
+				{s:2326,m:3350,f:'kh',t:'kha' },
+				{s:2327,m:3351,f:'g',t:'ga'  },
+				{s:2328,m:3352,f:'gh',t:'gha' },
+				{s:2329,m:3353,f:'ng',t:'nga' },
+				{s:2330,m:3354,f:'ch',t:'ca'  },
+				{s:2331,m:3355,f:'chh',t:'cha' },
+				{s:2332,m:3356,f:'j',t:'ja'  },
+				{s:2333,m:3357,f:'zh',t:'jha' },
+				{s:2334,m:3358,f:'nj',t:'nya' },
+				{s:2335,m:3359,f:'t',t:'tta' },
+				{s:2336,m:3360,f:'tdh',t:'ttha'},
+				{s:2337,m:3361,f:'d',t:'dda' },
+				{s:2338,m:3362,f:'dhv',t:'ddha'},
+				{s:2339,m:3363,f:'tn',t:'nna' },
+				{s:2340,m:3364,f:'tv',t:'ta'  },
+				{s:2341,m:3365,f:'th',t:'tha' },
+				{s:2342,m:3366,f:'dv',t:'da'  },
+				{s:2343,m:3367,f:'dh',t:'dha' },
+				{s:2344,m:3368,f:'n',t:'na'  },
+				{s:2346,m:3370,f:'p',t:'pa'  },
+				{s:2347,m:3371,f:'ph',t:'pha' },
+				{s:2348,m:3372,f:'b',t:'ba'  },
+				{s:2349,m:3373,f:'bh',t:'bha' },
+				{s:2350,m:3374,f:'m',t:'ma'  },
+				{s:2351,m:3375,f:'y',t:'ya'  },
+				{s:2352,m:3376,f:'r',t:'ra'  },
+				{s:2353,m:3377,f:'',t:'rra' },
+				{s:2354,m:3378,f:'l',t:'la'  },
+				{s:2355,m:3379,f:'',t:'lla' },
+				{s:2356,m:3380,f:'',t:'llla'},
+				{s:2357,m:3381,f:'w',t:'va'  },
+				{s:2358,m:3382,f:'sh',t:'sha' },
+				{s:2359,m:3383,f:'hsh',t:'ssa' },
+				{s:2360,m:3384,f:'s',t:'sa'  },
+				{s:2361,m:3385,f:'h',t:'ha'  },
+				//{s:2345,m:0000,f:'',t:'NNNA'},
+				//{s:2392,m:0000,f:'',t:'QA'},
+				//{s:2393,m:0000,f:'',t:'KHHA'},
+				//{s:2394,m:0000,f:'',t:'GHHA'},
+				//{s:2395,m:0000,f:'',t:'ZA'},
+				//{s:2396,m:0000,f:'',t:'DDDHA'},
+				//{s:2397,m:0000,f:'',t:'RHA'},
+				//{s:2398,m:0000,f:'',t:'FA'},
+				//{s:2399,m:0000,f:'',t:'YYA'},
+				{s:2406,m:3430,f:'0',t:'48'},
+				{s:2407,m:3431,f:'1',t:'49'},
+				{s:2408,m:3432,f:'2',t:'50'},
+				{s:2409,m:3433,f:'3',t:'51'},
+				{s:2410,m:3434,f:'4',t:'52'},
+				{s:2411,m:3435,f:'5',t:'53'},
+				{s:2412,m:3436,f:'6',t:'54'},
+				{s:2413,m:3437,f:'7',t:'55'},
+				{s:2414,m:3438,f:'8',t:'56'},
+				{s:2415,m:3439,f:'9',t:'57'}
+			];
+			onload=function() {
+				var pattern = "<div class='row'><div class='sanskrit'>%s%</div><div class='malayalam'>%m%</div><div class='transliteration'>%t%</div><div class='file'>%f%</div><div class='play'>%p%</div></div>";
+				var xplaypat = "<input type='button' onclick='playSound(\"a/%f%.mp3\")' value='Play'/>";
+				var playpat = "<audio id='player-%f%' preload='auto'><source src='a/%f%.mp3' type='audio/mpeg'></audio><button onclick='document.getElementById(\"player-%f%\").play()'>Play</button>";
+				var ss = '';
+				var s,r,f,t,p;
+				for (key in alphabet) {
+					a = alphabet[key];
+					for (k in a) {
+						if (a[k] == '' || a[k] == 0) {
+							a[k] = '&nbsp;';
+						}
+					}
+					r = pattern;
+
+					s = (isNaN(a.s)) ? a.s : '&#'+a.s+';';
+					r = r.replace('%s%', s);
+
+					m = (isNaN(a.m)) ? a.m : '&#'+a.m+';';
+					r = r.replace('%m%', m);
+
+					t = (isNaN(a.t)) ? a.t : '&#'+a.t+';';
+					r = r.replace('%t%', t);
+					
+					r = r.replace('%f%', a.f);
+					
+					p = '&nbsp;';
+					if (a.f != '&nbsp;') {
+						p = playpat;
+						p = p.replace('%f%', a.f);
+						p = p.replace('%f%', a.f);
+						p = p.replace('%f%', a.f);
+						p = p.replace('%f%', a.f);
+					}
+					r = r.replace('%p%', p);
+						
+					ss += r;
+				}
+				document.getElementById('chart').innerHTML = ss;
+			}
+			playSound = function(audioFilename) {
+				var audioPattern1 = "<embed id='currentAudio' src='%audiofile%' hidden='true' autostart='true' loop='false'/>";
+				var audioPattern2 = "<audio id='currentAudio' src='%audiofile%' autoplay='true'/>";
+				var p = audioPattern2;
+				p = p.replace('%audiofile%', audioFilename);
+				document.getElementById('audioContainer').innerHTML = p;
+			}
+		</script>
+	</head>
+	<body>
+		<div id='chart'></div>
+		<div id='audioContainer'></div>		
+	</body>
+</html>	

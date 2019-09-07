@@ -1,0 +1,98 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv=Content-Type content='text/html; charset=UTF-8'>
+		<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+		<title>Personal Empowerment Guide</title>
+		<style>[hidden] {display:none ! important;}</style>
+		<link  href='js/peg.css' rel='stylesheet' type='text/css'></link>
+		<link  href='minimal/normaleyes.css' rel='stylesheet' type='text/css'></link>
+		<link  href='minimal/minimal.css' rel='stylesheet' type='text/css'></link>
+		<link  href='minimal/theme/mahagony.css' rel='stylesheet' type='text/css'></link>
+		<link  href='icon/icon.css' rel='stylesheet' type='text/css'></link>
+
+		<script>var peg = {}; </script>
+
+		<!-- software -->
+		<script src='icon/icon.js'></script>
+		<script src='icon/lib/menu.js'></script>
+		<script src='icon/lib/gear.js'></script>
+		<script src='jslib/dragger.js'></script>
+		<script src='jslib/utils.js'></script>
+		<script src='minimal/minimal.js'></script>
+		<script src='js/peg.js'></script>
+		<script src='js/graph.js'></script>
+
+		<!-- fixed data -->
+		<script src='js/strings.js'></script>
+		<script src='js/tests.js'></script>
+		<script src='js/factors.js'></script>
+		<script src='js/gifts.js'></script>
+		
+		<!-- scores loaded dynamically per user -->
+		<script src='js/scores.js'></script>
+	</head>
+	<body>
+		<header class='fixed'>
+			<hdr>
+				<icon type='draw' name='menu' class='' open='modeless-leftnav'></icon>
+				<span id='hdrtitle' style='vertical-align:middle'>Personal Empowerment Guide</span>
+			</hdr>
+			<hdr id='hdrformat'>
+				<button toggle=format class='bblu'      redraw='entry'>Enter Scores</button>
+				<button toggle=format class='bblu down' redraw='summary'>Summary</button>
+				<button toggle=format class='bblu'      redraw='detail'>Detail</button>
+				<button toggle=format class='bblu'      redraw='personality'>Personality</button>
+			</hdr>
+			<hdr style='text-align:right'>
+				<icon type=draw name=gear class='' open='modeless-options'></icon>
+				<icon type=draw name=user class='' open='modeless-user'></icon>
+			</hdr>
+		</header>
+
+		<section id='content' class='narrative'></section>
+
+		<!-- popup dialogs, managed by Options class -->
+
+		<!-- leftnav, called from menu icon on the header -->
+		<nav initially hidden class='panel list popup leftnav blu' id='modeless-leftnav'>
+			<div close='modeless-leftnav' class='closex'>&times;</div>
+			<h3>Format</h3>
+			<ul>
+				<li><input type='radio' name='format' redraw='entry'       id='formatentry'           close='modeless-leftnav' /><label for='formatentry'>Enter Scores</label></li>
+				<li><input type='radio' name='format' redraw='summary'     id='formatsummary' checked close='modeless-leftnav' /><label for='formatsummary'>Summary Report</label></li>
+				<li><input type='radio' name='format' redraw='detail'      id='formatdetails'         close='modeless-leftnav' /><label for='formatdetails'>Detail Report</label></li>
+				<li><input type='radio' name='format' redraw='personality' id='formatpersonality'     close='modeless-leftnav' /><label for='formatpersonality'>Personality Report</label></li>
+			</ul>
+		</nav>
+
+		<!-- options, called from gear icon on the header -->
+		<aside initially hidden class='panel list popup dropdown blu' id='modeless-options'>
+			<div close='modeless-options' class='closex'>&times;</div>
+			<h3>Options</h3>
+			<ul>
+				<li><input type='checkbox' id='showscores'           close='modeless-options' /><label for='showscores'>Show Scores</label></li>
+				<li><input type='checkbox' id='showgifts'            close='modeless-options' /><label for='showgifts'>Show Details</label></li>
+				<li><input type='checkbox' id='orderbysignificance'  close='modeless-options' /><label for='orderbysignificance'>Order by Significance</label></li>
+			</ul>
+			<h4>2D Graph Style</h4>
+			<ul>
+				<li><input type='radio' name='graphdraw' id='paired'         close='modeless-options' /><label for='paired'   >Paired</label></li>
+				<li><input type='radio' name='graphdraw' id='offcenter'      close='modeless-options' /><label for='offcenter'>Off-Center</label></li>
+				<li><input type='radio' name='graphdraw' id='vendor' checked close='modeless-options' /><label for='vendor'   >Vendor Default</label></li>
+			</ul>
+		</aside>
+
+		<!-- user menu, called from user icon on the header -->
+		<aside initially hidden class='panel list popup dropdown blu' id='modeless-user'>
+			<div close='modeless-user' class='closex'>&times;</div>
+			<h3>User</h3>
+			<ul>
+				<li><input type='radio' name='sampleuser' id='joe' checked close='modeless-user' /><label for='joe'  >Joe Blow  </label></li>
+				<li><input type='radio' name='sampleuser' id='sally'       close='modeless-user' /><label for='sally'>Sue Sample</label></li>
+				<li><input type='radio' name='sampleuser' id='alan'        close='modeless-user' /><label for='alan' >Alan Watts</label></li>
+			</ul>
+		</aside>
+
+	</body>
+</html>

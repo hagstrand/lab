@@ -1,0 +1,68 @@
+<!doctype html>
+<html>
+	<head>
+		<style>
+			#panelContainer {
+				height: 500px;
+				width: 720px;
+				background-image: url('i/bgimage.png');
+				background-size: cover;
+			}
+			.levelpanel {
+				float: left;
+				width: 160px;
+				height: 100px;
+				border: 1px solid black;
+				margin: 5px;
+				padding: 3px;
+				border-radius: 11px;
+			}
+		</style>
+		<link href="birds.css" rel="stylesheet" type="text/css"></link>
+		<script>
+			$ = function(s) {
+				return document.getElementById(s);
+			}
+			
+			drawPanels = function() {
+				var x = $('panelContainer');
+				var numlevels = levels.length;
+				var numcols = 4;
+				for (var i=0; i<numlevels; i++) {
+					
+					var d = document.createElement('div');
+					d.className = 'levelpanel';
+					d.innerHTML = levels[i].id;
+					x.appendChild(d);
+				}
+				//x.style.backgroundColor = 'pink';
+			}
+			
+			onload = function() {
+				drawPanels();
+			}
+			
+			var levels = [
+				{ id:1, name:"level one" },
+				{ id:2, name:"level two" },
+				{ id:3, name:"level three" },
+				{ id:4, name:"level four" },
+				{ id:5, name:"level five" },
+				{ id:6, name:"level six" },
+				{ id:7, name:"level seven" },
+				{ id:8, name:"level eight" },
+				{ id:9, name:"level nine" },
+				{ id:10, name:"level ten" },
+				{ id:11, name:"level eleven" },
+				{ id:12, name:"level twelve" }
+			];
+		</script>
+	</head>
+	<body>
+		<button>button</button>
+		<button class="punch">button punch</button>
+		<button class="webitect">button webitect</button>
+		<div id="panelContainer">
+		</div>
+	</body>
+</html>

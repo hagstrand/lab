@@ -1,0 +1,73 @@
+button.punch {
+	margin-top: 54px;
+	background: #4162A8;
+	border-top: 1px solid #38538C;
+	border-right: 1px solid #1F2D4D;
+	border-bottom: 1px solid #151E33;
+	border-left: 1px solid #1F2D4D;
+	-webkit-border-radius: 4px;
+	-moz-border-radius: 4px;
+	border-radius: 4px;
+	-webkit-box-shadow: inset 0 1px 10px 1px 
+	#5C8BEE, 0px 1px 0 
+	#1D2C4D, 0 6px 0px 
+	#1F3053, 0 8px 4px 1px 
+	#111;
+	-moz-box-shadow: inset 0 1px 10px 1px #5c8bee, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
+	box-shadow: inset 0 1px 10px 1px 
+	#5C8BEE, 0px 1px 0 
+	#1D2C4D, 0 6px 0px 
+	#1F3053, 0 8px 4px 1px 
+	#111;
+	color: white;
+	font: bold 20px "helvetica neue", helvetica, arial, sans-serif;
+	line-height: 1;
+	margin-bottom: 10px;
+	padding: 10px 0 12px 0;
+	text-align: center;
+	text-shadow: 0px -1px 1px #1E2D4D;
+	width: 150px;
+	-webkit-background-clip: padding-box;
+}
+button.punch:hover {
+	-webkit-box-shadow: inset 0 0px 20px 1px 
+	#87ADFF, 0px 1px 0 
+	#1D2C4D, 0 6px 0px 
+	#1F3053, 0 8px 4px 1px 
+	#111;
+	-moz-box-shadow: inset 0 0px 20px 1px #87adff, 0px 1px 0 #1d2c4d, 0 6px 0px #1f3053, 0 8px 4px 1px #111111;
+	box-shadow: inset 0 0px 20px 1px 
+	#87ADFF, 0px 1px 0 
+	#1D2C4D, 0 6px 0px 
+	#1F3053, 0 8px 4px 1px 
+	#111;
+	cursor: pointer;
+}
+
+
+button.webitect {
+	/*color is up to you, overlay png gives button a gradient*/
+	background: #222 url(/images/alert-overlay.png) repeat-x;
+	
+	/*set up the layout just right*/
+	display: inline-block;
+	padding: 5px 10px 6px;
+	position: relative;
+	
+	/*style the cursor and text of the button*/
+	color: #fff;
+	text-decoration: none;
+	font-weight: bold;
+	line-height: 1;
+	cursor: pointer;
+	
+	/*add rounded corners in mozilla and webkit*/
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	 
+	/*Add box shadows and a bottom border with rgba colors*/
+	-moz-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	-webkit-box-shadow: 0 1px 3px rgba(0,0,0,0.5);
+	text-shadow: 0 -1px 1px rgba(0,0,0,0.25);
+	border-bottom: 1px solid rgba(0,0,0,0.25);
+}

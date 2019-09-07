@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>test audio</title>
+		<meta http-equiv="content-type" content="text-html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<script>
+			play = function() {
+				var ac = document.getElementById('audiocontainer');
+				ac.src = 'a/uu.mp3';
+				ac.load();
+				ac.play();
+			}
+		</script>
+	</head>
+	<body>
+		hello
+		<audio id='player' controls preload='auto'><source src="a/aa.mp3" type="audio/mpeg"></audio>
+		<button onclick="document.getElementById('player').play()">Play</button>
+
+		<div>
+			goodbye
+			<audio id='audiocontainer' controls></audio>
+			<button onclick='play()'>Play</button>
+		</div>
+    	</body>
+</html>

@@ -1,0 +1,86 @@
+<!doctype html>
+<html>
+<head>
+<title>sprites</title>
+	<link  href='explosion-1.css' rel='stylesheet' type='text/css'></link>
+	<link  href='explosion-2.css' rel='stylesheet' type='text/css'></link>
+	<script src='spriteCss.js'></script>
+<script>
+/*
+var img_obj = {
+    'source': null,
+    'current': 0,
+    'total_frames': 16,
+    'width': 16,
+    'height': 16
+};
+
+var img = new Image();
+img.onload = function () { // Triggered when image has finished loading.
+    img_obj.source = img;  // we set the image source for our object.
+}
+img.src = 'img/filename.png'; // contains an image of size 256x16
+                              // with 16 frames of size 16x16
+
+function draw_anim(context, x, y, iobj) { // context is the canvas 2d context.
+    if (iobj.source != null)
+        context.drawImage(iobj.source, iobj.current * iobj.width, 0,
+                          iobj.width, iobj.height,
+                          x, y, iobj.width, iobj.height);
+    iobj.current = (iobj.current + 1) % iobj.total_frames;
+                   // incrementing the current frame and assuring animation loop
+}
+
+function on_body_load() { // <body onload='on_body_load()'>...
+    var canvas = document.getElementById('canvasElement');
+                 // <canvas id='canvasElement' width='320' height='200'/>
+    var context = canvas.getContext("2d");
+
+    setInterval((function (c, i) {
+                return function () {
+                    draw_anim(c, 10, 10, i);
+                };
+    })(context, img_obj), 100);
+}
+*/
+
+assets = [
+	{ w:142, h:200, c:16, r:1, f:15, n:'explosion-1'},
+	{ w:180, h:135, c: 8, r:1, f:15, n:'explosion-2'},
+];
+sprites = {};
+
+window.addEventListener('load', function() {
+	for (var i=0; i<assets.length; i++) {
+		var asset = assets[i];
+		sprites[asset.n] = new Sprite();
+		var sprite = sprites[asset.n];
+		sprite.setup(null, asset);
+	}
+	
+	var e = document.getElementById('explosion-1');
+	e.addEventListener('click', function(evt) {
+		sprites['explosion-1'].explode();
+	}, false);
+
+	var e = document.getElementById('explosion-2');
+	e.addEventListener('click', function(evt) {
+		t = evt.target;
+		sprites['explosion-2'].explode();
+	}, false);
+}, false);
+
+</script>
+
+</head>
+<body>
+	explosion-1<br/>
+	<img src='explosion-1.gif' />
+	<div id='explosion-1' class='explosion-1'></div>
+	<img src='explosion-1.png' />
+	explosion-2<br/>
+	<img src='explosion-2.gif' />
+	<div id='explosion-2' class='explosion-2'></div>
+	<img src='explosion-2.png' /><br/>
+</body>
+</html>
