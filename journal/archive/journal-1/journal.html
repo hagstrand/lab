@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Journal</title>
+		<style>
+			label.talabel {
+				vertical-align:top;
+			}
+			.future {
+				display:none;
+			}
+			#ad {
+				border:1px solid black;
+				width:250px;
+				text-align:center;
+			}
+			#tstory {
+				height:90px;
+				width:250px;
+			}
+			#buttons {
+				width:250px;
+				text-align:center;
+			}
+		</style>
+		<script src="utilities.js"></script>
+		<script src="journal.js"></script>
+		<script src="updater.js"></script>
+		<script src="xhr.js"></script>
+		<script src="when.js"></script>
+		<script>
+			onload = function() {
+				jgh.journal = new Journal();
+				jgh.journal.setup();
+				jgh.journal.updater = new Updater();
+			}
+		</script>
+	</head>
+	<body>
+		<div id="journal">
+			<form>
+				<p><label>How do you feel?: <select id="tfeeling">
+					<option value="0">Select one:</option>
+					<option value="1000">Enlightenment</option>
+					<option value="600">Peace</option>
+					<option value="540">Joy</option>
+					<option value="500">Love</option>
+					<option value="400">Reason</option>
+					<option value="350">Acceptance</option>
+					<option value="310">Willingness</option>
+					<option value="250">Neutrality</option>
+					<option value="200">Courage</option>
+					<option value="175">Pride</option>
+					<option value="150">Anger</option>
+					<option value="125">Desire</option>
+					<option value="100">Fear</option>
+					<option value="75">Grief</option>
+					<option value="50">Apathy</option>
+					<option value="30">Guilt</option>
+					<option value="20">Shame</option>
+				</select></label></p>
+
+				<div class="future">
+					<p><a href="#">Camera</a></p>
+				</div>
+
+				<label class="talabel">Journal:<br/><textarea id="tstory">Write your thoughts here</textarea></label>
+				<br/>
+
+				<div class="future">
+					<p><label class="talabel">Food: <textarea id="tfood"></textarea></label></p>
+					<p><label class="talabel">Activity: <textarea id="tactivity"></textarea></label></p>
+					<p><label class="talabel">Thoughts: <textarea id="tthoughts"></textarea></label></p>
+				</div>
+
+				<div id="buttons">
+					<input type="button" onclick="jgh.journal.post()" value="Done"/>
+					<input type="button" onclick="jgh.journal.cancel()" value="Cancel"/>
+				</div>
+				<br/>
+
+				Thank you to our sponsors:<br/>
+				<div id="ad">
+				</div>
+
+				<div class="future">
+					<p><label class="talabel">Remind me: <textarea id="tremindme"></textarea></label></p>
+				</div>
+			</form>
+
+		</div>
+	</body>
+</html>

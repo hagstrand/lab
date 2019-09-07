@@ -1,0 +1,25 @@
+<!doctype html>
+<html>
+	<title>Journal Timer</title>
+	<head>
+		<script src="utilities.js"></script>
+		<script src="manager.js"></script>
+		<script>
+			onload = function() {
+				jgh.manager = new Manager();
+				jgh.manager.setup();
+			}
+		</script>
+	</head>
+	<body>
+		This is the timer manager for Journal.<br/>
+		<audio id="audiobell" src="bell.mp3"></audio>
+		<br/>
+		<br/>
+		Currently this works in:<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;Chrome, and<br/>
+			&nbsp;&nbsp;&nbsp;&nbsp;Firefox with Firebug open<br/>
+
+		<img src="waldo.jpg"/>
+	</body>
+</html>

@@ -1,0 +1,106 @@
+<!doctype html>
+<html>
+	<title>Journal Timer</title>
+	<head>
+		<style>
+			#menu {
+				border:1px solid black;
+				display:none;
+				width:100px;
+			}
+			#settings {
+				border:1px solid black;
+				display:none;
+				width:300px;
+			}
+		</style>
+		<script src="utilities.js"></script>
+		<script src="manager.js"></script>
+		<script src="updater.js"></script>
+		<script src="xhr.js"></script>
+		<script>
+			onload = function() {
+				jgh.manager = new Manager();
+				jgh.manager.setup();
+			}
+		</script>
+	</head>
+	<body>
+		This system requires HTML5.<br/>
+		<a href="#" onclick="jgh.manager.openJournal()">Journal</a><br/>
+
+		<br/>
+		<label>Alert me every: <select id="tinterval">
+			<option value="0">(no alerts)</option>
+			<option value="10*1000">10 seconds</option>
+			<option value="1*60000">1 minute</option>
+			<option value="5*60000">5 minutes</option>
+			<option value="10*60000">10 minutes</option>
+			<option value="20*60000">20 minutes</option>
+			<option value="40*60000">30 minutes</option>
+			<option value="1*3600000">1 hour</option>
+			<option value="2*3600000">2 hours</option>
+			<option value="3*3600000">3 hours</option>
+			<option value="4*3600000">4 hours</option>
+			<option value="6*3600000">6 hours</option>
+			<option value="12*3600000">12 hours</option>
+			<option value="24*3600000">24 hours</option>
+		</select></label><br/>
+		<a href="#" onclick="jgh.manager.start()">Start</a>&nbsp;&nbsp;
+		<a href="#" onclick="jgh.manager.stop()">Stop</a><br/>
+
+		<br/>
+
+		<a href="#" onclick="jgh.manager.menu(true)">menu</a><br/>
+
+		Display journal: list, graph.<br/>
+
+
+		<div id="menu">
+			<a href="#" onclick="jgh.manager.myAccount()">My Account</a><br/>
+			<a href="#" onclick="jgh.manager.settings(true)">Settings</a><br/>
+		</div>
+
+		<div id="settings">
+			<form>
+				<p><label>Check In?: <select id="tcheckin">
+					<option value="1">On</option>
+					<option value="0">Off</option>
+				</select></label></p>
+				<p><label>How often?: <select id="tinterval">
+					<option value="10*1000">10 seconds</option>
+					<option value="1*60000">1 minute</option>
+					<option value="5*60000">5 minutes</option>
+					<option value="10*60000">10 minutes</option>
+					<option value="20*60000">20 minutes</option>
+					<option value="40*60000">30 minutes</option>
+					<option value="1*3600000">1 hour</option>
+					<option value="2*3600000">2 hours</option>
+					<option value="3*3600000">3 hours</option>
+					<option value="4*3600000">4 hours</option>
+					<option value="6*3600000">6 hours</option>
+					<option value="12*3600000">12 hours</option>
+					<option value="24*3600000">24 hours</option>
+				</select></label></p>
+
+				<p><label class="talabel">Daily start time: <input type="time" id="tstarttime"/></label></p>
+				<p><label class="talabel">Daily stop time: <input type="time" id="tstoptime"/></label></p>
+				
+				<p><label>Show food: <select id="tfieldfood">
+					<option value="1">Show</option>
+					<option value="0">Hide</option>
+				</select></label></p>
+				<p><label>Show activity: <select id="tfieldactivity">
+					<option value="1">Show</option>
+					<option value="0">Hide</option>
+				</select></label></p>
+				<p><label>Show thoughts: <select id="tfieldthoughts">
+					<option value="1">Show</option>
+					<option value="0">Hide</option>
+				</select></label></p>
+			</form>
+			<input type="button" onclick="jgh.manager.settings(false)" value="Done"/>
+		</div>
+		<audio id="audiobell" src="bell.mp3"></audio>
+	</body>
+</html>

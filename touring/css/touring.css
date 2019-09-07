@@ -1,0 +1,43 @@
+html,body {
+    height:100%;
+    width:100%;
+    margin:0;
+    padding:0;
+    //overflow:hidden;
+	-webkit-text-size-adjust:none;  /* for iphone */
+}
+body,p,a,td,span { 
+	font-family:arial;
+	font-size:11pt; 
+}
+#wholescreen {
+	text-align:center;
+}
+#trackname {
+	text-align:center;
+	font-weight:bold;
+	font-size:125%;
+}
+#audio1{
+	padding:5px;
+}
+#photo {
+	height:250px;
+}
+#trackname {
+	text-align:center;
+	font-weight:bold;
+	font-size:125%;
+}
+
+/* debug window */
+#debugwindow {
+	display:none;
+}
+#touring-log {
+	border: 1px solid #D6D6D6;
+}
+#map {
+	width:300px;
+	height:300px;
+}

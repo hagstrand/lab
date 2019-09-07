@@ -1,0 +1,107 @@
+combine two parts:
+Anywhere But Here
+How to survive a plague
+Pretty Woman
+The King and I
+The station Agent
+Woody Allen A Documentary
+
+-------------------------------
+Fix up movies.xls
+
+dupes in movies and review
+Blue Valentine
+Cars 2
+Gandhi
+Glory
+High Road To China
+Lean On Me
+Match Point
+Moonrise Kingdom
+Pretty Woman
+Safety Not Guaranteed
+The Best Exotic Marigold Hotel
+The Campaign
+The Celestine Prophecy
+The Class
+Unmistaken Child
+You've Got Mail
+
+movies.xls and review.xls should now be de-duped
+
+x check dupe files in movies vs review
+	no dupes in the folders
+	all these dupes were in review, not in movies
+
+x list of filenames for /movies
+
+x list of titles to pull IDBM Key
+	getkeyandplot.txt
+x list of titles to pull all information
+	getcomplete.txt
+
+x copy comments from _notes.txt to movies.xls
+
+x run hit_imdb on getkeyandplot
+x add imdb key and plot from getkeyandplot into movies.
+
+x run hit_imdb on getcomplete
+x create new xls named getcomplete.
+
+x merge xls: movies + getcomplete + review
+
+merge media files: review into movies
+
+x rename The Iron Lady.avi
+-------------------------------
+system gen
+
+x before gen, accomdate the changed xls columns:
+x  insert imdb key column before Director
+x  switch plot and format
+x  insert filename after format, before Stars
+x  delete Torrent
+
+
+after system gen, more fix up, with repeated re-gen
+
+remove Bollywood
+change scifi to Sci-Fi
+
+get keywords and Oscar nominations from IMDb
+
+------------------------------------
+
+delete silly movies
+
+Separate genre and keyword columns? 
+Capitalize Keywords from Genres
+Oscar keyword - pull automatically from IDMB. 
+What about other awards?
+What are my own keywords and why?: favorite, classic, b&w 
+
+
+imdb genres:
+Action          
+Adventure
+Animation
+Biography
+Comedy
+Crime
+Documentary
+Drama
+Family
+Fantasy
+Film-Noir
+History
+Horror
+Music
+Musical
+Mystery
+Romance
+Sci-Fi
+Sport
+Thriller
+War
+Western
+

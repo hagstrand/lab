@@ -1,0 +1,28 @@
+* {
+	font-family:Verdana,Arial,sans-serif;;
+}
+p {
+	font-family:Verdana,Arial,sans-serif;;
+}
+h1 {
+	font-size:1.1em;
+	margin:.3em 0em;
+} 
+.field {
+	line-height:140%;
+}
+.label {
+	font-weight:bold;
+}
+div.titlerow, div#list {
+	line-height:1.2em;
+}
+#nowshowing {
+	font-weight:bold;
+}
+.comment {
+	font-style: italic;
+}
+.rating {
+	color:#f00;
+}

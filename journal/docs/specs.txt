@@ -1,0 +1,23 @@
+
+
+my intention:
+write a complete development plan and design for huxley's parrot and publish it to the public on elance
+
+Potential uses:
+journal to facebook, twitter, or some other blog
+record heart rate, temperature, blood pressure, or some other statistic
+
+add startup screen, move login
+
+1.  audible alarm only
+2.  journal
+3.  login
+4.  location
+5.  camera
+6.  public vs private options
+7.  facebook, twitter
+8.  birds eye views
+9.  tracking additional characteristics
+10. customize feelings
+11. Add security and encryption.
+

@@ -1,0 +1,192 @@
+tips
+
+When feeling bad, write an antidote.  What do you want to feel?  What do you want?  What do you want to think about?
+
+Wins
+Dreams
+Thoughts
+Vision
+Medititation
+
+
+What you have eaten
+What exercise  have you completed
+What are your activities
+
+
+Aldous Huxley wrote a book titled Island.  He is better known for Brave New World, written about a dystopia.  Island is the antidote.  Island covers many of the same themes and technologies as Brave New World, but here they're used for good, to improve and uplift the race of man.
+On the Island are talking mynah birds, in the trees.  they say "Attention".  and "Here and now, boys."
+The islanders trained them to do this, to have reminders constantly throughout the day to focus one's attention on the here and now.
+
+Now, thanks to the miracle of smart phones, we can all have one of Huxley's Mynah Birds with us all the time.
+---------------
+
+
+
+
+
+
+/svc/register
+POSTDATA=data=<request><username>jhagstrand</username><password>voycjh</password><email>john@voyc.com</email></request>
+
+
+/svc/login
+POSTDATA=data=<request><username>jhagstrand</username><password>voycjh</password></request>
+
+
+/svc/update
+POSTDATA=data=
+<request>
+	<action>insert</action>
+	<id>0</id>
+	<version>0</version>
+	<token>4a860f1fab2d8a6b3d9f7172cf3f21e1</token>
+	<headline><<![CDATA[this is headline]]></headline>
+	<abstract><<![CDATA[this is story]]></abstract>
+	<tags><<![CDATA[tag1]]></tags>
+	<storyurl><<![CDATA[]]></storyurl>
+	<imageurl><<![CDATA[www.voyc.com/photos/jgh.jpg]]></imageurl>
+	<thumburl><<![CDATA[www.voyc.com/photos/jgh.jpg]]></thumburl>
+	<placename><<![CDATA[]]></placename>
+	<geometry>34.08906131, 45.52734375</geometry>
+	<author><<![CDATA[jhagstrand]]></author>
+	<when>15 Jan 2011, 09:56:19 PM</when>
+	<datatype>11</datatype>
+</request>
+
+
+POSTDATA=data=
+<request>
+	<action>insert</action>
+	<id>0</id>
+	<version>0</version>
+	<token>4a860f1fab2d8a6b3d9f7172cf3f21e1</token>
+	<score>1000</score>
+	<abstract><<![CDATA[this is story]]></abstract>
+	<when>15 Jan 2011, 09:56:19 PM</when>
+	<datatype>11</datatype>
+</request>
+
+
+
+http://www.voyc.com/svc/get?rf=1295157433564&id=222055&token=4a860f1fab2d8a6b3d9f7172cf3f21e1
+g.data.onDetailLoaded({id:222055,b:,e:,h:"this is headline",c:1,f:222055,gn:,gs:,ge:,gw:,mlh:18,mll:1,tlh:3,tll:1,mt:5,tt:2,tu:"www.voyc.com/photos/jgh.jpg",mag:800,p:[[0,0],[0,0]],v:0,s:"this is story",su:"",t:"tag1",src:"",plc:"",iu:"www.voyc.com/photos/jgh.jpg",aut:"jhagstrand",dt:11,prec:-8000,vote:0},2147483647,"read");
+
+
+
+
+clarity of vision
+	How many people voyc reaches.
+	How voyc contributes to evolving consciousness.
+	How voyc contributes to evolving my consciousness.
+	Something I look at every day.
+
+window titles
+focus() to make popup window come up on top.
+get mpe of parrot saying attention
+add sound
+why does popup journal not cover chrome browser
+test 24 hour clock, start time, end time
+
+future
+	"track private items:"
+	"add additional private items to track"
+
+Request a tip from:
+    michael beckwith
+    eckhart tolle
+    louise hay
+    carolyn myss
+    wayne dyer
+    the dalai lama
+
+conscious contact
+
+What are you most grateful for right now?
+Where is your attention?
+What are you thinking?
+
+
+settings
+	my account
+		username
+		password
+		tier
+		upgrade
+		donate
+	alerts
+		on/off
+		daily begin/end
+		every 10minutes/20minutes/1hour/2hours/3hours/4hours/6hours/12hours/24hours
+	items to journal
+		feeling
+			pick scale: 1-10/dawkins
+		public comment
+		photo
+		food
+		exercise
+		thoughts
+		activity
+		add additional
+			define number/enum/string
+		show ads
+	
+My Account
+username
+password
+tier
+	guest - cannot save data
+	registered - saves data
+	subscriber (paid) - special privileges
+	    suppress ads
+	    add custom affirmations
+	    track private items
+	    comment on other people's entries
+		(user gets upsell when he ties to turn ads off, or turn custom affirmations on)
+
+add message area with messages re hayhouse, seaside, beckwith
+	allow replacement of messages with custom affirmations
+	choose a message from a database, which will become the ad server
+ad server table
+	message 
+	start date
+	stop date
+	max frequency
+	min frequency
+
+put the user's custom affirmations in the ad server table?
+
+how to choose message (ad)
+	random plus roundrobin plus percentage factor plus min and max frequency
+
+
+names
+	attention
+	attention here now
+	beherenow
+	herenow
+	present
+	presence
+	wakeup
+	voice
+	conscious contact
+	parrot
+	huxley's parrot
+	ifeelfine
+	imfine
+	finethanks
+	howareyou
+	howru
+	peace
+	loveandpeace
+	love
+	bliss
+	grow
+	evolve
+	seeme
+	feelme
+	touchme
+	healme
+	hug
+	heartmonitor
+

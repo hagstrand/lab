@@ -1,0 +1,52 @@
+
+
+Gen process:
+
+1. Update xls/movies.xls.
+
+	A. Run a dir >out.txt command on the _review folder.
+	B. Remove all but movie title and year from that list.
+	C. Run hit_imdb.php to update movies.xls with data pulled from imdb.com
+		php hit_imdb.php <input/_list.txt >output/_list.csv
+	D. Massage the output/_list.csv completely.
+		Save as xls.
+		Check for hit_imdb errors.
+		Fill in filename, fmt, stars, comment, language.
+	E. When ready, merge it into xls/movies.xls.
+
+2. Copy xls/movies.xls up to the server.
+
+3. run gen.sh script
+	./gen.sh
+
+4. Finished. 
+	Copy five output js files from html/svc to local.
+
+
+SQL used in gen operations:
+
+select *
+from movie.title t
+join movie.titledirector td on (t.id = td.titleid)
+join movie.director d on(d.id = td.directorid)
+
+select *
+from movie.title t
+join movie.titlewriter td on (t.id = td.titleid)
+join movie.writer d on(d.id = td.writerid)
+
+select *
+from movie.title t
+join movie.titleactor td on (t.id = td.titleid)
+join movie.actor d on(d.id = td.actorid)
+
+select *
+from movie.title t
+join movie.titlekeyword td on (t.id = td.titleid)
+join movie.keyword d on(d.id = td.keywordid)
+
+
+select *
+from movie.director d
+join movie.titledirector td on(d.id = td.directorid)
+where td.titleid = 43

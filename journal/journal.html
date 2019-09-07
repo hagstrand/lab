@@ -1,0 +1,334 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Journal</title>
+		<style>
+			label.talabel {
+				vertical-align:top;
+			}
+			.future {
+				display:none;
+			}
+			#ad {
+				border:1px solid black;
+				width:250px;
+				text-align:center;
+			}
+			#tstory {
+				height:90px;
+				width:250px;
+			}
+			#buttons {
+				width:250px;
+				text-align:center;
+			}
+			div.detailComponent {
+				font-family:arial;
+				font-size:12pt;
+				display:none;
+			}
+			#menu {
+				display:none;
+				border-top:1px solid black;
+				width:250px;
+			}
+			h1 {
+				display: block;
+				font-size:12pt;
+				font-weight: bold;
+				margin: 0;
+			}
+			#sremindme {
+				width:200px;
+			}
+		</style>
+		<script src="utilities.js"></script>
+		<script src="journal.js"></script>
+		<script src="user.js"></script>
+		<script src="xhr.js"></script>
+		<script src="when.js"></script>
+		<script>
+			onload = function() {
+				jgh.user = new User();
+				jgh.user.setup();
+				jgh.journal = new Journal();
+				jgh.journal.setup();
+			}
+		</script>
+	</head>
+	<body>
+		<div id="journal">
+			<form>
+				<p><label>How do you feel?: <select id="tfeeling">
+					<option value="0">fine</option>
+					<option value="100">Enlightenment</option>
+					<option value="94">Peace</option>
+					<option value="88">Joy</option>
+					<option value="82">Love</option>
+					<option value="76">Reason</option>
+					<option value="70">Acceptance</option>
+					<option value="64">Willingness</option>
+					<option value="58">Neutrality</option>
+					<option value="52">Courage</option>
+					<option value="46">Pride</option>
+					<option value="40">Anger</option>
+					<option value="34">Desire</option>
+					<option value="28">Fear</option>
+					<option value="22">Grief</option>
+					<option value="16">Apathy</option>
+					<option value="10">Guilt</option>
+					<option value="4">Shame</option>
+				</select></label></p>
+
+				<div class="future">
+					<p><a href="#">Camera</a></p>
+				</div>
+
+				<label class="talabel">Journal: 
+				<br/><textarea id="tstory"></textarea></label>
+				<br/>
+
+				<div class="future">
+					<p><label class="talabel">Food: <textarea id="tfood"></textarea></label></p>
+					<p><label class="talabel">Activity: <textarea id="tactivity"></textarea></label></p>
+					<p><label class="talabel">Thoughts: <textarea id="tthoughts"></textarea></label></p>
+				</div>
+
+				<div id="buttons">
+					<input type="button" onclick="jgh.journal.post()" value="Done"/>
+					<input type="button" onclick="jgh.journal.cancel()" value="Cancel"/>
+				</div>
+				<br/>
+
+				<label>Remind me every: <span id="tinterval"></span> 
+				<input type="button" value="Settings" onclick="jgh.journal.settings()"/>
+				</label>
+
+				<br/>
+				<br/>
+				
+				<div id="ad">
+				</div>
+
+				<div class="future">
+					<p><label class="talabel">Remind me: <textarea id="tremindme"></textarea></label></p>
+				</div>
+			</form>
+			
+			<br/>
+			<input type="button" value="Menu" onclick="jgh.journal.menuToggle()"/>
+
+			<div id="menu">
+				<input type="button" value="About" onclick="jgh.journal.about()"/>
+				<input type="button" value="Settings" onclick="jgh.journal.settings()"/>
+			</div>
+
+		</div>
+
+		<div id="registerWelcome" class="detailComponent">
+			<h1>Registration complete</h1>
+			Thank you for registering.<br/>
+			You can now publish and vote.<br/>
+			You are logged in and good to go.<br/>
+		</div>
+		<div id="loginWelcome" class="detailComponent">
+			<h1>Login successful</h1>
+			Welcome.<br/>
+			You are logged in.<br/>
+		</div>
+		<div id="logoutWelcome" class="detailComponent">
+			<h1>Logout successful</h1>
+			Thank you<br/>
+			You are logged out.<br/><br/>
+			<a href="javascript:jgh.journal.switchPanel('login')">Login</a>
+		</div>
+		<div id="settings" class="detailComponent">
+			<h1>Settings</h1>
+			<div class="future">
+				Screen width: <span id="setting_wid"></span><br/>
+				Screen height: <span id="setting_ht"></span><br/>
+			</div>
+
+			<form>
+				<p><label>Remind me every: <select id="sinterval">
+					<option value="0"       >(never)</option>
+					<option value="30000"   >30 seconds</option>
+					<option value="60000"   >1 minute</option>
+					<option value="300000"  >5 minutes</option>
+					<option value="600000"  >10 minutes</option>
+					<option value="1200000" >20 minutes</option>
+					<option value="2400000" >30 minutes</option>
+					<option value="3600000" >1 hour</option>
+					<option value="7200000" >2 hours</option>
+					<option value="10800000">3 hours</option>
+					<option value="14400000">4 hours</option>
+					<option value="21600000">6 hours</option>
+					<option value="43200000">12 hours</option>
+					<option value="86400000">24 hours</option>
+				</select></label></p>
+
+				<p><label>Ringtone: <select id="sringtone">
+					<option value="vibrate">Vibrate only</option>
+					<option value="parrot">Parrot</option>
+					<option value="eckhart">Eckhart</option>
+					<option value="louise">Louise</option>
+					<option value="chime">Chime</option>
+					<option value="gong">Gong</option>
+				</select></label></p>
+
+				<p><label>Repeat ringtone: <select id="srepeat">
+					<option value="1">1</option>
+					<option value="2">2</option>
+					<option value="3">3</option>
+					<option value="4">4</option> 
+				</select></label></p>
+
+				<p><label class="talabel">Reminder text: <input type="text" id="sremindme"/></label></p>
+
+				<p><label class="talabel">Daily start time: <input type="time" id="sstarttime"/></label></p>
+				<p><label class="talabel">Daily stop time: <input type="time" id="sstoptime"/></label></p>
+				
+				<div class="future">
+					<p><label>Image server: <select id="simageserver">
+						<option value="none">none</option>
+						<option value="flickr">Flickr</option>
+						<option value="moblob">Moblog</option>
+					</select></label></p>
+					<p><label class="talabel">Image server account: <input type="text" id="simageaccount"/></label></p>
+				</div>
+			</form>
+			<input type="button" onclick="jgh.journal.saveSettings()" value="Done"/>
+		</div>
+		<div id="register" class="detailComponent">
+			<h1>Register</h1>
+			<div>
+		        <table cellspacing="8">
+                    <tbody>
+                        <tr>
+                            <td class="fb_label">
+                                <label for="username">Username:</label>
+                            </td>
+                            <td class="fb_field">
+                                <input type="text" value="" id="inusername"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fb_label">
+                                <label for="password">Password:</label>
+                            </td>
+                            <td class="fb_field">
+                                <input type="password" value="" id="inpassword"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fb_label">
+                                <label for="confirmPassword">Confirm password:</label>
+                            </td>
+                            <td class="fb_field">
+                                <input type="password" value="" id="inconfirmpassword"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="fb_label">
+                                <label for="email">Email:</label>
+                            </td>
+                            <td valign="top" class="fb_field">
+                                <input type="text" value="" id="inemail" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="button" value="Register" id="registerBtn" onclick="jgh.user.register()"/>
+                            </td>
+                        </tr>
+						<tr><td colspan="2"><span id="outregistermsg"></span></td></tr>
+						<tr><td colspan="2"><br/>Already have an account? <br/>
+							<a href="javascript:jgh.journal.switchPanel('login')">Login</a> now.</td></tr>
+                    </tbody>
+                </table>
+			</div>
+		</div>
+		<div id="login" class="detailComponent">
+			<h1>Login</h1>
+			<div>
+		        <table cellspacing="8">
+                    <tbody>
+                        <tr>
+                            <td class="fb_label">
+                                <label for="username">Username:</label>
+                            </td>
+                            <td class="fb_field">
+                                <input type="text" value="" id="inloginusername"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fb_label">
+                                <label for="password">Password:</label>
+                            </td>
+                            <td class="fb_field">
+                                <input type="password" value="" id="inloginpassword"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="button" value="Login" id="loginBtn"  onclick="jgh.user.login()"/>
+                            </td>
+                        </tr>
+						<tr><td colspan="2"><span id="outloginmsg"></span></td></tr>
+						<tr><td colspan="2"><br/>Need an account? <br/>
+							<a href="javascript:jgh.journal.switchPanel('register')">Register</a> now.  It's free.</td></tr>
+                    </tbody>
+                </table>
+			</div>
+		</div>
+		<div id="myaccount" class="detailComponent">
+			<h1>My Account</h1>
+			<div>
+		        <table cellspacing="8">
+                    <tbody>
+                        <tr>
+                            <td class="fb_label">
+                                <label for="username">Username:</label>
+                            </td>
+                            <td class="fb_field">
+                                <input type="text" value="" id="inmyaccountusername"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fb_label">
+                                <label for="password">Password:</label>
+                            </td>
+                            <td class="fb_field">
+                                <input type="password" value="" id="inmyaccountpassword"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="fb_label">
+                                <label for="confirmPassword">Confirm password:</label>
+                            </td>
+                            <td class="fb_field">
+                                <input type="password" value="" id="inmyaccountconfirmpassword"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td valign="top" class="fb_label">
+                                <label for="email">Email:</label>
+                            </td>
+                            <td valign="top" class="fb_field">
+                                <input type="text" value="" id="inmyaccountemail" />
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="2" align="center">
+                                <input type="button" value="Done" id="saveBtn" onclick="jgh.user.saveMyAccount()"/>
+                                <input type="button" value="Cancel" id="cancelBtn" onclick="jgh.journal.switchPanel('journal')"/>
+                                <input type="button" value="Logout" id="logoutBtn" onclick="jgh.user.logout()"/>
+                            </td>
+                        </tr>
+						<tr><td colspan="2"><span id="outregistermsg"></span></td></tr>
+                    </tbody>
+                </table>
+			</div>
+		</div>
+	</body>
+</html>

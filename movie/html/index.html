@@ -1,0 +1,74 @@
+<!doctype html>
+<html>
+<head>
+<title>movies</title>
+<meta http-equiv="content-type" content="text-html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<link rel="stylesheet" href="typography.css" type="text/css" />
+<link rel="stylesheet" href="layout.css" type="text/css" />
+<script src="movie.js"></script>
+<script src="jslib/utils.js"></script>
+<script>
+onload = function() {
+	g = {};
+	g.movie = new Movie();
+	g.movie.setup();
+	g.movie.layout();
+}
+onresize = function() {
+	g.movie.layout();
+}
+</script>
+</head>
+<body>
+	<div id='wrapper'>
+		<div id="titlecontainer">
+			<div id="titleheader">
+				<input id='backbutton' type='button' value='<- Back' onclick='g.movie.back("titlelist")'/><br/>
+				<span id="nowshowing"></span>
+				<span id="showall">(<a href='#' onclick='g.movie.showAll()'>Show All</a>)</span>
+				<span id="orderby">Sort: 
+					<select onchange="g.movie.setSort(this.value)">
+						<option value="alpha">Title</option>
+						<option value="year">Year</option>
+						<option value="language">Language</option>
+						<option value="ort">ORT</option>
+						<option value="rating">Rating</option>
+					</select>
+				</span>
+			</div>
+			<div id="titlelist"></div>
+		</div>
+		<div id="listcontainer" class="right">
+			<div id="menu">List: 
+				<select id="showby" onchange="g.movie.showList(this.value)">
+					<option value="keyword">Keyword</option>
+					<option value="actor">Actor</option>
+					<option value="director">Director</option>
+					<option value="writer">Writer</option>
+				</select>
+			</div>
+			<div id="list">
+				<div id="directorlist"></div>
+				<div id="writerlist"></div>
+				<div id="actorlist"></div>
+				<div id="keywordlist"></div>
+			</div>
+		</div>
+		<div id="detail">
+			<input type='button' value='<- Back' onclick='g.movie.back("detail")'/>
+			<h1 id='detailtitle'>3 Idiots</h1>
+			<div>(<span id='detailyear'>2009</span>) <span id='detaillanguage'>Hindi</span> <span id='detailort'>170</span> min <span id='detailrating' class='rating'>3</span>
+			</div>
+			<div><span id='detailkeywords'><a href=''>Comedy</a> | <a href=''>Drama</a> | <a href=''>Romance</a></span></div>
+			<p id='detailplot'>Two friends are searching for their long lost companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots".</p>
+			<div class='field'><span class='label'>Director: </span>&nbsp;<span id='detaildirector'><a href=''>Rajkumar Hirani</a></span></div>
+			<div class='field'><span class='label'>Writer: </span>&nbsp;<span id='detailwriter'><a href=''>Rajkumar Hirani</a>, <a href=''>Abhijit Joshi</a></span></div>
+			<div class='field'><span class='label'>Actor: </span>&nbsp;<span id='detailactor'><a href=''>Aamir Khan</a>, <a href=''>Madhavan</a>, <a href=''>Mona Singh</a></span></div>
+			<p><span id='detailcomment' class='comment'>Two friends are searching for their long lost companion. They revisit their college days and recall the memories of their friend who inspired them to think differently, even as the rest of the world called them "idiots".</span></p>
+			<a id='detailimdb' href='' target='new'>link to IMDb</a>
+			<p><span id='detailfilename'></span></p>
+		</div>
+	</div><!--wrapper-->
+</body>
+</html>

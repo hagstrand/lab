@@ -1,0 +1,94 @@
+<html>
+    <head>
+        <title>audio test</title>
+		<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">  
+		<link rel="apple-touch-icon" href="images/template/engage.png"/>  
+		<script>
+			function unmute() {
+				var aud = document.getElementById("audioleft");
+				log('muted '+aud.muted);
+				log('volume '+aud.volume);
+				aud.muted = false;
+				aud.volume = 1;
+				aud.removeEventListener('ended', unmute, false);
+			}
+			function setup() {
+				var aud = document.getElementById("audioleft");
+				aud.addEventListener('abort', function() {log('left abort')});
+				aud.addEventListener('canplay', function() {log('left canplay')});
+				aud.addEventListener('canplaythrough', function() {log('left canplaythrough')});
+				aud.addEventListener('canshowcurrentframe', function() {log('left canshowcurrentframe')});
+				aud.addEventListener('dataunavailable', function() {log('left dataunavailable')});
+				aud.addEventListener('durationchange', function() {log('left durationchange')});
+				aud.addEventListener('emptied', function() {log('left emptied')});
+				aud.addEventListener('empty', function() {log('left empty')});
+				aud.addEventListener('ended', function() {log('left ended')});
+				aud.addEventListener('error', function() {log('left error')});
+				aud.addEventListener('loadeddata', function() {log('left loadeddata')});
+				aud.addEventListener('loadedmetadata', function() {log('left loadedmetadata')});
+				aud.addEventListener('loadstart', function() {log('left loadstart')});
+				aud.addEventListener('pause', function() {log('left pause')});
+				aud.addEventListener('play', function() {log('left play')});
+				aud.addEventListener('progress', function() {log('left progress')});
+
+				var audRight = document.getElementById("audioright");
+				audRight.addEventListener('abort', function() {log('right abort')});
+				audRight.addEventListener('canplay', function() {log('right canplay')});
+				audRight.addEventListener('canplaythrough', function() {log('right canplaythrough')});
+				audRight.addEventListener('canshowcurrentframe', function() {log('right canshowcurrentframe')});
+				audRight.addEventListener('dataunavailable', function() {log('right dataunavailable')});
+				audRight.addEventListener('durationchange', function() {log('right durationchange')});
+				audRight.addEventListener('emptied', function() {log('right emptied')});
+				audRight.addEventListener('empty', function() {log('right empty')});
+				audRight.addEventListener('ended', function() {log('right ended');});
+				audRight.addEventListener('error', function() {log('right error')});
+				audRight.addEventListener('loadeddata', function() {log('right loadeddata')});
+				audRight.addEventListener('loadedmetadata', function() {log('right loadedmetadata')});
+				audRight.addEventListener('loadstart', function() {log('right loadstart')});
+				audRight.addEventListener('pause', function() {log('right pause')});
+				audRight.addEventListener('play', function() {log('right play')});
+				audRight.addEventListener('progress', function() {log('right progress')});
+
+
+
+				//log('left muted '+aud.muted);
+				//log('left volume '+aud.volume);
+				//aud.muted = true;
+				//aud.volume = 0;
+				//aud.addEventListener('ended', unmute, false);
+
+				//aud.setAttribute('src', 'audio/left.mp3');
+				//aud.load();
+
+				//aud.play();
+			}
+			function log(s) {
+				var log = document.getElementById("log");
+				log.innerHTML += s + '<br/>';
+			}
+			function playLeft() {
+				log('play left');
+				var aud = document.getElementById("audioleft");
+				aud.play();
+			}
+			function playRight() {
+				log('play right');
+				var aud = document.getElementById("audioright");
+				aud.play();
+			}
+			//style="width:0px;height:0px;"
+		</script>
+    </head>
+    <body>
+    	<div id="wholescreen">
+			<audio id="audioleft" controls="controls" src="audio/left.mp3" preload="auto"></audio>
+			<br/>
+			<br/>
+	        <input type="button" onclick="setup()" value="setup" />
+	        <input type="button" onclick="playLeft()" value="play left" />
+	        <input type="button" onclick="playRight()" value="play right" />
+	        <div id="log"></div>
+			<audio id="audioright" controls="controls" src="audio/right.mp3" preload="auto"></audio>
+		</div>
+    </body>
+</html>

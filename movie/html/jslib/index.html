@@ -1,0 +1,475 @@
+<!doctype html>
+<html>
+	<head>
+		<title>movies</title>
+		<meta http-equiv="content-type" content="text-html; charset=utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+		<link rel="stylesheet" href="typography.css" type="text/css" />
+		<link rel="stylesheet" href="layout.css" type="text/css" />
+		<script src="movie.js"></script>
+		<script src="jslib/utils.js"></script>
+		<script>
+			onload = function() {
+				g = {};
+				g.movie = new Movie();
+				g.movie.setup();
+				g.movie.layout();
+			}
+			onresize = function() {
+				g.movie.layout();
+			}
+		</script>
+	</head>
+	<body>
+<!--
+Settings: 
+	settings button
+	title list: thick, thin
+	on small screen, always thin
+
+Plot popup
+	add plot, imdbkey, comment to data download
+	on mobile, the box must fill the screen
+	on big screen, the box can be entered
+
+On mobile: 
+	list optional, on button
+	if width less than ?, 
+		hide list, show button
+	
+
+Separate Genre and Keywords
+	How does IMDB use keywords.  Different from Genre?
+
+-->
+		<div id="wrapper">
+			<div id="titlecontainer" class="left">
+				<div id="titleheader">
+					<div>Show
+						<select onchange="g.movie.setsort(this.value)">
+							<option value="all">All</option>
+							<option value="genre">Genre</option>
+							<option value="actor">Actor</option>
+							<option value="language">Language</option>
+							<option value="director">Director</option>
+							<option value="writer">Writer</option>
+							<option value="keyword">Keywords</option>
+						</select>
+						<select onchange="g.movie.setKeyword(this.value)">
+<option value='Aaron Sorkin'>Aaron Sorkin</option>
+<option value='Abbas Tyrewala'>Abbas Tyrewala</option>
+<option value='Abi Morgan'>Abi Morgan</option>
+<option value='Adam Brooks'>Adam Brooks</option>
+<option value='Adam McKay'>Adam McKay</option>
+<option value='Adam Sztykiel'>Adam Sztykiel</option>
+<option value='Aditya Chopra'>Aditya Chopra</option>
+<option value='Adrian Hodges'>Adrian Hodges</option>
+<option value='Adrian Vitoria'>Adrian Vitoria</option>
+<option value='Alain Gagnol'>Alain Gagnol</option>
+<option value='Alan Cohen'>Alan Cohen</option>
+<option value='Alan Freedland'>Alan Freedland</option>
+<option value='Albert Brooks'>Albert Brooks</option>
+<option value='Alec Berg'>Alec Berg</option>
+<option value='Alegria Productions'>Alegria Productions</option>
+<option value='Alexander Payne'>Alexander Payne</option>
+<option value='Alex Gibney'>Alex Gibney</option>
+<option value='Alex Kurtzman'>Alex Kurtzman</option>
+<option value='Alfonso Cuaron'>Alfonso Cuaron</option>
+<option value='Alfred Gough'>Alfred Gough</option>
+<option value='Alice Wu'>Alice Wu</option>
+<option value='Allan Scott'>Allan Scott</option>
+<option value='Allen Loeb'>Allen Loeb</option>
+<option value='Alvin Sargent'>Alvin Sargent</option>
+<option value='Amole Gupte'>Amole Gupte</option>
+<option value='Amy Heckerling'>Amy Heckerling</option>
+<option value='Anders Thomas Jensen'>Anders Thomas Jensen</option>
+<option value='Andrea Arnold'>Andrea Arnold</option>
+<option value='Andrew Niccol'>Andrew Niccol</option>
+<option value='Andrew Stanton'>Andrew Stanton</option>
+<option value='Andy Robin'>Andy Robin</option>
+<option value='Andy Wachowski'>Andy Wachowski</option>
+<option value='Ang Lee'>Ang Lee</option>
+<option value='Anjali Menon'>Anjali Menon</option>
+<option value='Anna Boden'>Anna Boden</option>
+<option value='Anna Leonowens'>Anna Leonowens</option>
+<option value='Annie Proulx'>Annie Proulx</option>
+<option value='Anthony Hines'>Anthony Hines</option>
+<option value='Anthony Peckham'>Anthony Peckham</option>
+<option value='Antonio Artero'>Antonio Artero</option>
+<option value='Anu Menon'>Anu Menon</option>
+<option value='Asghar Farhadi'>Asghar Farhadi</option>
+<option value='Ashutosh Gowariker'>Ashutosh Gowariker</option>
+<option value='Barnet Bain'>Barnet Bain</option>
+<option value='Barry Marder'>Barry Marder</option>
+<option value='Benh Zeitlin'>Benh Zeitlin</option>
+<option value='Ben Lewin'>Ben Lewin</option>
+<option value='Bill Corbet'>Bill Corbet</option>
+<option value='Bob Fisher'>Bob Fisher</option>
+<option value='Bob Greenberg'>Bob Greenberg</option>
+<option value='Bob Merrill'>Bob Merrill</option>
+<option value='Bodil Steensen-Leth'>Bodil Steensen-Leth</option>
+<option value='Brad Lewis'>Brad Lewis</option>
+<option value='Bridget O'Connor'>Bridget O'Connor</option>
+<option value='Bruce Brown'>Bruce Brown</option>
+<option value='Burnat Films'>Burnat Films</option>
+<option value='Carlos Cuaron'>Carlos Cuaron</option>
+<option value='Carlos Saura'>Carlos Saura</option>
+<option value='Carlotta Monti'>Carlotta Monti</option>
+<option value='Caspian Tredwell-Owen'>Caspian Tredwell-Owen</option>
+<option value='Chad Beck'>Chad Beck</option>
+<option value='Charles Ferguson'>Charles Ferguson</option>
+<option value='Charles McKeown'>Charles McKeown</option>
+<option value='Cherien Dabis'>Cherien Dabis</option>
+<option value='Chris Butler'>Chris Butler</option>
+<option value='Chris Henchy'>Chris Henchy</option>
+<option value='Chris Terrio'>Chris Terrio</option>
+<option value='Christopher St John'>Christopher St John</option>
+<option value='Coline Serreau'>Coline Serreau</option>
+<option value='Craig Mazin'>Craig Mazin</option>
+<option value='Dale Launer'>Dale Launer</option>
+<option value='Dana Brown'>Dana Brown</option>
+<option value='Dan Fogelman'>Dan Fogelman</option>
+<option value='Danfung Dennis'>Danfung Dennis</option>
+<option value='Dan Harris'>Dan Harris</option>
+<option value='Daniel Gerson'>Daniel Gerson</option>
+<option value='Dan Scanlon'>Dan Scanlon</option>
+<option value='David Diamond'>David Diamond</option>
+<option value='David Dodge'>David Dodge</option>
+<option value='David France'>David France</option>
+<option value='David Freeman'>David Freeman</option>
+<option value='David Guion'>David Guion</option>
+<option value='David Mitchell'>David Mitchell</option>
+<option value='David O. Russell'>David O. Russell</option>
+<option value='David Wain'>David Wain</option>
+<option value='Dean Georgaris'>Dean Georgaris</option>
+<option value='Deborah Moggach'>Deborah Moggach</option>
+<option value='Derek Cianfrance'>Derek Cianfrance</option>
+<option value='Derek Connolly'>Derek Connolly</option>
+<option value='Dick Clement'>Dick Clement</option>
+<option value='Don Jakoby'>Don Jakoby</option>
+<option value='Donn Pearce'>Donn Pearce</option>
+<option value='Doris Kearns Goodwin'>Doris Kearns Goodwin</option>
+<option value='Douglas Adams'>Douglas Adams</option>
+<option value='Drew Pearce'>Drew Pearce</option>
+<option value='Duane Adler'>Duane Adler</option>
+<option value='Edgar Wright'>Edgar Wright</option>
+<option value='Ed Scates'>Ed Scates</option>
+<option value='Ehren Kruger'>Ehren Kruger</option>
+<option value='Elena Tonetti'>Elena Tonetti</option>
+<option value='Elissa Down'>Elissa Down</option>
+<option value='Elizabeth Wurtzel'>Elizabeth Wurtzel</option>
+<option value='Emilio Estevez'>Emilio Estevez</option>
+<option value='Emmanuel Assayas'>Emmanuel Assayas</option>
+<option value='Emma Thompson'>Emma Thompson</option>
+<option value='Ennio Flaiano'>Ennio Flaiano</option>
+<option value='Eric Darnell'>Eric Darnell</option>
+<option value='Eric Eason'>Eric Eason</option>
+<option value='Eric Roth'>Eric Roth</option>
+<option value='Ernest Lehman'>Ernest Lehman</option>
+<option value='Etan Cohen'>Etan Cohen</option>
+<option value='Eugene Jarecki'>Eugene Jarecki</option>
+<option value='Evan Goldberg'>Evan Goldberg</option>
+<option value='Farah Khan'>Farah Khan</option>
+<option value='Fatih Akin'>Fatih Akin</option>
+<option value='Federico Fellini'>Federico Fellini</option>
+<option value='Fernando Trueba'>Fernando Trueba</option>
+<option value='Florian Henckel von Donnersmark'>Florian Henckel von Donnersmark</option>
+<option value='Foster Gamble'>Foster Gamble</option>
+<option value='Frederico Fellini'>Frederico Fellini</option>
+<option value='Furio Scarpelli'>Furio Scarpelli</option>
+<option value='Galt Niederhoffer'>Galt Niederhoffer</option>
+<option value='Gary Ross'>Gary Ross</option>
+<option value='Gaumont Company'>Gaumont Company</option>
+<option value='Gavin Wiesen'>Gavin Wiesen</option>
+<option value='Geoff Rodkey'>Geoff Rodkey</option>
+<option value='George Clooney'>George Clooney</option>
+<option value='George Marion Jr.'>George Marion Jr.</option>
+<option value='Gideon Defoe'>Gideon Defoe</option>
+<option value='Giuseppe Tornatore'>Giuseppe Tornatore</option>
+<option value='Grant Nieporte'>Grant Nieporte</option>
+<option value='Guillaume Canet'>Guillaume Canet</option>
+<option value='Gustin Nash'>Gustin Nash</option>
+<option value='Guy DVD Films'>Guy DVD Films</option>
+<option value='Guy Ritchie'>Guy Ritchie</option>
+<option value='Guy Thomas'>Guy Thomas</option>
+<option value='Hampton Francher'>Hampton Francher</option>
+<option value='Henry Myers'>Henry Myers</option>
+<option value='Ian La Frenais'>Ian La Frenais</option>
+<option value='Ignacio Martinez de Pison'>Ignacio Martinez de Pison</option>
+<option value='Imtiaz Ali'>Imtiaz Ali</option>
+<option value='Ingmar Bergman'>Ingmar Bergman</option>
+<option value='Jacob Koskoff'>Jacob Koskoff</option>
+<option value='James L. Brooks'>James L. Brooks</option>
+<option value='James Redfield'>James Redfield</option>
+<option value='James Schamus'>James Schamus</option>
+<option value='James V. Hart'>James V. Hart</option>
+<option value='Jane Austen'>Jane Austen</option>
+<option value='Jason Keller'>Jason Keller</option>
+<option value='Jason Lindsey'>Jason Lindsey</option>
+<option value='Jason Reitman'>Jason Reitman</option>
+<option value='Jason Segel'>Jason Segel</option>
+<option value='Jay McInerney'>Jay McInerney</option>
+<option value='Jean-Dominique Bauby'>Jean-Dominique Bauby</option>
+<option value='Jean-Pierre Dardenne'>Jean-Pierre Dardenne</option>
+<option value='Jeff Baena'>Jeff Baena</option>
+<option value='Jeff Nathanson'>Jeff Nathanson</option>
+<option value='Jeffrey Blitz'>Jeffrey Blitz</option>
+<option value='Jehane Noujain'>Jehane Noujain</option>
+<option value='Jeremy Leven'>Jeremy Leven</option>
+<option value='Jerry Seinfeld'>Jerry Seinfeld</option>
+<option value='Jesse Peretz'>Jesse Peretz</option>
+<option value='J.F. Lawton'>J.F. Lawton</option>
+<option value='J.G. Ballard'>J.G. Ballard</option>
+<option value='Jim Jennewein'>Jim Jennewein</option>
+<option value='Jim Meenaghan'>Jim Meenaghan</option>
+<option value='Jimmy Jack'>Jimmy Jack</option>
+<option value='Jim Rash'>Jim Rash</option>
+<option value='Jim Taylor'>Jim Taylor</option>
+<option value='J.M. Barrie'>J.M. Barrie</option>
+<option value='Joel Balkan'>Joel Balkan</option>
+<option value='Joe Swanberg'>Joe Swanberg</option>
+<option value='Joey Curtis'>Joey Curtis</option>
+<option value='John Briley'>John Briley</option>
+<option value='John Carlin'>John Carlin</option>
+<option value='John Gatins'>John Gatins</option>
+<option value='John Hamburg'>John Hamburg</option>
+<option value='John J. McLaughlin'>John J. McLaughlin</option>
+<option value='John Lasseter'>John Lasseter</option>
+<option value='John Logan'>John Logan</option>
+<option value='John Michael Hayes'>John Michael Hayes</option>
+<option value='John Morris'>John Morris</option>
+<option value='John O'Brien'>John O'Brien</option>
+<option value='John Singleton'>John Singleton</option>
+<option value='John T. Neville'>John T. Neville</option>
+<option value='Jon Cleary'>Jon Cleary</option>
+<option value='Jon Lucas'>Jon Lucas</option>
+<option value='Joseph L. Mankiewicz'>Joseph L. Mankiewicz</option>
+<option value='Josh David'>Josh David</option>
+<option value='Josh Klausner'>Josh Klausner</option>
+<option value='Joss Whedon'>Joss Whedon</option>
+<option value='J.P. McEvoy'>J.P. McEvoy</option>
+<option value='Judd Apatow'>Judd Apatow</option>
+<option value='Justin Haythe'>Justin Haythe</option>
+<option value='Karan Johar'>Karan Johar</option>
+<option value='Karey Kirkpatrick'>Karey Kirkpatrick</option>
+<option value='Kario Salem'>Kario Salem</option>
+<option value='Kar Wai Wong'>Kar Wai Wong</option>
+<option value='Kay Pollak'>Kay Pollak</option>
+<option value='Keiko Nobumoto'>Keiko Nobumoto</option>
+<option value='Keith Merryman'>Keith Merryman</option>
+<option value='Ken Marino'>Ken Marino</option>
+<option value='Kerry Conran'>Kerry Conran</option>
+<option value='Kevin Jarre'>Kevin Jarre</option>
+<option value='Kevin Smith'>Kevin Smith</option>
+<option value='Kim Barker'>Kim Barker</option>
+<option value='Kiran Rao'>Kiran Rao</option>
+<option value='K. Rajeshwar'>K. Rajeshwar</option>
+<option value='Kumar Dave'>Kumar Dave</option>
+<option value='Kwame Nyanning'>Kwame Nyanning</option>
+<option value='Lana Wachowski'>Lana Wachowski</option>
+<option value='Larry Kurnarsky'>Larry Kurnarsky</option>
+<option value='Larry McMurtry'>Larry McMurtry</option>
+<option value='Larry Stuckey'>Larry Stuckey</option>
+<option value='Laura Hillenbrand'>Laura Hillenbrand</option>
+<option value='Laurent Cantent'>Laurent Cantent</option>
+<option value='Lem Dobbs'>Lem Dobbs</option>
+<option value='Len Blum'>Len Blum</option>
+<option value='Leonard Ripps'>Leonard Ripps</option>
+<option value='Leo Tolstoy'>Leo Tolstoy</option>
+<option value='Leslye Headland'>Leslye Headland</option>
+<option value='Lincoln Kirstein'>Lincoln Kirstein</option>
+<option value='Lisa Cholodenko'>Lisa Cholodenko</option>
+<option value='Lord Byron'>Lord Byron</option>
+<option value='Lorne Cameron'>Lorne Cameron</option>
+<option value='Luc Dardenne'>Luc Dardenne</option>
+<option value='Luciano Vincenzoni'>Luciano Vincenzoni</option>
+<option value='Lucy Alibar'>Lucy Alibar</option>
+<option value='Majid Majidi'>Majid Majidi</option>
+<option value='Malik Bendjelloul'>Malik Bendjelloul</option>
+<option value='Manish Gupta'>Manish Gupta</option>
+<option value='Mansoor Khan'>Mansoor Khan</option>
+<option value='Marc Handler'>Marc Handler</option>
+<option value='Marc Klein'>Marc Klein</option>
+<option value='Marjane Satrapi'>Marjane Satrapi</option>
+<option value='Mark Boal'>Mark Boal</option>
+<option value='Mark O'Brien'>Mark O'Brien</option>
+<option value='Marshall Curry'>Marshall Curry</option>
+<option value='Matthew Hamachek'>Matthew Hamachek</option>
+<option value='Matthew Quick'>Matthew Quick</option>
+<option value='Max Mayer'>Max Mayer</option>
+<option value='Michael Bacall'>Michael Bacall</option>
+<option value='Michael Cristofer'>Michael Cristofer</option>
+<option value='Michael Handelman'>Michael Handelman</option>
+<option value='Michael Haneke'>Michael Haneke</option>
+<option value='Michael Schiffer'>Michael Schiffer</option>
+<option value='Michael Showalter'>Michael Showalter</option>
+<option value='Michel Hazanavicius'>Michel Hazanavicius</option>
+<option value='Mike Anderson'>Mike Anderson</option>
+<option value='Mike Judge'>Mike Judge</option>
+<option value='Mistral Films'>Mistral Films</option>
+<option value='Mona Simpson'>Mona Simpson</option>
+<option value='Mushtaq Sheikh'>Mushtaq Sheikh</option>
+<option value='Nancy Meyers'>Nancy Meyers</option>
+<option value='Nancy Oliver'>Nancy Oliver</option>
+<option value='Nasir Hussain'>Nasir Hussain</option>
+<option value='Nat Faxon'>Nat Faxon</option>
+<option value='Nati Baratz'>Nati Baratz</option>
+<option value='National Film Board of Canada (NFB)'>National Film Board of Canada (NFB)</option>
+<option value='Neal Purvis'>Neal Purvis</option>
+<option value='Neal Rogin'>Neal Rogin</option>
+<option value='Neil Cuthbert'>Neil Cuthbert</option>
+<option value='Neil Gordon'>Neil Gordon</option>
+<option value='NHK'>NHK</option>
+<option value='Nicholas Stoller'>Nicholas Stoller</option>
+<option value='Nick Park'>Nick Park</option>
+<option value='Ni Zhen'>Ni Zhen</option>
+<option value='Nora Ephron'>Nora Ephron</option>
+<option value='Ntozake Shange'>Ntozake Shange</option>
+<option value='Ola Olsson'>Ola Olsson</option>
+<option value='Ol Parker'>Ol Parker</option>
+<option value='Oscar Hammerstein II'>Oscar Hammerstein II</option>
+<option value='Pamela Gray'>Pamela Gray</option>
+<option value='Paul Haggis'>Paul Haggis</option>
+<option value='Paul Mayeda Berges'>Paul Mayeda Berges</option>
+<option value='Paul Rudd'>Paul Rudd</option>
+<option value='Paul Thomas Anderson'>Paul Thomas Anderson</option>
+<option value='Pedro Peirano'>Pedro Peirano</option>
+<option value='Pete Docter'>Pete Docter</option>
+<option value='Peter Handke'>Peter Handke</option>
+<option value='Peter Hedges'>Peter Hedges</option>
+<option value='Peter Straughan'>Peter Straughan</option>
+<option value='Peter Weir'>Peter Weir</option>
+<option value='Petter Skavlan'>Petter Skavlan</option>
+<option value='Philip Groning'>Philip Groning</option>
+<option value='Philippe Falardeau'>Philippe Falardeau</option>
+<option value='Phil Johnston'>Phil Johnston</option>
+<option value='Prakash Kapadia'>Prakash Kapadia</option>
+<option value='Prashant Pandey'>Prashant Pandey</option>
+<option value='Prescott Chaplin'>Prescott Chaplin</option>
+<option value='Quentin Tarantino'>Quentin Tarantino</option>
+<option value='Rajkumar Santoshi'>Rajkumar Santoshi</option>
+<option value='Rasmus Heisterberg'>Rasmus Heisterberg</option>
+<option value='R. Balki'>R. Balki</option>
+<option value='Richard Curtis'>Richard Curtis</option>
+<option value='Richard Mack'>Richard Mack</option>
+<option value='Richard Maibaum'>Richard Maibaum</option>
+<option value='Richard Yates'>Richard Yates</option>
+<option value='Rich Moore'>Rich Moore</option>
+<option value='Rituparno Ghosh'>Rituparno Ghosh</option>
+<option value='Robert Ben Garant'>Robert Ben Garant</option>
+<option value='Robert B. Weide'>Robert B. Weide</option>
+<option value='Robert Wade'>Robert Wade</option>
+<option value='Robin Swicord'>Robin Swicord</option>
+<option value='Roddy Doyle'>Roddy Doyle</option>
+<option value='Roman Coppola'>Roman Coppola</option>
+<option value='Ronald Harwood'>Ronald Harwood</option>
+<option value='Ronald Shusett'>Ronald Shusett</option>
+<option value='Ryan Fleck'>Ryan Fleck</option>
+<option value='Sabrina Dhawan'>Sabrina Dhawan</option>
+<option value='Sacha Baron Cohen'>Sacha Baron Cohen</option>
+<option value='Sacha Gervasi'>Sacha Gervasi</option>
+<option value='Sachi'>Sachi</option>
+<option value='Sachin Bhowmick'>Sachin Bhowmick</option>
+<option value='Sam George'>Sam George</option>
+<option value='Sam Raimi'>Sam Raimi</option>
+<option value='Sandra Weintraub'>Sandra Weintraub</option>
+<option value='Sanjay Leela Bhansali'>Sanjay Leela Bhansali</option>
+<option value='Scot Armstrong'>Scot Armstrong</option>
+<option value='Scott Moore'>Scott Moore</option>
+<option value='Scott Rosenberg'>Scott Rosenberg</option>
+<option value='Sean Anders'>Sean Anders</option>
+<option value='Seth Rogen'>Seth Rogen</option>
+<option value='Shane Black'>Shane Black</option>
+<option value='Shawn Harwell'>Shawn Harwell</option>
+<option value='Sheena Parikh'>Sheena Parikh</option>
+<option value='Shibani Bathija'>Shibani Bathija</option>
+<option value='Shinichi Nakazawa'>Shinichi Nakazawa</option>
+<option value='Simon Kinberg'>Simon Kinberg</option>
+<option value='Sooraj R. Barjatya'>Sooraj R. Barjatya</option>
+<option value='Spike Feresten'>Spike Feresten</option>
+<option value='Spike Lee'>Spike Lee</option>
+<option value='S. Shankar'>S. Shankar</option>
+<option value='Stacy Peralta'>Stacy Peralta</option>
+<option value='Stanley Shapiro'>Stanley Shapiro</option>
+<option value='Stephen Rebello'>Stephen Rebello</option>
+<option value='Stephen 'Sugar' Segerman'>Stephen 'Sugar' Segerman</option>
+<option value='Steve Box'>Steve Box</option>
+<option value='Steve Buonauqurio'>Steve Buonauqurio</option>
+<option value='Steve Carell'>Steve Carell</option>
+<option value='Steve Faber'>Steve Faber</option>
+<option value='Steve Lopez'>Steve Lopez</option>
+<option value='Steve Meerson'>Steve Meerson</option>
+<option value='Steven Moffat'>Steven Moffat</option>
+<option value='Steven Spielberg'>Steven Spielberg</option>
+<option value='Stuart Blumberg'>Stuart Blumberg</option>
+<option value='Stuart Townsend'>Stuart Townsend</option>
+<option value='Subhash Ghai'>Subhash Ghai</option>
+<option value='Susannah Grant'>Susannah Grant</option>
+<option value='Susanne Bier'>Susanne Bier</option>
+<option value='Su Tong'>Su Tong</option>
+<option value='Ted Griffin'>Ted Griffin</option>
+<option value='Terrence Malick'>Terrence Malick</option>
+<option value='Terry Gilliam'>Terry Gilliam</option>
+<option value='Thomas Lennon'>Thomas Lennon</option>
+<option value='Thomas McCarthy'>Thomas McCarthy</option>
+<option value='Tim Burton'>Tim Burton</option>
+<option value='Tim Firth'>Tim Firth</option>
+<option value='Timothy Dowling'>Timothy Dowling</option>
+<option value='Toby Young'>Toby Young</option>
+<option value='Todd Louiso'>Todd Louiso</option>
+<option value='Todd Phillips'>Todd Phillips</option>
+<option value='Todd Woody Richman'>Todd Woody Richman</option>
+<option value='Tom Fontana'>Tom Fontana</option>
+<option value='Tom S. Parker'>Tom S. Parker</option>
+<option value='Tom Stoppard'>Tom Stoppard</option>
+<option value='Tony Kushner'>Tony Kushner</option>
+<option value='Tony Mendez'>Tony Mendez</option>
+<option value='Tracey Jackson'>Tracey Jackson</option>
+<option value='Vidhu Vinod Chopra'>Vidhu Vinod Chopra</option>
+<option value='Vijay Krishna Acharya'>Vijay Krishna Acharya</option>
+<option value='Vince Gilligan'>Vince Gilligan</option>
+<option value='Vincent Ngo'>Vincent Ngo</option>
+<option value='Vincent Paronnaud'>Vincent Paronnaud</option>
+<option value='Walter Dallas'>Walter Dallas</option>
+<option value='W.C.Fields'>W.C.Fields</option>
+<option value='Wes Anderson'>Wes Anderson</option>
+<option value='Will Ferrell'>Will Ferrell</option>
+<option value='William Blinn'>William Blinn</option>
+<option value='Will Reiser'>Will Reiser</option>
+<option value='Wim Wenders'>Wim Wenders</option>
+<option value='Woody Allen'>Woody Allen</option>
+<option value='Zak Penn'>Zak Penn</option>
+<option value='Zoe Kazan'>Zoe Kazan</option>
+						</select>
+						<span style='visible:hidden;' id="nowshowing"></span>
+					</div>
+					<div id="orderby">Order by: 
+						<select onchange="g.movie.setsort(this.value)">
+							<option value="alpha">Title</option>
+							<option value="year">Year</option>
+						</select>
+					</div>
+				</div>
+				<div id="titlelist" class="left"></div>
+			</div>
+			<div style="display:none;" id="listcontainer" class="right">
+				<div id="menu">
+					<span class="menuoff" id="director_off" onclick="g.movie.showlist('director')">Directors</span>
+					<span class="menuon" id="director_on" >Directors</span>					&nbsp;
+					<span class="menuoff" id="writer_off" onclick="g.movie.showlist('writer')">Writers</span>
+					<span class="menuon" id="writer_on" >Writers</span>&nbsp;
+					<span class="menuoff" id="actor_off" onclick="g.movie.showlist('actor')">Actors</span>
+					<span class="menuon" id="actor_on" >Actors</span>&nbsp;
+					<span class="menuoff" id="keyword_off" onclick="g.movie.showlist('keyword')">Keywords</span>
+					<span class="menuon" id="keyword_on" >Keywords</span>
+				</div>
+				<div id="list">
+					<div id="directorlist"></div>
+					<div id="writerlist"></div>
+					<div id="actorlist"></div>
+					<div id="keywordlist"></div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
