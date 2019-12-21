@@ -4,3 +4,4 @@ globe/globe3dimage/*.png
 globe/globe3dimage/*.tif
 globe/osm-tilemill/*
 closure/closure-library
+robots.txt
