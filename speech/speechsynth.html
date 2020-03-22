@@ -1,0 +1,182 @@
+<!doctype html>
+<html>
+<head>
+<meta http-equiv=Content-Type content="text/html; charset=UTF-8">
+<meta name='viewport' content='width=device-width, initial-scale=1, maximum-scale=1'>
+<title>speech</title>
+<script>
+const utterance = new SpeechSynthesisUtterance('')
+
+function speakEng() {
+utterance.text = 'He stole my cookies';
+//utterance.pitch = 1.5
+//utterance.volume = 0.5
+//utterance.rate = 8
+utterance.lang = 'en-US';
+speechSynthesis.speak(utterance)
+}
+
+var story = `
+ก: อากาศที่เชียงใหมกำลังแย่มากนะครับ
+ข: ใช่คะ ตอนนี้หมอกควันมีมากขึ้นเยอะ
+ก: มีหลายคนตัดสินใจเดินทางไปอยู่ที่อื่นชั่วคราว
+ข: ฉันก็จะไปต่างจังหจัดเหมือนกันคะ
+ก: คุณจะไปที่ไหนครับ
+ข: ฉันตั้งใจว่าจะไปจังหวัดที่มีชายหาดคะ
+ก: ดีจังเลยค่ะ ไปนานเท่าไหร่ครับ
+ข: กะว่าจะไปสักหนึ่งเดือนครึ่งคะ
+ก: คุณโชคดีนะครับ ที่สามารถเปลี่ยนที่อยู่ได้แบบนี้
+ข: เป็นเพราะว่าฉันไม่มีอะไรความจำเป็นที่จะต้องอยู่ที่นี่ในช่วงนี้
+ข: อีกเหตุผลหนึ่งคือว่าผมเกษียณแล้ว
+ข: ฉันมีเวลาที่จะทำอะไรก็ได้ตามที่ฉันต้องการ
+`;
+
+/*
+parse into words
+identify: 
+	unrecognized strings
+	new words
+	known words
+*/
+
+
+
+var dialog = [
+	{speaker:1, line:'อากาศที่เชียงใหมกำลังแย่มากนะpolite'}, 
+	{speaker:2, line:'ใช่polite ตอรรี้หมอกควัรมีมราเขึ้นเยอะ'},
+	{speaker:1, line:'มีหลายคนตัคสินใจเคินทางๆปอยู่ที่อื่นชั่วคราว'},
+	{speaker:2, line:'meก็จะไปต่างจังหจัคเหมือนกันpolite'},
+	{speaker:1, line:'คุณจะไปที่ไหนpolite'},
+	{speaker:2, line:'meตั้งใจว่าจะไปจังหวัดที่มีชายหาดpolite'},
+	{speaker:1, line:'ดีจังเลยค่ะ ไปนานเท่าไหร่polite'},
+	{speaker:2, line:'ดะว่าจะไปสักหนึ่งเดือนครึ่งpolite'},
+	{speaker:1, line:'คุณไชคนะpolite ที่สามารถเปลี่ยนที่อยู่ไค้แบบนี้'},
+	{speaker:2, line:'เป็นเพราะว่าฉันไม่มีอะไรความจำเป็นที่จะต้องอยู่ที่นี่ในช่วงนี้'},
+	{speaker:2, line:'อีกเหตุผลหนึ่งคือว่าผมเกษียณแล้ว'},
+	{speaker:2, line:'meมีเวลาที่จะทำอะไรก็ไค้ตามที่meต้องการ'},
+];
+
+var rate = 1; // 0.1 to 10, default 1
+var pitch = 1; // 0 to 2, default 1
+var volume = 1; // 0 to 1, default 1  
+var langEng = 'en-US';
+var langThai = 'th-TH';
+var lang = langEng; // BCP 47 language tag
+var voices = [];
+
+function speakThai(n,sp) {
+	utterance.text = dialog[n].line;
+	utterance.pitch = (dialog[n].speaker==1) ? pitch : pitch/2;
+	utterance.volume = volume;
+	utterance.rate = (sp) ? rate/2 : rate;
+	utterance.lang = langThai;
+	speechSynthesis.speak(utterance)
+	//document.getElementById('numvoices').value = utterance.voice.name;
+}
+
+function listVoices() {
+//speechSynthesis.getVoices().forEach(voice => {
+//  console.log(voice.name, voice.lang)
+//})
+//console.log(`Voices #: ${speechSynthesis.getVoices().length}`)
+var voices = speechSynthesis.getVoices();
+document.getElementById('numvoices').value = voices.length;
+}
+
+// on android Chrome, called on speechSynthesis.speak()
+// on nano Chromium, called at startup, empty
+speechSynthesis.onvoiceschanged = function() {
+	voices = speechSynthesis.getVoices();
+	document.getElementById('numvoices').value = voices.length;
+	for(var i=0; i<voices.length; i++) {
+		document.getElementById('voicelist').innerHTML += voices[i].name + '<br/>';
+	}
+	//utterance.voice = voices[0];
+}
+
+var speaker = [
+	{gender:'x',name:''},
+	{gender:'x',name:''},
+	{gender:'x',name:''}
+];
+
+var genders = {
+	'm': {me:'ผม', polite:'ครับ'},
+	'f': {me:'ฉัน', polite:'คะ'}
+}
+
+var chooseGender = function() {
+	speaker[1].gender = (Math.random() < .5) ? 'm' : 'f';
+	speaker[2].gender = (speaker[1].gender == 'm') ? 'f' : 'm';
+}
+
+var drawDialog = function() {
+	var s = '';
+	for (var i=0; i<dialog.length; i++) {
+		var gender = genders[speaker[dialog[i].speaker].gender];
+		dialog[i].proc = dialog[i].line;
+		dialog[i].proc = dialog[i].proc.replace(/me/g, gender.me);
+		dialog[i].proc = dialog[i].proc.replace(/polite/g, gender.polite);
+		s += dialog[i].proc + '&nbsp;';
+		s += '<button class="speak" id="'+i+'">sp</button> &nbsp;';
+		s += '<button class="slow" id="'+i+'">slow</button> &nbsp;';
+		s += '<br/>';
+	}	
+	document.getElementById('dialog').innerHTML = s;
+
+	// attach handlers
+	var list = document.querySelectorAll('button.speak');
+	list.forEach(function(item) {
+		item.addEventListener('click', function(e) {
+			speakThai(parseInt(e.target.id),false);
+		},false);
+	});
+	var list = document.querySelectorAll('button.slow');
+	list.forEach(function(item) {
+		item.addEventListener('click', function(e) {
+			speakThai(parseInt(e.target.id),true);
+		},false);
+	});
+}
+
+var parseDialog = function(story) {
+	var a = story.split('\n');
+	var r = [];
+	for (var i=0; i<a.length; i++) {
+		if (a[i].length) {
+			var o = {};
+			if (a[i].substr(0,3) == 'ก: ') {
+				o.speaker = 1;
+				o.line = a[i].substr(3);
+			}
+			else if (a[i].substr(0,3) == 'ข: ') {
+				o.speaker = 2;
+				o.line = a[i].substr(3);
+			}
+			else {
+				o.speaker = 0;
+				o.line = a[i];
+			}
+			r.push(o);
+		}
+	}
+	return r;
+}
+
+window.addEventListener('load', function() {
+	dialog = parseDialog(story);
+	chooseGender();
+	drawDialog();
+},true);
+</script>
+</head>
+<body>
+hello
+<button onclick='speakEng()'>Eng</button>
+<button onclick=listVoices()>List Voices</button>
+<input id='numvoices'/>
+<div id='voicelist' hidden></div>
+<div id='dialog'></div>
+</body>
+</html>
+
