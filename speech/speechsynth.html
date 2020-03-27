@@ -16,7 +16,49 @@ utterance.lang = 'en-US';
 speechSynthesis.speak(utterance)
 }
 
-var story = `
+var stories = [];
+stories[0] = `
+บทเรียนที่หนึ่ง
+ก:: เมย์,25,female
+ข:: แบงค์,25,male
+ก: อาทิตย์หน้าเราไปเที่ยวปายกันเถอะ
+ข: เราต้องรีบไปซื้อตั๋วรถตู้วงหน้า
+ก: ไปซื้อที่ไหน
+ข: ไปซื้อที่สถานีขนส่ง
+ก: ตั๋วรถราคาเท่าไหร่
+ข: ราคาสามร้อยบาทไปกลับ
+ก: เคินทางกี่ชั่วโมง
+ข: ประมาณสามชั่วโมง
+ก: คุณรู้ไหมว่าเราจะพักที่ไหน
+ข: ที่โน่นมีเกสท์เฮาส์
+ก: เราควรไปวันไหน
+ข: ไปวันศุกร์ เสาร์ และอาทิตย์ดีไหม 
+ก: เห็นค้วย ไปกันเถอะ
+.
+`;
+stories[1] = `
+บทเรียนที่สอง
+ก:: พลอย,32,female
+ข:: บอล,32,male
+ก: ตอนนี้อากาศเริ่มร้อนรากขึ้น คุณว่าไหม
+ข: ฉันก็ว่าอย่างนั้นแหละค่ะ
+ก: เราน่าจะแพลนว่าเราจะไปเที่ยวกัน
+ข: เราไปเที่ยวชายทะเลก็น่าจะดี
+ก: เป็นความคิดที่ดี เห็นด้วยอย่างมากเลยครับ
+ข: ไปกันเมื่อไหร่ดี
+ก: รออีกสองอาทิตย์ โรงเรียนของลูกตอนปิดเทอม
+ข: ดีเหมือนกันค่ะ
+ก: เราจะไปยังไงดี ขับรถหรือขื้นเครื่องบิน
+ข: ขับรถน่าจะดีกว่าเพราะประหยัดเงินเยอะกว่ากันมาก
+ก: ผมเห็นด้วยครับ
+ข: เราผลัดกันขับรถไปเรื่อยๆ สบายๆ ไม่ต้องรีบร้อน
+ก: เราต้องรีบจองที่พักกันเร็วๆนี้นะครับ
+.
+`;
+stories[2] = `
+บทเรียนที่สาม
+ก:: นิว,64,male
+ข:: แนน,65,female
 ก: อากาศที่เชียงใหมกำลังแย่มากนะครับ
 ข: ใช่คะ ตอนนี้หมอกควันมีมากขึ้นเยอะ
 ก: มีหลายคนตัดสินใจเดินทางไปอยู่ที่อื่นชั่วคราว
@@ -29,44 +71,49 @@ var story = `
 ข: เป็นเพราะว่าฉันไม่มีอะไรความจำเป็นที่จะต้องอยู่ที่นี่ในช่วงนี้
 ข: อีกเหตุผลหนึ่งคือว่าผมเกษียณแล้ว
 ข: ฉันมีเวลาที่จะทำอะไรก็ได้ตามที่ฉันต้องการ
+.
 `;
 
-/*
-parse into words
-identify: 
-	unrecognized strings
-	new words
-	known words
-*/
+// common thai names
+name = {
+	'f': [
+		'เมย์',
+		'พลอย',  // famous actress
+		'แนน',
+		'ไอซ์',
+		'นิว',
+		'ฟ้า',
+		'น้ำ',
+	],
+	'm': [
+		'แบงค์',
+		'บอล',
+		'นิว',
+		'ไอซ์',
+		'bird',
+		'atom',
+		'bodyslam',
+		'prayut',
+		'big joke',
+	],
+};
 
-
-
-var dialog = [
-	{speaker:1, line:'อากาศที่เชียงใหมกำลังแย่มากนะpolite'}, 
-	{speaker:2, line:'ใช่polite ตอรรี้หมอกควัรมีมราเขึ้นเยอะ'},
-	{speaker:1, line:'มีหลายคนตัคสินใจเคินทางๆปอยู่ที่อื่นชั่วคราว'},
-	{speaker:2, line:'meก็จะไปต่างจังหจัคเหมือนกันpolite'},
-	{speaker:1, line:'คุณจะไปที่ไหนpolite'},
-	{speaker:2, line:'meตั้งใจว่าจะไปจังหวัดที่มีชายหาดpolite'},
-	{speaker:1, line:'ดีจังเลยค่ะ ไปนานเท่าไหร่polite'},
-	{speaker:2, line:'ดะว่าจะไปสักหนึ่งเดือนครึ่งpolite'},
-	{speaker:1, line:'คุณไชคนะpolite ที่สามารถเปลี่ยนที่อยู่ไค้แบบนี้'},
-	{speaker:2, line:'เป็นเพราะว่าฉันไม่มีอะไรความจำเป็นที่จะต้องอยู่ที่นี่ในช่วงนี้'},
-	{speaker:2, line:'อีกเหตุผลหนึ่งคือว่าผมเกษียณแล้ว'},
-	{speaker:2, line:'meมีเวลาที่จะทำอะไรก็ไค้ตามที่meต้องการ'},
-];
+var dialog = [];
 
 var rate = 1; // 0.1 to 10, default 1
 var pitch = 1; // 0 to 2, default 1
 var volume = 1; // 0 to 1, default 1  
+
 var langEng = 'en-US';
 var langThai = 'th-TH';
 var lang = langEng; // BCP 47 language tag
 var voices = [];
 
 function speakThai(n,sp) {
-	utterance.text = dialog[n].line;
-	utterance.pitch = (dialog[n].speaker==1) ? pitch : pitch/2;
+	var spkr = speaker[dialog[n].speaker];
+	var gen = spkr.gender;
+	utterance.text = dialog[n].speech;
+	utterance.pitch = (gen == 'f') ? pitch : pitch/2;
 	utterance.volume = volume;
 	utterance.rate = (sp) ? rate/2 : rate;
 	utterance.lang = langThai;
@@ -94,33 +141,30 @@ speechSynthesis.onvoiceschanged = function() {
 	//utterance.voice = voices[0];
 }
 
-var speaker = [
-	{gender:'x',name:''},
-	{gender:'x',name:''},
-	{gender:'x',name:''}
-];
+var speaker = {};
+
+initSpeaker = function() {
+	speaker = { 'x': {name:'narrator',age:40,gender:'male'} };
+}
 
 var genders = {
 	'm': {me:'ผม', polite:'ครับ'},
 	'f': {me:'ฉัน', polite:'คะ'}
 }
 
-var chooseGender = function() {
-	speaker[1].gender = (Math.random() < .5) ? 'm' : 'f';
-	speaker[2].gender = (speaker[1].gender == 'm') ? 'f' : 'm';
-}
-
 var drawDialog = function() {
 	var s = '';
 	for (var i=0; i<dialog.length; i++) {
-		var gender = genders[speaker[dialog[i].speaker].gender];
-		dialog[i].proc = dialog[i].line;
-		dialog[i].proc = dialog[i].proc.replace(/me/g, gender.me);
-		dialog[i].proc = dialog[i].proc.replace(/polite/g, gender.polite);
-		s += dialog[i].proc + '&nbsp;';
-		s += '<button class="speak" id="'+i+'">sp</button> &nbsp;';
-		s += '<button class="slow" id="'+i+'">slow</button> &nbsp;';
-		s += '<br/>';
+		if (dialog[i].display.length) {
+			s += dialog[i].display + '&nbsp;';
+		}
+		if (dialog[i].speech) {
+			s += '<button class="speak" id="'+i+'">f</button> &nbsp;';
+			s += '<button class="slow" id="'+i+'">s</button> &nbsp;';
+		}
+		if (dialog[i].display.length) {
+			s += '<br/>';
+		}
 	}	
 	document.getElementById('dialog').innerHTML = s;
 
@@ -139,41 +183,108 @@ var drawDialog = function() {
 	});
 }
 
-var parseDialog = function(story) {
-	var a = story.split('\n');
-	var r = [];
-	for (var i=0; i<a.length; i++) {
-		if (a[i].length) {
+/* 
+	input htmldoc story
+	output array of objects: original, gendered, speaker, display, speech
+	switch vocabulary for gender
+	add styles for display
+*/
+var parseDialog = function(sto) {
+	function assignSpeaker(orig) {
+		var key = 'x';
+		var a = orig.split(':: ');
+		if (a.length > 1) {
 			var o = {};
-			if (a[i].substr(0,3) == 'ก: ') {
-				o.speaker = 1;
-				o.line = a[i].substr(3);
-			}
-			else if (a[i].substr(0,3) == 'ข: ') {
-				o.speaker = 2;
-				o.line = a[i].substr(3);
-			}
-			else {
-				o.speaker = 0;
-				o.line = a[i];
-			}
-			r.push(o);
+			var key = a[0];
+			var b = a[1].split(',');
+			o.name = b[0];
+			o.age = parseInt(b[1]);
+			o.gender = b[2].substr(0,1);
+			speaker[key] = o; 
 		}
+		else {
+			var c = orig.split(':');
+			if (c.length > 1) {
+				key = c[0];
+			}
+		}
+		return key;
+	}
+
+	function assignGender(o) {
+		var gen = '';
+		gen = o.original;
+		//dialog[i].proc = dialog[i].speech;
+		//dialog[i].proc = dialog[i].proc.replace(/me/g, gender.me);
+		//dialog[i].proc = dialog[i].proc.replace(/polite/g, gender.polite);
+		return gen;
+	}
+
+	function prepSpeech(orig) {
+		var sp = orig;
+		if (orig.substr(1,3) == ':: ') {
+			sp = '';
+		}
+		else if (orig.substr(1,2) == ': ') {
+			sp = orig.substr(3);
+		}
+		else if (orig == '.') {
+			sp = '';
+		}
+		sp = sp.replace(/ /g, '. ');
+		return sp;
+	}
+
+	function prepDisplay(orig,o) {
+		var disp = '';
+		if (orig.substr(0,1) == '.') {
+			disp = '&#xE5B;';
+		}
+		else if (orig.substr(1,3) == ':: ') {
+			disp = '';
+		}
+		else if (!o.speaker) {
+			disp = '<b>' + orig + '</b>';
+		}
+		else if (orig.length) {
+			disp = orig;
+		}
+		return disp;
+	}
+
+	initSpeaker();
+	var a = sto.split('\n');
+	var r = [];
+
+	for (var i=0; i<a.length; i++) {
+		var o = {};
+		o.original = a[i];
+		o.speaker = assignSpeaker(o.original);
+		o.gendered = assignGender(o);
+		o.speech = prepSpeech(o.gendered);
+		o.display = prepDisplay(o.gendered,o);
+		r.push(o);
 	}
 	return r;
 }
 
-window.addEventListener('load', function() {
-	dialog = parseDialog(story);
-	chooseGender();
+var story = function(n) {
+	dialog = parseDialog(stories[n-1]);
 	drawDialog();
+};
+
+window.addEventListener('load', function() {
 },true);
+
 </script>
 </head>
 <body>
 hello
 <button onclick='speakEng()'>Eng</button>
 <button onclick=listVoices()>List Voices</button>
+<button onclick=story(1)>Story 1</button>
+<button onclick=story(2)>Story 2</button>
+<button onclick=story(3)>Story 3</button>
 <input id='numvoices'/>
 <div id='voicelist' hidden></div>
 <div id='dialog'></div>
