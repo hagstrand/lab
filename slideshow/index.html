@@ -1,46 +1,84 @@
 <html>
 <head>
 <script>
-interval = 4000;
-currentPic = 0;
-imgs = [];
+var interval = 10 * 1000;
+var ndx = 0;
+var pic = null;
+var imgs = [];
+var files = [
+	// see also https://www.wassilykandinsky.net/
+                   // period:'Youth and inspiration (1866–1896)'
+                   // period:Metamorphis (1902–1910) lived with girlfriend in the Alps south of Munich
+	{year:'1898', period:'Early'     ,title:'Odessa Port'         ,url:'https://upload.wikimedia.org/wikipedia/commons/a/ae/Vassily_Kandinsky%2C_1898_-_Odessa_Port.jpg'},
+	{year:'1901', period:'Early'     ,title:'Akhtyrka'            ,url:'https://upload.wikimedia.org/wikipedia/commons/7/7c/Vassily_Kandinsky%2C_1901_-_Akhtyrka.jpg'},
+	{year:'1903', period:'Early'     ,title:'Blue Rider'          ,url:'https://uploads4.wikiart.org/images/wassily-kandinsky/blue-rider-1903.jpg!Large.jpg'},
+	{year:'1906', period:'Early'     ,title:'Rotterdam Sun'       ,url:'https://upload.wikimedia.org/wikipedia/commons/a/a8/Vassily_Kandinsky%2C_1906_-_Rotterdam_sun.jpg'},
+	{year:'1908', period:'Early'     ,title:'Munich-Schwabing with the Church of St. Ursula'             ,url:'https://upload.wikimedia.org/wikipedia/commons/6/6b/Vassily_Kandinsky%2C_1908_-_Munich-Schwabing_with_the_Church_of_St-Ursula.jpg'},
+	{year:'1908', period:'Early'     ,title:'Murnau, Dorfstrasse (Street in Murnau, A Village Street),'  ,url:'https://upload.wikimedia.org/wikipedia/commons/8/83/Vassily_Kandinsky%2C_1908%2C_Murnau%2C_Dorfstrasse.jpg'},
+	{year:'1908', period:'Early'     ,title:'Houses in Munich'                  ,url:'https://upload.wikimedia.org/wikipedia/commons/1/13/Vassily_Kandinsky%2C_1908_-_Houses_in_Munich.jpg'},
+	{year:'1909', period:'Early'     ,title:'Murnau, train and castle'          ,url:'https://upload.wikimedia.org/wikipedia/commons/8/8b/Vassily_Kandinsky%2C_1909_-_Murnau_train_et_ch%C3%A2teau.jpg'},
+
+	{year:'1910', period:'Blue Rider',title:'The Cow'                           ,url:'https://upload.wikimedia.org/wikipedia/commons/b/b5/Vassily_Kandinsky%2C_1910_-_The_Cow.jpg'},
+	{year:'1910', period:'Blue Rider',title:'Study for Improvisation V'         ,url:'https://upload.wikimedia.org/wikipedia/commons/c/c1/Kandinsky_Study_for_Improvisation_V_MIA_67342.jpg'},
+	{year:'1911', period:'Blue Rider',title:'The Rider'                         ,url:'https://upload.wikimedia.org/wikipedia/commons/d/db/Wassily_Kandinsky%2C_1911%2C_Reiter_%28Lyrishes%29%2C_oil_on_canvas%2C_94_x_130_cm%2C_Museum_Boijmans_Van_Beuningen.jpg'},
+	{year:'1912', period:'Blue Rider',title:'Landscape with Two Poplars'        ,url:'https://upload.wikimedia.org/wikipedia/commons/b/b2/Vassilly_Kandinsky%2C_1912_-_Landscape_With_Two_Poplars.jpg'},
+	{year:'1913', period:'Blue Rider',title:'Squares with Concentric Circles'   ,url:'https://upload.wikimedia.org/wikipedia/commons/9/98/Vassily_Kandinsky%2C_1913_-_Color_Study%2C_Squares_with_Concentric_Circles.jpg'},
+	{year:'1913', period:'Blue Rider',title:'Composition 6'                     ,url:'https://upload.wikimedia.org/wikipedia/commons/3/3a/Vassily_Kandinsky%2C_1913_-_Composition_6.jpg'},
+	{year:'1914', period:'Blue Rider',title:'Tableau a la tache Rouge'          ,url:'https://upload.wikimedia.org/wikipedia/commons/9/96/W._Kandinsky_-_Bild_mit_rotem_Fleck.jpg'},
+
+                           // Bauhaus (1922-1933)
+	{year:'1922', period:'Bauhaus'   ,title:'Small Worlds'       , url:'https://upload.wikimedia.org/wikipedia/commons/2/21/Vassily_Kandinsky%2C_1922_-_Kleine_Welten_I.jpg'},
+	{year:'1923', period:'Bauhaus'   ,title:'On White II'        , url:'https://upload.wikimedia.org/wikipedia/commons/c/c4/Vassily_Kandinsky%2C_1923_-_On_White_II.jpg'},
+	{year:'1923', period:'Bauhaus'   ,title:'Circles in a Circle', url:'https://upload.wikimedia.org/wikipedia/commons/f/f0/Vassily_Kandinsky%2C_1923_-_Circles_in_a_Circle.jpg'},
+	{year:'1923', period:'Bauhaus'   ,title:'Composition 8'      , url:'https://i2.wp.com/www.guggenheim.org/wp-content/uploads/2016/07/artwork-vasily-kandinsky-composition-8-37.262.jpg'},
+	{year:'1925', period:'Bauhaus'   ,title:'Jaune Rouge Bleu'   , url:'https://upload.wikimedia.org/wikipedia/commons/a/a6/Kandinsky_-_Jaune_Rouge_Bleu.jpg'},
+	{year:'1926', period:'Bauhaus'   ,title:'Several Circles'    , url:'https://upload.wikimedia.org/wikipedia/commons/0/0e/Vassily_Kandinsky%2C_1926_-_Several_Circles%2C_Gugg_0910_25.jpg'},
+	{year:'1927', period:'Bauhaus'   ,title:'Soft Hard'          , url:'https://upload.wikimedia.org/wikipedia/commons/0/0d/Vassily_Kandinsky%2C_1927_-_Molle_rudesse.jpg'},
+	{year:'1929', period:'Bauhaus'   ,title:'Inner Alliance'     , url:'https://upload.wikimedia.org/wikipedia/commons/e/e1/Wassily_Kandinsky_-_Inner_Alliance_-_1929.jpg'},
+
+                           // Synthesis (1934-1944)
+	{year:'1935', period:'Synthesis' ,title:'Brown with Supplement' ,url:'https://upload.wikimedia.org/wikipedia/commons/9/95/Vassily_Kandinsky%2C_1935_-_Brown_with_supplement.jpg'},
+	{year:'1936', period:'Synthesis' ,title:'Composition IX'        ,url:'https://upload.wikimedia.org/wikipedia/commons/b/be/Vassily_Kandinsky%2C_1936_-_Composition_IX.jpg'},
+	{year:'1939', period:'Synthesis' ,title:'Composition X'         ,url:'https://upload.wikimedia.org/wikipedia/commons/9/97/Vassily_Kandinsky%2C_1939_-_Composition_10.jpg'},
+];
 
 window.addEventListener('load', function(e) {
-	var show = document.getElementById('slideshow');
-	show.addEventListener('click', function(e) {
-		fullScreen(e.currentTarget);
-	}, false);
-	imgs = show.children;
-	for (var i=1; i<imgs.length; i++) {
-		imgs[i].classList.add('hidden');
+	// preload all images
+	pic = document.getElementById('slideshow');
+	for (var i=0; i<files.length; i++) {
+		var e = document.createElement('img');
+		e.src = files[i].url;
+		e.style.visibility = 'hidden';
+		pic.appendChild(e);
 	}
-	var infiniteLoop = setInterval(function(){
-		imgs[currentPic].classList.add('hidden');
-		currentPic++;
-		if ( currentPic >= imgs.length) currentPic = 0; 
-		imgs[currentPic].classList.remove('hidden');
-	}, interval);
+	imgs = pic.children;
+
+	// timer 
+	nextPic(true);
+	setInterval(nextPic, interval);
 }, false);
 
-function fullScreen(element) {
-    if (element.requestFullScreen) {
-        element.requestFullScreen();
-    } else if (element.webkitRequestFullScreen) {
-        element.webkitRequestFullScreen();
-    } else if (element.mozRequestFullScreen) {
-        element.mozRequestFullScreen();
-    }
+function nextPic(init) {
+	if (!init) {
+		imgs[ndx].style.visibility = 'hidden';
+	}
+	ndx++;
+	if ( ndx >= files.length) 
+		ndx = 0; 
+	imgs[ndx].style.visibility = 'visible';
+	document.getElementById('year').innerHTML = files[ndx].year;
+	document.getElementById('title').innerHTML = files[ndx].title;
+	document.getElementById('period').innerHTML = files[ndx].period;
+	document.getElementById('overlay').click();
 }
 
 </script>
+
 <style>
-.hidden {
-	visibility:hidden;
-}
 body { 
-	font-family: Avenir, Arial, sans-serif; 
+	xfont-family: Avenir, Arial, sans-serif; 
 	margin: 0;
-	font-size: 0;
+	xfont-size: 0;
 }
 #slideshow img {
 	position: fixed;
@@ -53,13 +91,20 @@ body {
 	margin: auto;
 	overflow: auto;
 }
+#overlay {
+	position:absolute;
+	bottom:0px;
+	left:0px;
+	margin:7px;
+}
 </style>
 
 <body>
-	<figure id="slideshow">
-		<img src='https://www.arsmundi.com/dw/image/v2/AAOI_PRD/on/demandware.static/-/Sites-ArsMundi-Catalog/default/dw0ee1843b/images/877527.R1_1.jpg' />
-		<img src='https://upload.wikimedia.org/wikipedia/commons/a/a6/Kandinsky_-_Jaune_Rouge_Bleu.jpg' alt='Jaune Rouge Bleu'/>
-		<img src='https://i2.wp.com/www.guggenheim.org/wp-content/uploads/2016/07/artwork-vasily-kandinsky-composition-8-37.262.jpg' alt='Composition 8'/>
-	</figure>
+	<figure id="slideshow"></figure>
+	<div id='overlay'>
+		<div id='year'></div>
+		<div id='title'></div>
+		<div id='period'></div>
+	</div>
 </body>
 </html>

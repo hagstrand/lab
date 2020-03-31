@@ -1,0 +1,71 @@
+<html>
+<head>
+<script>
+var interval = 10 * 1000;
+var currentPic = 0;
+var imgs = [];
+		<img src='https://www.arsmundi.com/dw/image/v2/AAOI_PRD/on/demandware.static/-/Sites-ArsMundi-Catalog/default/dw0ee1843b/images/877527.R1_1.jpg' />
+		<img src='https://upload.wikimedia.org/wikipedia/commons/a/a6/Kandinsky_-_Jaune_Rouge_Bleu.jpg' alt='Jaune Rouge Bleu'/>
+		<img src='https://i2.wp.com/www.guggenheim.org/wp-content/uploads/2016/07/artwork-vasily-kandinsky-composition-8-37.262.jpg' alt='Composition 8'/>
+/*
+https://auth0.com/blog/four-types-of-leaks-in-your-javascript-code-and-how-to-get-rid-of-them/
+*/
+window.addEventListener('load', function(e) {
+	var show = document.getElementById('slideshow');
+	show.addEventListener('click', function(e) {
+		fullScreen(e.currentTarget);
+	}, false);
+	imgs = show.children;
+	for (var i=1; i<imgs.length; i++) {
+		imgs[i].classList.add('hidden');
+	}
+	setInterval(nextPic, interval);
+}, false);
+
+function nextPic() {
+	imgs[currentPic].classList.add('hidden');
+	currentPic++;
+	if ( currentPic >= imgs.length) 
+		currentPic = 0; 
+	imgs[currentPic].classList.remove('hidden');
+}
+
+function fullScreen(element) {
+    if (element.requestFullScreen) {
+        element.requestFullScreen();
+    } else if (element.webkitRequestFullScreen) {
+        element.webkitRequestFullScreen();
+    } else if (element.mozRequestFullScreen) {
+        element.mozRequestFullScreen();
+    }
+}
+
+</script>
+<style>
+.hidden {
+	visibility:hidden;
+}
+body { 
+	font-family: Avenir, Arial, sans-serif; 
+	margin: 0;
+	font-size: 0;
+}
+#slideshow img {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	max-width: 100%;
+	max-height: 100%;
+	margin: auto;
+	overflow: auto;
+}
+</style>
+
+<body>
+	<figure id="slideshow">
+		<img id='picture' src='' />
+	</figure>
+</body>
+</html>
