@@ -2,13 +2,16 @@
 <head>
 <script>
 var interval = 10 * 1000;
+var timer = null;
 var ndx = 0;
 var pic = null;
 var imgs = [];
-var files = [
+var files = [];
+var artist = 'kandinsky';
+files['kandinsky'] = [
 	// see also https://www.wassilykandinsky.net/
-                   // period:'Youth and inspiration (1866–1896)'
-                   // period:Metamorphis (1902–1910) lived with girlfriend in the Alps south of Munich
+	// period:'Youth and inspiration (1866–1896)'
+	// period:Metamorphis (1902–1910) lived with girlfriend in the Alps south of Munich
 	{year:'1898', period:'Early'     ,title:'Odessa Port'         ,url:'https://upload.wikimedia.org/wikipedia/commons/a/ae/Vassily_Kandinsky%2C_1898_-_Odessa_Port.jpg'},
 	{year:'1901', period:'Early'     ,title:'Akhtyrka'            ,url:'https://upload.wikimedia.org/wikipedia/commons/7/7c/Vassily_Kandinsky%2C_1901_-_Akhtyrka.jpg'},
 	{year:'1903', period:'Early'     ,title:'Blue Rider'          ,url:'https://uploads4.wikiart.org/images/wassily-kandinsky/blue-rider-1903.jpg!Large.jpg'},
@@ -26,7 +29,7 @@ var files = [
 	{year:'1913', period:'Blue Rider',title:'Composition 6'                     ,url:'https://upload.wikimedia.org/wikipedia/commons/3/3a/Vassily_Kandinsky%2C_1913_-_Composition_6.jpg'},
 	{year:'1914', period:'Blue Rider',title:'Tableau a la tache Rouge'          ,url:'https://upload.wikimedia.org/wikipedia/commons/9/96/W._Kandinsky_-_Bild_mit_rotem_Fleck.jpg'},
 
-                           // Bauhaus (1922-1933)
+	// Bauhaus (1922-1933)
 	{year:'1922', period:'Bauhaus'   ,title:'Small Worlds'       , url:'https://upload.wikimedia.org/wikipedia/commons/2/21/Vassily_Kandinsky%2C_1922_-_Kleine_Welten_I.jpg'},
 	{year:'1923', period:'Bauhaus'   ,title:'On White II'        , url:'https://upload.wikimedia.org/wikipedia/commons/c/c4/Vassily_Kandinsky%2C_1923_-_On_White_II.jpg'},
 	{year:'1923', period:'Bauhaus'   ,title:'Circles in a Circle', url:'https://upload.wikimedia.org/wikipedia/commons/f/f0/Vassily_Kandinsky%2C_1923_-_Circles_in_a_Circle.jpg'},
@@ -36,18 +39,39 @@ var files = [
 	{year:'1927', period:'Bauhaus'   ,title:'Soft Hard'          , url:'https://upload.wikimedia.org/wikipedia/commons/0/0d/Vassily_Kandinsky%2C_1927_-_Molle_rudesse.jpg'},
 	{year:'1929', period:'Bauhaus'   ,title:'Inner Alliance'     , url:'https://upload.wikimedia.org/wikipedia/commons/e/e1/Wassily_Kandinsky_-_Inner_Alliance_-_1929.jpg'},
 
-                           // Synthesis (1934-1944)
+	// Synthesis (1934-1944)
 	{year:'1935', period:'Synthesis' ,title:'Brown with Supplement' ,url:'https://upload.wikimedia.org/wikipedia/commons/9/95/Vassily_Kandinsky%2C_1935_-_Brown_with_supplement.jpg'},
 	{year:'1936', period:'Synthesis' ,title:'Composition IX'        ,url:'https://upload.wikimedia.org/wikipedia/commons/b/be/Vassily_Kandinsky%2C_1936_-_Composition_IX.jpg'},
 	{year:'1939', period:'Synthesis' ,title:'Composition X'         ,url:'https://upload.wikimedia.org/wikipedia/commons/9/97/Vassily_Kandinsky%2C_1939_-_Composition_10.jpg'},
 ];
 
-window.addEventListener('load', function(e) {
+files['okeefe'] = [
+	{year:'1926', period:'', title:'Yellow Calla', url:'https://rememberingletters.files.wordpress.com/2011/11/usa-z-yellow-calla-okeefe.jpg'},
+	{year:'1924', period:'', title:'Red Canna', url:'https://i.pinimg.com/originals/4b/27/ab/4b27ab059181bb40fd4f1715a443b029.jpg'},
+	{year:'1925', period:'', title:'Flower of Life', url:'https://paintingandframe.com/art-imgs/georgia_o_keeffe/flower_of_life-16320.jpg'},
+	{year:'1919', period:'', title:'Series I White and Blue Flower Shapes', url:'https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/series-i-white-and-blue-flower-shapes-1919-georgia-okeeffe.jpg'},
+	{year:'1918', period:'', title:'Blue Flower', url:'https://i.pinimg.com/originals/40/a7/ac/40a7ac68f94bcc97fd98cc7674e46a9e.jpg'},
+	{year:'1918', period:'', title:'Music Pink and Blue', url:'https://cdn11.bigcommerce.com/s-feud0ek893/images/stencil/2048x2048/products/3044/3322/music-pink-and-blue-ii_painter-georgia-o-keeffe__26762__08585__21103.1566784175.jpg?c=1'},
+	{year:'1918', period:'', title:'Series 1 Number 4', url:'https://i.cbc.ca/1.2269938.1383019020!/httpImage/image.jpg_gen/derivatives/original_780/okeefe-series1-no4.jpg'},
+	{year:'1928', period:'', title:'Red Poppy No. VI', url:'http://www.angelfire.com/art/favoritewomenartists/okeefe1.jpg'},
+	{year:'1930', period:'', title:'Jack-in-the-Pulpit IV', url:'http://www.angelfire.com/art/favoritewomenartists/georgi1.gif'},
+	{year:'1928', period:'', title:'Lilies with Red Anemone', url:'https://images-na.ssl-images-amazon.com/images/I/61qNgAWigvL._AC_SY879_.jpg'},
+	{year:'1926', period:'', title:'Pink Tulip', url:'https://images.curiator.com/image/upload/f_auto,q_auto/t_x/art/upzrbuwtqfhhhr2rtj8j.jpg'},
+	{year:'1934', period:'', title:'Jimson Weed', url:'https://cdn11.bigcommerce.com/s-feud0ek893/images/stencil/2048x2048/products/11916/25324/jimson-weed-1934_georgia-o-keeffe__66072.1582998494.jpg?c=1'},
+	{year:'1919', period:'', title:'Red Canna', url:'https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/red-canna-georgia-o-keeffe.jpg'},
+	{year:'1923', period:'', title:'Single Canna Lily', url:'https://ak1.ostkcdn.com/images/products/12417262/Georgia-OKeeffe-Single-Calla-Lily-Red-1923-Hand-Painted-Framed-Canvas-Art-4ff9641f-682b-4d39-809e-635c459b76d1.jpg'},
+	{year:'1959', period:'', title:'From the River-Pale', url:'://i.guim.co.uk/img/media/b66e08c77cd2701e6d18b779e1f0832b759e54e5/0_0_1925_2577/master/1925.jpg?width=700&quality=85&auto=format&fit=max&s=1444a048a30ddab0207970f4c425d8a3'},
+	//{year:'', period:'', title:'', url:''},
+];
+
+function start() {
 	// preload all images
 	pic = document.getElementById('slideshow');
-	for (var i=0; i<files.length; i++) {
+	pic.innerHTML = '';
+	ndx = 0;
+	for (var i=0; i<files[artist].length; i++) {
 		var e = document.createElement('img');
-		e.src = files[i].url;
+		e.src = files[artist][i].url;
 		e.style.visibility = 'hidden';
 		pic.appendChild(e);
 	}
@@ -55,20 +79,35 @@ window.addEventListener('load', function(e) {
 
 	// timer 
 	nextPic(true);
-	setInterval(nextPic, interval);
+	if (timer) {
+		clearInterval(timer);
+	}
+	timer = setInterval(nextPic, interval);
+}
+
+window.addEventListener('load', function(e) {
+	// change artists
+	document.getElementById('artistmenu').addEventListener('change', function(e) {
+		var el = e.target;
+		artist = el.options[el.selectedIndex].value;
+		start();
+	}), false;
+
+	start();
 }, false);
 
 function nextPic(init) {
 	if (!init) {
 		imgs[ndx].style.visibility = 'hidden';
+		ndx++;
+		if ( ndx >= files[artist].length) {
+			ndx = 0; 
+		}
 	}
-	ndx++;
-	if ( ndx >= files.length) 
-		ndx = 0; 
 	imgs[ndx].style.visibility = 'visible';
-	document.getElementById('year').innerHTML = files[ndx].year;
-	document.getElementById('title').innerHTML = files[ndx].title;
-	document.getElementById('period').innerHTML = files[ndx].period;
+	document.getElementById('year').innerHTML = files[artist][ndx].year;
+	document.getElementById('title').innerHTML = files[artist][ndx].title;
+	//document.getElementById('period').innerHTML = files[artist][ndx].period;
 	document.getElementById('overlay').click();
 }
 
@@ -102,6 +141,10 @@ body {
 <body>
 	<figure id="slideshow"></figure>
 	<div id='overlay'>
+		<div><select id='artistmenu'>
+			<option value='kandinsky'>Kandinsky</option>
+			<option value='okeefe'>O'Keefe</option>
+		</select></div>
 		<div id='year'></div>
 		<div id='title'></div>
 		<div id='period'></div>
