@@ -1,0 +1,242 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Indic Language on a Webpage</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+<meta name="description" content="How to use an Indic language on a webpage.  Thanks to this free advice, now you too can use multiple Indic languages on any webpage.">
+<meta name="keywords" content="indic,language,webpages,utf-8,unicode,sanskrit,malayalam,scripts">
+<link href="../typography.css" rel="stylesheet" type="text/css">
+
+<!-- this google analytics script is really slowing this page load down -->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-43776208-1', 'hagstrand.com');
+  ga('send', 'pageview');
+</script>
+</head>
+<body>
+<div itemscope="itemscope" itemtype="http://schema.org/TechArticle">
+	<h1 itemprop="headline">Indic Language on a Webpage</h1>
+	<p itemprop="descripation">How to use an Indic language on a webpage.  Thanks to this free advice, now you too can use multiple Indic languages on any webpage.</p>
+	<h3>by <span itemprop="author">John Hagstrand</span> <a href="https://plus.google.com/+JohnHagstrand/?rel=author">Google+</a></h3>
+	<div itemprop="articleBody">
+		<div itemprop="articleSection">
+			<h2>Language Examples</h2>
+			<p>Here are some examples of Indic languages displayed on a webpage.</p>
+			<ul>
+				<li>Sanskrit परकत हगदपुतक रबह गद हबगलस ले्बूीांम
+				</li>
+				<li>Hindi इन भाषाओं में
+				</li>
+				<li>Bengali বাংলা 
+				</li>
+				<li>Telugu తెలుగు 
+				</li>
+				<li>Marathi मराठी 
+				</li>
+				<li>Tamil தமிழ் 
+				</li>
+				<li>Gujarati ગુજરાતી 
+				</li>
+				<li>Kannada ಕನ್ನಡ 
+				</li>
+				<li>Malayalam മലയാളം 
+				</li>
+				<li>Punjabi ਪੰਜਾਬੀ
+				</li>
+			</ul>
+		</div>
+		<div itemprop="articleSection">
+			<h2>UTF-8</h2>		
+			<p>Use UTF-8 character encoding everywhere.  More specifically, use UTF-8 <i>without</i> the byte-order mark (BOM). Set the character encoding to UTF-8 in your HTML, your editor, your database, and your web server (Apache).</p>
+
+			<h3>Set UTF-8 in Your Editor</h3>
+			<p>Save all your files - .html, .php, etc. - as UTF-8 without the BOM.</p>
+			<h4>UltraEdit</h4>
+			<p>In the status bar, to the right of the Ln and Col numbers, you will see either <b>DOS</b> or <b>U8-DOS</b>, to indicate the encoding as either ASCII or UTF-8 respectively.</p>
+			<p>To change an open ASCII file to UTF-8, click <b>File -> Conversions -> ASCII to UTF-8 (Unicode editing)</b>.</p>
+			<p>By default, every new file you create in UltraEdit uses ASCII encoding. To change the default, click 
+				<b>Advanced -> Configuration -> Editor -> New File Creation</b>, and select the option <b>Create new files as Unicode</b>.</p>
+			<p>To open existing files, correctly, set the config like this: click
+				<b>Advanced -> Configuration -> File Handling -> Unicode/UTF-8 Detection</b>, and
+				check <b>Auto detect UTF-8 files</b>.</p>
+			<h4>In DreamWeaver</h4> 
+			<p>Modify --> Page Properties --> Title/Encoding , use the Encoding DD to change it to UTF-8.</p>
+
+			<h3>Set UTF-8 in HTML</h3>
+			<p>Add the charset meta-tag to the head section of every HTML webpage. Make this the first line after the &lt;head&gt; tag, even before the title tag.</p>
+
+			<pre>&lt;meta http-equiv="content-type" content="text/html"; charset="UTF-8"&gt;</pre>
+			
+			<p>Or the new shorter version for HTML5:</p>
+			<pre>&lt;meta charset="UTF-8"&gt;</pre>
+
+			<h3>Set UTF-8 in Database</h3>
+			<p>Both mySQL and Postgres normally default to UTF-8.  
+				If this is not the case in your installation, 
+				then set the charset option when creating the database.</p>
+		</div>
+
+		<div itemprop="articleSection">
+			<h2>Keyboard Input</h2>
+			<p>After changing language, bring up on-screen keyboard. 
+			</p>
+			<p>Control panel -> Ease of Access Center -> Start on-screen keyboard
+			</p>
+			<p>An alternative to installing the Windows language keyboards:<br/>
+			<a href='http://www.branah.com/'>http://www.branah.com/</a>
+			</p>
+		</div>		
+
+		<div itemprop="articleSection">
+			<h2>Sanskrit and Malayalam Language Tools</h2>
+			<ul>
+				<li><a href='http://lab.hagstrand.com/languages/sanskrit_alphabet.html'>Sanskrit Alphabet</a></li>
+				<li><a href='http://lab.hagstrand.com/languages/sanskrit_alphabet_complete.html'>Sanskrit Alphabet Complete</a></li>
+				<li><a href='http://lab.hagstrand.com/languages/sanskrit_malayalam.html'>Sanskrit Malayalam</a></li>
+			</ul>
+		</div>
+	
+		<div itemprop="articleSection">
+			<h2>Alphabets</h2>
+
+			<p>Sanskrit is the mother tongue of Indo-European languages, including Latin, English, Spanish, French, German and Italian. 
+			Sanskrit is also the basis of most languages spoken in India, especially in the north.</p>
+			
+			<p>Hindi, the most common Indian language, shares the same written script as Sanskrit, although the sentence structure and grammar are quite different. 
+			Pure Hindi, called "shuddh Hindi," is directly from Sanskrit and thus shares many words with it. Hindustani is the version of Hindi that is half Urdu, which is from Persian. 
+			Hindustani is the most common form of Hindi spoken in India today.</p>
+			
+			<p>It is important to distinguish between a written script and a language. 
+			A language is a way of communicating, and has a grammar which defines its word and sentence formation. For example, "I eat soup" is a simple sentence in the English language. 
+			To write a language on paper, you need a script. In English, we use what is called Roman script.
+			The Sanskrit language is usually written in a script called Devanagari.</p>
+
+			<h3>Terms</h3>
+
+			<p><b>language</b> a way of communicating, and has a grammar which defines its word and sentence formation. For example, "I eat soup" is a simple sentence in the English language.</p>
+			
+			<p><b>script</b> a way of writing a language on paper</p>
+			
+			<p><b>glyph</b> each letter in the script is a glyph</p>
+			
+			<p><b>diacritical marks</b> little marks added above and below the letters
+			Other Indo-European languages use the Roman script as well, sometimes with little marks added above or below certain letters, called "diacritical" marks. For example, the French ague or the German umlaut.</p>
+
+			<p>99.9% of the time, one particular language will be written in one particular script. 
+			Sanskrit is the exception.
+			</p>
+
+			<p>Sanskrit uses Devanagari script, same as Hindi, Marathi, and Nepali.
+				But some vedic documents uses additional characters and accents that are not in this script, and not in unicode.  This is a special issue being addressed by committees.
+			</p>
+
+			<p>Assumption: script = alphabet</p>
+
+			<h3>Language Families</h3>
+			<pre>
+			Indo-European
+				Greek
+				Italic
+				Romance, developed from Latin in 6th thru 9th centures
+				Spanish, Portuguese, French, Italian, Romanian, and 18 others
+			
+			proto-Germanic, iron age language
+				Germanic
+				German, English, Swedish, Dutch
+			
+			Greek
+				Early Cyrillic, 9th century AD
+				Cyrillic
+				Slavic, Russian
+			
+			Arab
+				Persion
+			
+			Indic
+				Sanskrit
+			</pre>
+			
+			<h3>Latin Alphabet</h3>
+			<ul>
+				<li>Also known as the Roman Alphabet.</li>
+				<li>originated from the greek alphabet</li>
+				<li>first used to write latin</li>
+				<li>Much of the world now uses the Latin alphabet.</li>
+				<li>Most european languages, including English, German, Spanish
+				<li>Czech, Polish, Romanian, Vietnamese, Igbo</li>
+				<li>When the Soviet Union broke up, many Eastern European countries switched from 
+					Cyrillic alphabet to Latin alphabet</li>
+				<li>After World War II, many Turkish countries, Turkmenistan, Uzbekistan, and Azerbaijan, changed their original alphabets 
+					(Arab, Persian or Cyrillic) to the Latin alphabet.</li>
+			</ul>
+
+			<h3>Indic Alphabets</h3>
+			<p>Many Indic languages share the same alphabetic sound structure. Each uses a different written glyph for the same actual sound. Because the sounds are the same, you can write many different languages using the same script. For example, T. Krishnamacarya, the teacher of BKS Iyengar, Pattabhi Jois and TKV Desikachar, wrote Sanskrit verses using his native Telegu script. The Sanskrit language is usually written in a script called Devanagari. Indic scripts have no capitalization. The Sanskrit alphabet in Devanagari is shown below.</p>
+		</div>
+
+		<div itemprop="articleSection">
+			<h2>Sources</h2>
+			<ul>
+				<li><a href='http://www.sanskritsounds.com/about-sanskrit/46/index.html'>Sanskrit Pronunciation</a></li>
+				<li><a href='http://www.omniglot.com/writing/sanskrit.htm'>omniglot</a></li>
+				<li><a href='http://sanskritdocuments.org/learning_tutorial_wikner/P005.html'>SanskritDocuments</a></li>
+				<li>Monier-Williams dictionary</li>
+				<li><a href='http://www.tilakpyle.com/sanskrit_alphabet.htm'>tilakpyle</a></li>
+				<li><a href='http://www.malayalammitra.com/showpage?pageid=ml.pk'>malayalam pronunciation</a></li>
+				<li><a href='http://la.remifa.so/unicode/unicode.php?start=0900&amp;end=097F'>remifa unicode chart</a></li>
+				<li>
+					<a href="http://sanskritdocuments.org/learning_tutorial_wikner/P005.html">Wikner Tutorial</a>
+					Narrative explanation of tongue position.
+					12 vowels
+				</li>
+				<li>
+					<a href="http://www.tilakpyle.com/sanskrit_alphabet.htm">Tilakpyle</a>
+					Audio
+					13 vowels
+				</li>
+				<li>
+					<a href="http://www.omniglot.com/writing/sanskrit.htm">Omniglot</a>
+					14 vowels
+				</li>
+				<li>
+					<a href="http://www.sanskritsounds.com/about-sanskrit/46/index.html">Sanskrit Sounds</a>
+					Narrative explanation.
+					14 vowels
+				</li>
+				<li>
+					<a href="http://unicode-table.com/en/">Unicode table</a>
+					19 vowels
+				</li>
+				<li>
+					<a href='http://la.remifa.so/unicode/unicode.php?start=0900&amp;end=097F'>Unicode table via la re mi fa so</a>
+					19 vowels
+				</li>
+			</ul>
+		</div>
+	</div>
+
+	Keywords
+	<ul itemprop='keywords'>
+		<li>languages
+		</li>
+		<li>webpages
+		</li>
+		<li>utf-8
+		</li>
+		<li>unicode
+		</li>
+		<li>sanskrit
+		</li>
+		<li>malayalam
+		</li>
+		<li>scripts
+		</li>
+	</ul>
+</div>
+</body>
+</html>
