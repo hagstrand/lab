@@ -1,4 +1,4 @@
-seq,rank,name,industry,headquarters,country,ceo,founded,employees,revenue($M),profits($M),assets($M),mkt_value($M),forbes_webpage
+seq,rank,name,industry,headquarters,country,ceo,founded,employees,revenue,profits,assets,mkt_value,forbes_webpage
 1,1,Berkshire Hathaway,Diversified Financials,"Omaha, Nebraska",United States,Warren Edward Buffett,1939,"372,000","276,090","89,800","958,780","741,480",berkshire-hathaway
 2,2,ICBC,Banking,Beijing,China,Shu Gu,1984,"434,089","208,130","54,030","5,518,510","214,430",icbc
 3,3,Saudi Arabian Oil Company (Saudi Aramco),Oil & Gas Operations,Dhahran,Saudi Arabia,Amin bin Hasan Al-Nasser,1933,"68,493","400,380","105,360","576,040","2,292,080",saudi-arabian-oil-company-saudi-aramco
